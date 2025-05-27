@@ -6,6 +6,8 @@
 #include "Utilities/Positioning.hpp"
 #include "Utilities/PID.hpp"
 
+#include "Utilities/Parameters.hpp"
+
 class Drive
 {
     public:
@@ -20,7 +22,7 @@ class Drive
         void driveToPoint(Point point);
         void turnToPoint(Point point);
 
-        void turnToAbsoluteHeading(double targetHeading);
+        void turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings);
 
         Pose currentPose;
 

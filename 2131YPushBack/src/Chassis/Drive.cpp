@@ -3,6 +3,9 @@
 #include "Competition/RobotConfig.hpp"
 #include "Utilities/PID.hpp"
 #include "Utilities/ExitConditions.hpp"
+#include "Utilities/Parameters.hpp"
+#include "Utilities/mathUtils.hpp"
+
 
 
 
@@ -26,14 +29,32 @@ void Drive::driveVoltage(double leftVoltage, double rightVoltage){
    
 }
 
-void Drive::turnToAbsoluteHeading(double targetHeading){
+void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings){
     /* Set up turning paramters*/
-    ExitCondition settledExit(0,0,0);
-    ExitCondition velocitySettleExit(0,0,0);
-    double error;
-    double prev_error;
+    ExitCondition settledExit(turningSettings.settleExitRange,turningSettings.settleExitTime,10);
+    ExitCondition velocitySettleExit(turningSettings.velocitySettleExitRange,turningSettings.velocitySettleExitTime,10);
+    double error = 0;
+    double prev_error = 0;
+    double prev_output = 0;
     do {
-    error = targetHeading - currentPose.theta;
+
+    //Prevent turning more than nessisary
+    error = wrapAngle(targetHeading - currentPose.theta);
+    
+    double output = std::clamp(m_angularPID.calculate(error), -turningSettings.maxSpeed, turningSettings.maxSpeed);
+    output = constrainAccel(output, prev_output, turningSettings.maxAccel);
+    
+
+    if (turningSettings.arc == arcDirection::arcToLeft) rightSide.move_voltage(output);
+    else if (turningSettings.arc == arcDirection::arcToRight) leftSide.move_voltage(output);
+    else {
+        leftSide.move_voltage(-output);
+        rightSide.move_voltage(output);
+    }
+
+    prev_error = error;
+    prev_output = output;
+    pros::delay(10);
     
     
     } while (!settledExit.canExit(error) && !velocitySettleExit.canExit(error-prev_error));

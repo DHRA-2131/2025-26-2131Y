@@ -1,5 +1,7 @@
 #include "Utilities/mathUtils.hpp"
 
+#include <algorithm>
+
 double wrapAngle(double angle, bool degrees){
     if (degrees){
         //If angle is greater than 180 subtract 360 otherwise if angle is less than -180 add 360
@@ -10,4 +12,18 @@ double wrapAngle(double angle, bool degrees){
     else angle = (angle > (2 * M_PI)) ? angle - (4 * M_PI) : ((angle < (-2 * M_PI)) ? angle + (4 * M_PI) : angle);
     
     return angle;
+}
+
+double  constrainAccel(double targetVelocity, double currentVelocity, double maxAccel){
+    //If not max accel defined
+    if (maxAccel == -1) return targetVelocity;
+
+    double deltaVelocity = targetVelocity - currentVelocity;
+
+    //Clamp by accel
+    deltaVelocity = std::clamp(deltaVelocity, -maxAccel, maxAccel);
+    
+    return currentVelocity + deltaVelocity;
+
+    
 }
