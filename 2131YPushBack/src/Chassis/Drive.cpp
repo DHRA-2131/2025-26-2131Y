@@ -48,9 +48,15 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
     ExitCondition velocitySettleExit(drivingSettings.velocitySettleExitRange,drivingSettings.velocitySettleExitTime,10);
 
 
-
     m_angularPID.reset();
     m_lateralPID.reset();
+
+    if (!drivingSettings.waitForCompletion){
+        drivingSettings.waitForCompletion = false;
+        
+        pros::Task asyncTask([=,this]{driveToPoint(point, drivingSettings);});
+        return;
+    }
 
     do {
         distanceToPoint = this->currentPose.getDistanceTo(point);
@@ -115,6 +121,13 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     double prev_output = 0;
 
     m_angularPID.reset();
+
+    if (!turningSettings.waitForCompletion){
+        turningSettings.waitForCompletion = false;
+
+        pros::Task asyncTask([=, this]{turnToAbsoluteHeading(targetHeading, turningSettings);});
+        return;
+    }
 
     do {
 

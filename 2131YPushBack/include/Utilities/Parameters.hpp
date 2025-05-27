@@ -8,6 +8,7 @@ enum class arcDirection{
 
 struct drivingParameters{
     bool forward = true;
+    bool waitForCompletion = true;
 
     int settleExitTime = 0;
     int settleExitRange = 0;
@@ -26,6 +27,9 @@ struct drivingParameters{
 
 struct turningParameters{
      arcDirection arc = arcDirection::none;
+
+     bool waitForCompletion = true;
+     
      int settleExitTime = 0;
      int settleExitRange = 0;
      int velocitySettleExitTime = 0;
