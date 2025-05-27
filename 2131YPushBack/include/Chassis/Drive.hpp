@@ -20,7 +20,7 @@ class Drive
 
         void driveVoltage(double leftVoltage, double rightVoltage);
         void driveToPoint(Point point);
-        void turnToPoint(Point point);
+        void turnToPoint(Point point, turningParameters turningSettings);
 
         void turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings);
 
