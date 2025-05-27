@@ -1,6 +1,8 @@
 #include "main.h"
 
-#include "Utilities/Positioning.hpp"
+#include "Chassis/ControllerInput.hpp"
+#include "Competition/RobotConfig.hpp"
+
 /**
  * Runs initialization code. This occurs as soon as the program is started.
  *
@@ -55,4 +57,7 @@ void autonomous() {}
  * operator control task will be stopped. Re-enabling the robot will restart the
  * task, not resume it from where it left off.
  */
-void opcontrol() {}
+void opcontrol() {
+    leftDrive.move(velocityJoystick.value() - turningJoystick.value());
+    rightDrive.move(velocityJoystick.value() + turningJoystick.value());
+}
