@@ -4,6 +4,7 @@
 
 #include "Utilities/Odom.hpp"
 #include "Utilities/Positioning.hpp"
+#include "Utilities/PID.hpp"
 
 class Drive
 {
@@ -13,7 +14,7 @@ class Drive
         pros::MotorGroup& rightSide;
 
 
-        Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Odom& driveOdom);
+        Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Pose& startingPose, PID& lateralPID, PID& angularPID, Odom& driveOdom);
 
         void driveVoltage(double leftVoltage, double rightVoltage);
         void driveToPoint(Point point);
@@ -21,11 +22,14 @@ class Drive
 
         void turnToAbsoluteHeading(double targetHeading);
 
+        Pose currentPose;
 
     
     private:
 
         Odom& m_driveOdom;
+        PID& m_lateralPID;
+        PID& m_angularPID;
 
 };
 
