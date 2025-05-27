@@ -5,16 +5,20 @@
 class Point
 {
     public:
+        Point(double x, double y);
+
         double x;
         double y;
 
-        void getDistanceTo(Point& otherPoint);
+        double getDistanceTo(Point& otherPoint);
 };
 
-class Pose : public Point
+class Pose : public Point 
 {
     public:
+        Pose(double x, double y, double theta);
+
         double theta;
 
-        void getAngleTo(Point& otherPoint);
+        double getAngleTo(Point& otherPoint);
 };

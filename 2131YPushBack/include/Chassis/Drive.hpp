@@ -28,3 +28,6 @@ class Drive
         Odom& m_driveOdom;
 
 };
+
+
+extern Drive chassis;

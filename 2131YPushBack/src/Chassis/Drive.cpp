@@ -1,5 +1,7 @@
 #include "Chassis/Drive.hpp"
 
+#include "Competition/RobotConfig.hpp"
+
 
 
 Drive::Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Odom& driveOdom) : 
@@ -16,4 +18,8 @@ void Drive::driveVoltage(double leftVoltage, double rightVoltage){
 
     this->leftSide.move_voltage(leftVoltage*1000); // *1000 because it takes in millivolts
     this->rightSide.move_voltage(rightVoltage*1000);
+   
 }
+
+Odom testOdom;
+Drive chassis(leftDrive, rightDrive, testOdom);
