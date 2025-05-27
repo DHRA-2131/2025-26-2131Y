@@ -6,6 +6,7 @@
 #include "Utilities/Parameters.hpp"
 #include "Utilities/Positioning.hpp"
 #include "Utilities/mathUtils.hpp"
+#include <algorithm>
 
 
 
@@ -28,6 +29,71 @@ void Drive::driveVoltage(double leftVoltage, double rightVoltage){
     this->leftSide.move_voltage(leftVoltage*1000); // *1000 because it takes in millivolts
     this->rightSide.move_voltage(rightVoltage*1000);
    
+}
+
+void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
+    double distanceToPoint = 0;
+    double prevDistanceToPoint = 0;
+
+    double angleToPoint = 0;
+    double lateralError = 0;
+
+    double lateralOutput = 0;
+    double angularOutput = 0;
+
+    double prevLateralOutput = 0;
+    double prevAngularOutput = 0;
+
+    ExitCondition settleExit(drivingSettings.settleExitRange,drivingSettings.settleExitTime,10);
+    ExitCondition velocitySettleExit(drivingSettings.velocitySettleExitRange,drivingSettings.velocitySettleExitTime,10);
+
+
+
+    m_angularPID.reset();
+    m_lateralPID.reset();
+
+    do {
+        distanceToPoint = this->currentPose.getDistanceTo(point);
+        angleToPoint = this->currentPose.getAngleTo(point);
+
+        lateralError = distanceToPoint * cos(toRad(angleToPoint));
+
+        if (!drivingSettings.forward) angleToPoint = (angleToPoint < 0) ? angleToPoint + 180 : angleToPoint - 180;
+
+        lateralOutput = m_lateralPID.calculate(lateralError);
+
+        //Prevent turning when close enough
+        angularOutput = (distanceToPoint < drivingSettings.lockAngleDistance) ? 0 : m_angularPID.calculate(angleToPoint);
+
+        angularOutput = constrainAccel(std::clamp(angularOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed), prevAngularOutput, drivingSettings.maxAccel);
+        
+        //Might need to only constrain on decel for speed
+        lateralOutput = constrainAccel(std::clamp(lateralOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed), prevLateralOutput, drivingSettings.maxAccel);
+
+
+        if (lateralOutput > 0) {if (lateralOutput < drivingSettings.minSpeed) lateralOutput = drivingSettings.minSpeed;}
+        else if (lateralOutput < -drivingSettings.minSpeed) lateralOutput = -drivingSettings.minSpeed;
+
+        prevLateralOutput = lateralOutput;
+        prevAngularOutput = angularOutput;
+
+        this->leftSide.move_voltage(lateralOutput-angularOutput);
+        this->rightSide.move_voltage(lateralOutput-angularOutput);
+
+        if (drivingSettings.stopDriving){
+
+            this->leftSide.set_brake_mode(pros::MotorBrake::brake);
+            this->rightSide.set_brake_mode(pros::MotorBrake::brake);
+
+            this->leftSide.brake();
+            this->rightSide.brake();
+        }
+
+
+        pros::delay(10);
+    } while(!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint));
+
+
 }
 
 void Drive::turnToPoint(Point point, turningParameters turningSettings){

@@ -19,7 +19,7 @@ class Drive
         Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Pose& startingPose, PID& lateralPID, PID& angularPID, Odom& driveOdom);
 
         void driveVoltage(double leftVoltage, double rightVoltage);
-        void driveToPoint(Point point);
+        void driveToPoint(Point point, drivingParameters drivingSettings);
         void turnToPoint(Point point, turningParameters turningSettings);
 
         void turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings);
