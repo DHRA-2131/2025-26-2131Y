@@ -6,8 +6,8 @@ PID::PID(double kP, double kI, double kD) : m_kp(kP), m_ki(kI), m_kd(kD), m_deri
 
 double PID::calculate(double error){
     
-    //Is this cursed?
-    m_integral = (m_integral += error)*m_integralDamp;
+    m_integral += error;
+    m_integral *= m_integralDamp;
 
     m_derivative = error - m_prevError;
 
