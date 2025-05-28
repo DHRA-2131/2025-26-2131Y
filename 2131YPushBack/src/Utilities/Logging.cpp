@@ -84,8 +84,13 @@ void log(logLocation location, const char* fmt, ...){
             output << "Positioning";
             break;
         
+        case logLocation::MAIN:
+            output << "Main";
+            break;
+        
         case logLocation::LVGL:
             output << "LVGL";
+            break;
         
         default:
             output << "?";
