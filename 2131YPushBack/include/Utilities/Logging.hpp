@@ -16,7 +16,7 @@ enum class logLocation {
 };
 
 
-void log(logLocation location, std::string message);
+void log(logLocation location, const char* fmt, ...);
 void dataLog(std::string csvList);
 
 bool enableSDCardLogging();
