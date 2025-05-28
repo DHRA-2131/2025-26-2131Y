@@ -10,8 +10,16 @@ enum class logLocation {
     MathUtils,
     Odom,
     PID,
-    Positioning
+    Positioning,
+    LVGL
 };
 
 
 void log(logLocation location, std::string message);
+void dataLog(std::string csvList);
+
+bool enableSDCardLogging();
+bool disableSDCardLogging();
+
+static bool logToSD(std::string data);
+
