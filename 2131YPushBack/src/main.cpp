@@ -83,7 +83,11 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    while(1){
     log(logLocation::MAIN, "Op Control Started");
-    leftDrive.move(velocityJoystick.value() - turningJoystick.value());
-    rightDrive.move(velocityJoystick.value() + turningJoystick.value());
+    leftDrive.move(velocityJoystick.value() + turningJoystick.value());
+    rightDrive.move(velocityJoystick.value() - turningJoystick.value());
+  
+    pros::delay(20);
+    }
 }
