@@ -3,11 +3,57 @@
 #include "pros/misc.hpp"
 #include "pros/rtos.hpp"
 #include <iostream>
+#include "stdarg.h"
 
 bool sdCardEnabled = 0;
 
-void log(logLocation location, std::string message){
+//I hate doing this like this but its the only way to handle format specifiers
+void log(logLocation location, const char* fmt, ...){
     std::ostringstream output;
+
+    va_list args;
+    va_start(args, fmt);
+
+    std::ostringstream formattedMsg;
+    for (const char *character = fmt; *character != '\0'; character++){
+        
+        //if character is "normal";
+        if (*character != '%'){
+            formattedMsg << *character;
+        
+            continue; //Skip rest of lines
+        }
+
+        //If % format specifier is read
+        character++; //Increase character count to next character
+
+        switch (*character){
+            case 'd':
+            case 'i':
+                formattedMsg << va_arg(args, int);
+                break;
+            
+            case 'f':
+                formattedMsg << va_arg(args, double);
+                break;
+            
+            case 's':
+                formattedMsg << va_arg(args, char*);
+                break;
+            
+            case 'c':
+                //Double check converting to char for outputting works
+                formattedMsg << (char)va_arg(args, int);
+                break;
+
+            default:
+                formattedMsg << '%' << *character;
+            
+            
+        }
+        
+    }
+
     output << pros::millis() << " | ";
     switch (location){
         case logLocation::Drive:
@@ -45,7 +91,7 @@ void log(logLocation location, std::string message){
             output << "?";
 
     };
-    output << " >> " << message;
+    output << " >> " << formattedMsg.str();
 
     logToSD(output.str());
     std::cout << output.str() << std::endl;

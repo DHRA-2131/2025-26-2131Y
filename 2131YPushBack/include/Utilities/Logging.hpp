@@ -11,7 +11,8 @@ enum class logLocation {
     Odom,
     PID,
     Positioning,
-    LVGL
+    LVGL,
+    MAIN
 };
 
 
