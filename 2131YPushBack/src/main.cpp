@@ -4,7 +4,9 @@
 #include "Competition/RobotConfig.hpp"
 #include "Utilities/Logging.hpp"
 #include "pros/misc.hpp"
-#include <cmath>
+#include "Chassis/BrainScreen.hpp"
+
+
 
 
 
@@ -15,8 +17,12 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    log(logLocation::MAIN, "Program Started: Battery at %f", pros::battery::get_capacity());
+    log(logLocation::MAIN, "Program Started: Battery at %f%%", pros::battery::get_capacity());
     log(logLocation::MAIN, "Initializing...");
+
+    
+
+
     
 }
 
