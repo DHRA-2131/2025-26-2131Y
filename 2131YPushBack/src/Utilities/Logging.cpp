@@ -45,6 +45,9 @@ void log(logLocation location, const char* fmt, ...){
                 //Double check converting to char for outputting works
                 formattedMsg << (char)va_arg(args, int);
                 break;
+            
+            case '%':
+                formattedMsg << "%";
 
             default:
                 formattedMsg << '%' << *character;
