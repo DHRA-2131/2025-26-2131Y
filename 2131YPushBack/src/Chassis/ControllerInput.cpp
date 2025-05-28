@@ -2,6 +2,7 @@
 #include "Competition/RobotConfig.hpp"
 #include "pros/misc.h"
 #include "math.h"
+#include "Utilities/logging.hpp"
 
 ControllerJoystick::ControllerJoystick(pros::controller_analog_e_t Joystick, int DeadZone) : m_joystick(Joystick), m_deadZone(DeadZone)
 {}
@@ -9,6 +10,7 @@ ControllerJoystick::ControllerJoystick(pros::controller_analog_e_t Joystick, int
 double ControllerJoystick::value(){
     double value;
     (std::fabs(mainController.get_analog(m_joystick)) > m_deadZone) ? value = mainController.get_analog(m_joystick) : value = 0;
+    log(logLocation::MAIN, "%d", value);
 
     return value;
 }
