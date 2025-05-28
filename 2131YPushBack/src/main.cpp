@@ -2,6 +2,11 @@
 
 #include "Chassis/ControllerInput.hpp"
 #include "Competition/RobotConfig.hpp"
+#include "Utilities/Logging.hpp"
+#include "pros/misc.hpp"
+#include <cmath>
+
+
 
 /**
  * Runs initialization code. This occurs as soon as the program is started.
@@ -10,7 +15,9 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-
+    log(logLocation::MAIN, "Program Started: Battery at %f", pros::battery::get_capacity());
+    log(logLocation::MAIN, "Initializing...");
+    
 }
 
 /**
@@ -18,7 +25,9 @@ void initialize() {
  * the VEX Competition Switch, following either autonomous or opcontrol. When
  * the robot is enabled, this task will exit.
  */
-void disabled() {}
+void disabled() {
+    log(logLocation::MAIN, "Robot Disabled");
+}
 
 /**
  * Runs after initialize(), and before autonomous when connected to the Field
@@ -29,7 +38,9 @@ void disabled() {}
  * This task will exit when the robot is enabled and autonomous or opcontrol
  * starts.
  */
-void competition_initialize() {}
+void competition_initialize() {
+    log(logLocation::MAIN, "Connected to TM");
+}
 
 /**
  * Runs the user autonomous code. This function will be started in its own task
@@ -42,7 +53,21 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+    log(logLocation::MAIN, "Auton Started");
+    pros::Task autonTask = pros::Task([]{}); //Replace with auton task
+    pros::delay(14.5*1000); //Delay 14.5 seconds
+
+    autonTask.remove(); //Kill Auton Task
+    log(logLocation::MAIN, "Auton Killed!");
+    
+    leftDrive.set_brake_mode(pros::MotorBrake::brake);
+    rightDrive.set_brake_mode(pros::MotorBrake::brake);
+
+    leftDrive.brake();
+    rightDrive.brake();
+
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -58,6 +83,7 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
+    log(logLocation::MAIN, "Op Control Started");
     leftDrive.move(velocityJoystick.value() - turningJoystick.value());
     rightDrive.move(velocityJoystick.value() + turningJoystick.value());
 }
