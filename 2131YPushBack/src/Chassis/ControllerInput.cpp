@@ -15,5 +15,5 @@ double ControllerJoystick::value(){
     return value;
 }
 
-ControllerJoystick velocityJoystick(pros::E_CONTROLLER_ANALOG_LEFT_Y, 0, 1);
-ControllerJoystick turningJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_X, 0, 0.75);
+ControllerJoystick linearJoystick(pros::E_CONTROLLER_ANALOG_LEFT_Y, 0, 1);
+ControllerJoystick angularJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_X, 0, 0.75);

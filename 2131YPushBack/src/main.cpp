@@ -91,8 +91,8 @@ void autonomous() {
 void opcontrol() {
     while(1){
     log(logLocation::MAIN, "Op Control Started");
-    leftDrive.move(velocityJoystick.value() + turningJoystick.value());
-    rightDrive.move(velocityJoystick.value() - turningJoystick.value());
+    leftDrive.move(linearJoystick.value() + angularJoystick.value());
+    rightDrive.move(linearJoystick.value() - angularJoystick.value());
   
     pros::delay(20);
     }

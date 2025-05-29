@@ -14,5 +14,5 @@ class ControllerJoystick{
         pros::controller_analog_e_t m_joystick;
 };
 
-extern ControllerJoystick velocityJoystick;
-extern ControllerJoystick turningJoystick;
+extern ControllerJoystick linearJoystick;
+extern ControllerJoystick angularJoystick;
