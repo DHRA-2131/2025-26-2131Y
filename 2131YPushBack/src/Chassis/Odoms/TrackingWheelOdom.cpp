@@ -4,12 +4,11 @@
 #include <cmath>
 
 
-TrackingWheelOdom::TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel, pros::Rotation& HorizontalTrackingWheel, double VerticalWheelOffset, double HorizontalWheelOffset, double WheelDiameter, pros::IMU& Imu) :
+TrackingWheelOdom::TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel,  double VerticalWheelOffset, double WheelDiameter, pros::IMU& Imu) :
 AbstractOdom(robotPose, Imu),
 m_verticalTrackingWheel(VerticalTrackingWheel),
-m_horizontalTrackingWheel(HorizontalTrackingWheel),
+
 m_verticalWheelOffset(VerticalWheelOffset),
-m_horizontalWheelOffset(HorizontalWheelOffset),
 m_wheelDiameter(WheelDiameter),
 
 m_prevPose(0,0,0),
@@ -44,6 +43,8 @@ m_updateTask([this]{
         m_currentPose.x += distance*cos(toRad(m_currentPose.theta));
         m_currentPose.y += distance*sin(toRad(m_currentPose.theta));
     }
+
+    m_prevPose = m_currentPose;
 
 }
 
