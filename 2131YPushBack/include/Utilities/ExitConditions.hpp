@@ -1,6 +1,7 @@
 #pragma once
 
-class ExitCondition{
+class ExitCondition
+{
 
     public:
         ExitCondition(double settleError, double settleTime, double delayTime);

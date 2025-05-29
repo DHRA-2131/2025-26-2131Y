@@ -1,6 +1,7 @@
 #pragma once
 
-class PID {
+class PID 
+{
     
     public:
         PID(double kP, double kI, double kD);

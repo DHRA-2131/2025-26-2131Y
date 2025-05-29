@@ -1,0 +1,58 @@
+#include "Chassis/Odoms/TrackingWheelOdom.hpp"
+#include "Utilities/AbstractOdom.hpp"
+#include "Utilities/mathUtils.hpp"
+#include <cmath>
+
+
+TrackingWheelOdom::TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel, pros::Rotation& HorizontalTrackingWheel, double VerticalWheelOffset, double HorizontalWheelOffset, double WheelDiameter, pros::IMU& Imu) :
+AbstractOdom(robotPose, Imu),
+m_verticalTrackingWheel(VerticalTrackingWheel),
+m_horizontalTrackingWheel(HorizontalTrackingWheel),
+m_verticalWheelOffset(VerticalWheelOffset),
+m_horizontalWheelOffset(HorizontalWheelOffset),
+m_wheelDiameter(WheelDiameter),
+
+m_prevPose(0,0,0),
+m_updateTask([this]{
+
+    //Why suspend this task before starting it?
+
+    while(1){
+
+    m_currentPose.theta = m_imu.get_heading();
+    double angle = toRad(m_currentPose.theta - m_prevPose.theta);
+    
+
+    //Calculate Delta then convert to inches traveled
+    double verticalTrackingWheelArc = toRad((m_verticalTrackingWheel.get_position() - m_prevVerticalTrackingRotation))*m_wheelDiameter/2;
+
+
+    double robotVerticalRadius = (verticalTrackingWheelArc/angle + m_verticalWheelOffset);
+
+    if (!(angle == 0)){
+        double linearDistance = 2 * robotVerticalRadius * sin(angle/2);
+
+        double avgAngle = (m_currentPose.theta + m_prevPose.theta)/2;
+
+        m_currentPose.x += linearDistance*cos(avgAngle);
+        m_currentPose.y += linearDistance*sin(avgAngle);
+
+    }
+
+    else {
+        double distance = m_verticalTrackingWheel.get_position() - m_prevVerticalTrackingRotation;
+        m_currentPose.x += distance*cos(toRad(m_currentPose.theta));
+        m_currentPose.y += distance*sin(toRad(m_currentPose.theta));
+    }
+
+}
+
+
+
+
+    
+    
+   
+})
+{}
+
