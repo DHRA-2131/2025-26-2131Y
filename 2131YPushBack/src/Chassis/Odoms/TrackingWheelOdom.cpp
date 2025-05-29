@@ -20,7 +20,7 @@ m_updateTask([this]{
     while(1){
 
     m_currentPose.theta = m_imu.get_heading();
-    double angle = toRad(m_currentPose.theta - m_prevPose.theta);
+    double angle = toRad(wrapAngle(m_currentPose.theta - m_prevPose.theta)); //Fix to -180 to 180
     
 
     //Calculate Delta then convert to inches traveled
