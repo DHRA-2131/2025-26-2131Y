@@ -2,7 +2,7 @@
 
 #include "pros/motor_group.hpp"
 
-#include "Utilities/Odom.hpp"
+
 #include "Utilities/Positioning.hpp"
 #include "Utilities/PID.hpp"
 
@@ -16,7 +16,7 @@ class Drive
         pros::MotorGroup& rightSide;
 
 
-        Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Pose& startingPose, PID& lateralPID, PID& angularPID, Odom& driveOdom);
+        Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Pose& startingPose, PID& lateralPID, PID& angularPID);
 
         void driveVoltage(double leftVoltage, double rightVoltage);
         void driveToPoint(Point point, drivingParameters drivingSettings);
@@ -29,7 +29,8 @@ class Drive
     
     private:
 
-        Odom& m_driveOdom;
+        //No need for the odom if having the current pose
+        //AbstractOdom& m_driveOdom;
         PID& m_lateralPID;
         PID& m_angularPID;
 

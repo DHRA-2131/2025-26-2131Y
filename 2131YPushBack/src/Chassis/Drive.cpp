@@ -11,13 +11,12 @@
 
 
 
-Drive::Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Pose& startingPose, PID& lateralPID, PID& angularPID, Odom& driveOdom) : 
+Drive::Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Pose& startingPose, PID& lateralPID, PID& angularPID) : 
 leftSide(leftSideGroup), 
 rightSide(rightSideGroup),
 currentPose(startingPose),
 m_lateralPID(lateralPID),
-m_angularPID(angularPID),
-m_driveOdom(driveOdom)
+m_angularPID(angularPID)
 {
 
 }
@@ -155,8 +154,8 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
 
 }
 
-Odom testOdom;
+
 Pose testPose(0,0,0);
 
 
-Drive chassis(leftDrive, rightDrive, testPose, lateralPID, angularPID,testOdom);
+Drive chassis(leftDrive, rightDrive, testPose, lateralPID, angularPID);
