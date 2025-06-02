@@ -8,6 +8,17 @@
 
 #include "Utilities/Parameters.hpp"
 
+/**
+ * @brief Construct a new Drivetrain
+ * 
+ * @param leftSideGroup
+ * @param rightSideGroup
+ * @param startingPose
+ * @param lateralPID
+ * @param angularPID
+ *
+ */
+
 class Drive
 {
     public:
@@ -18,9 +29,42 @@ class Drive
 
         Drive(pros::MotorGroup& leftSideGroup, pros::MotorGroup& rightSideGroup, Pose& startingPose, PID& lateralPID, PID& angularPID);
 
+        /**
+         * @brief Set Drive Voltage
+         * 
+         * @param leftVoltage
+         * @param rightVoltage
+         */
+
         void driveVoltage(double leftVoltage, double rightVoltage);
+
+
+        /**
+         * @brief Drive to specified point
+         * 
+         * @param point
+         * @param drivingSettings
+         */
+
         void driveToPoint(Point point, drivingParameters drivingSettings);
+
+
+        /**
+         * @brief Turn to specified point
+         *
+         * @param point
+         * @param turningSettings
+         */
+
         void turnToPoint(Point point, turningParameters turningSettings);
+
+
+        /**
+         * @brief Turn to specified heading
+         *
+         * @param targetHeading
+         * @param turningSettings
+         */
 
         void turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings);
 
