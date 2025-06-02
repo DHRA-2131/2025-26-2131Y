@@ -1,12 +1,25 @@
 #pragma once
 
 #include "pros/misc.h"
+
+
 class ControllerJoystick
 {
     public:
+
+        /**
+        * @brief Controller Joystick Constructor
+        * 
+        * @param Joystick
+        * @param DeadZone
+        * @param Scale
+        */
         ControllerJoystick(pros::controller_analog_e_t Joystick, int DeadZone, double Scale);
 
-        
+        /**
+         * @brief Return Scaled value of joystick
+         *
+         */
         double value();
 
     private:

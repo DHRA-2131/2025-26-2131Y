@@ -7,7 +7,13 @@ class AbstractOdom
 {   
     public:
 
-        //Adding in Constructor for AbstractOdom to initialize common data
+        /**
+         * @brief Abstract Odometry class constructor
+         *
+         * @param robotPose
+         * @param imu
+         *
+         */
         AbstractOdom(Pose& robotPose, pros::IMU& imu) : m_currentPose(robotPose), m_imu(imu){};
         virtual void startOdom() = 0; //Making it pure virtual
         virtual void stopOdom() = 0;

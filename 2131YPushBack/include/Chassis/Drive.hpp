@@ -34,7 +34,6 @@ class Drive
          * 
          * @param leftVoltage
          * @param rightVoltage
-         *
          */
 
         void driveVoltage(double leftVoltage, double rightVoltage);
