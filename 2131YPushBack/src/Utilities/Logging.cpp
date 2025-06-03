@@ -142,4 +142,14 @@ bool logToSD(std::string data){
 
 }
 
+template<typename T>
+void Logger<T>::startLogging(){
+    m_logTask.resume();
+}
+
+template<typename T>
+void Logger<T>::stopLogging(){
+    m_logTask.suspend();
+}
+
 

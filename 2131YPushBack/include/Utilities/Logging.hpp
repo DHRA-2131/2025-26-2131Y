@@ -15,6 +15,7 @@ enum class logLocation {
     LVGL,
     MAIN,
     LOG,
+    Kalman
 };
 
 
