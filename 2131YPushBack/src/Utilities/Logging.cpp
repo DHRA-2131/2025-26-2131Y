@@ -1,4 +1,5 @@
 #include "Utilities/Logging.hpp"
+#include <cstddef>
 #include <sstream>
 #include "pros/misc.hpp"
 #include "pros/rtos.hpp"
@@ -140,3 +141,5 @@ bool logToSD(std::string data){
     return false;
 
 }
+
+
