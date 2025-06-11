@@ -20,6 +20,10 @@ void initialize() {
     log(logLocation::MAIN, "Program Started: Battery at %f%%", pros::battery::get_capacity());
     log(logLocation::MAIN, "Initializing...");
 
+    int test = 0;
+
+    //Logger<int>("TestVar", &test, 200);
+
     
 
 
@@ -91,8 +95,8 @@ void autonomous() {
 void opcontrol() {
     while(1){
     log(logLocation::MAIN, "Op Control Started");
-    leftDrive.move(linearJoystick.value() + angularJoystick.value());
-    rightDrive.move(linearJoystick.value() - angularJoystick.value());
+    leftDrive.move(linearJoystick.value() - angularJoystick.value());
+    rightDrive.move(linearJoystick.value() + angularJoystick.value());
   
     pros::delay(20);
     }

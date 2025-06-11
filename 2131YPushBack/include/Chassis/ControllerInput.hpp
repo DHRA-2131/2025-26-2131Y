@@ -28,5 +28,20 @@ class ControllerJoystick
         pros::controller_analog_e_t m_joystick;
 };
 
+class ControllerButton 
+{
+
+    public:
+        ControllerButton(pros::controller_digital_e_t, bool Inverted);
+
+        virtual bool value();
+
+    private:
+        pros::controller_digital_e_t m_button;
+        bool m_inverted;
+};
+
+
+
 extern ControllerJoystick linearJoystick;
 extern ControllerJoystick angularJoystick;
