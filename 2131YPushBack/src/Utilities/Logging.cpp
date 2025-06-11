@@ -143,6 +143,11 @@ bool logToSD(std::string data){
 }
 
 template<typename T>
+Logger<T>::~Logger(){
+    m_logTask.remove(); //Kill task when logger goes out of scope
+}
+
+template<typename T>
 void Logger<T>::startLogging(){
     m_logTask.resume();
 }

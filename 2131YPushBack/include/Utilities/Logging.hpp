@@ -44,6 +44,8 @@ template <typename T> class Logger {
             })
         {} //Use ptrs because theres a chance the data goes out of scope or becomes null
 
+        ~Logger();
+
         void startLogging();
         void stopLogging();
 
