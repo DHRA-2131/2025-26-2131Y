@@ -9,7 +9,7 @@
 class DriveWheelOdom : public AbstractOdom {
 
     public:
-        DriveWheelOdom(Pose& robotPose, pros::MotorGroup& Left, pros::MotorGroup& Right,double WheelOffset,double WheelDiameter, pros::IMU& Imu);
+        DriveWheelOdom(Pose& robotPose, pros::MotorGroup& Left, pros::MotorGroup& Right, double WheelOffset, double WheelDiameter, pros::IMU& Imu);
 
     private:
         
