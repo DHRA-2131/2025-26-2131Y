@@ -14,7 +14,7 @@ class AbstractOdom
          * @param imu
          *
          */
-        AbstractOdom(Pose& robotPose, pros::IMU& imu) : m_currentPose(robotPose), m_imu(imu){};
+        AbstractOdom(Pose& RobotPose, pros::IMU& imu) : m_currentPose(RobotPose), m_imu(imu){};
         virtual void startOdom() = 0; //Making it pure virtual
         virtual void stopOdom() = 0;
 

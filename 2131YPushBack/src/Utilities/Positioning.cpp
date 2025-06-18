@@ -3,7 +3,9 @@
 
 
 Point::Point(double x, double y) : x(x), y(y)
-{}
+{
+    
+}
 
 Pose::Pose(double x, double y, double theta) : Point(x, y), theta(theta)
 {}

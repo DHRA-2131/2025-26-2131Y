@@ -1,6 +1,7 @@
 #include "Chassis/Drive.hpp"
 
 #include "Competition/RobotConfig.hpp"
+#include "Utilities/Logging.hpp"
 #include "Utilities/PID.hpp"
 #include "Utilities/ExitConditions.hpp"
 #include "Utilities/Parameters.hpp"
@@ -46,9 +47,12 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
     ExitCondition settleExit(drivingSettings.settleExitRange,drivingSettings.settleExitTime,10);
     ExitCondition velocitySettleExit(drivingSettings.velocitySettleExitRange,drivingSettings.velocitySettleExitTime,10);
 
-
+    
     m_angularPID.reset();
     m_lateralPID.reset();
+
+    
+
 
     if (!drivingSettings.waitForCompletion){
         drivingSettings.waitForCompletion = false;
@@ -57,15 +61,21 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         return;
     }
 
+   
+
     do {
         distanceToPoint = this->currentPose.getDistanceTo(point);
         angleToPoint = this->currentPose.getAngleTo(point);
+
+         
 
         lateralError = distanceToPoint * cos(toRad(angleToPoint));
 
         if (!drivingSettings.forward) angleToPoint = (angleToPoint < 0) ? angleToPoint + 180 : angleToPoint - 180;
 
         lateralOutput = m_lateralPID.calculate(lateralError);
+
+        
 
         //Prevent turning when close enough
         angularOutput = (distanceToPoint < drivingSettings.lockAngleDistance) ? 0 : m_angularPID.calculate(angleToPoint);
@@ -82,8 +92,12 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         prevLateralOutput = lateralOutput;
         prevAngularOutput = angularOutput;
 
+       
+
         this->leftSide.move_voltage(lateralOutput-angularOutput);
         this->rightSide.move_voltage(lateralOutput-angularOutput);
+
+         
 
         if (drivingSettings.stopDriving){
 
@@ -93,9 +107,10 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
             this->leftSide.brake();
             this->rightSide.brake();
         }
-
-
-        pros::delay(10);
+        log(logLocation::Drive, "Got Here!");
+        
+        //pros::delay(10);
+        
     } while(!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint));
 
 
@@ -155,7 +170,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
 }
 
 
-Pose testPose(0,0,0);
 
 
-Drive chassis(leftDrive, rightDrive, testPose, lateralPID, angularPID);
+
+Drive chassis(leftDrive, rightDrive, robotPose, lateralPID, angularPID);
