@@ -21,16 +21,18 @@ updateTask([this]{
         double distanceTraveled = toRad(avgRotation)*m_wheelDiameter/2;
         double radius = (distanceTraveled/angle)-m_wheelOffset;
 
+        double avgAngle = wrapAngle(toRad((m_currentPose.theta + m_prevPose.theta)/2));
+
         if (!(angle == 0)){
             double linearDistance = 2*radius*sin(angle/2);
 
-            m_currentPose.x += linearDistance*cos(toRad(m_currentPose.theta));
-            m_currentPose.y += linearDistance*sin(toRad(m_currentPose.theta));
+            m_currentPose.x += linearDistance*cos(avgAngle);
+            m_currentPose.y += linearDistance*sin(avgAngle);
 
         }
         else {
-            m_currentPose.x += distanceTraveled*cos(toRad(m_currentPose.theta));
-            m_currentPose.y += distanceTraveled*sin(toRad(m_currentPose.theta));
+            m_currentPose.x += distanceTraveled*cos(avgAngle);
+            m_currentPose.y += distanceTraveled*sin(avgAngle);
         }
 
         m_prevPose = m_currentPose;

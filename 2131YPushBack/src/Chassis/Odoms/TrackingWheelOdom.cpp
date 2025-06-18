@@ -27,12 +27,13 @@ m_updateTask([this]{
 
 
     double robotVerticalRadius = (verticalTrackingWheelArc/angle + m_verticalWheelOffset);
+    
+    double avgAngle = wrapAngle(toRad((m_currentPose.theta + m_prevPose.theta)/2));
 
     if (!(angle == 0)){
         double linearDistance = 2 * robotVerticalRadius * sin(angle/2);
 
-        double avgAngle = (m_currentPose.theta + m_prevPose.theta)/2;
-
+        
         m_currentPose.x += linearDistance*cos(avgAngle);
         m_currentPose.y += linearDistance*sin(avgAngle);
 
@@ -40,8 +41,8 @@ m_updateTask([this]{
 
     else {
         double distance = m_verticalTrackingWheel.get_position() - m_prevVerticalTrackingRotation;
-        m_currentPose.x += distance*cos(toRad(m_currentPose.theta));
-        m_currentPose.y += distance*sin(toRad(m_currentPose.theta));
+        m_currentPose.x += distance*cos(avgAngle);
+        m_currentPose.y += distance*sin(avgAngle);
     }
 
     m_prevPose = m_currentPose;
