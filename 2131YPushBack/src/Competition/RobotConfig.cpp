@@ -3,6 +3,6 @@
 
 pros::Controller mainController(pros::E_CONTROLLER_MASTER);
 
-pros::MotorGroup leftDrive({18,19,8});
-pros::MotorGroup rightDrive({-17,-20,-9});
+pros::MotorGroup leftDrive({16,17,20});
+pros::MotorGroup rightDrive({-14,-13,-11});
 
