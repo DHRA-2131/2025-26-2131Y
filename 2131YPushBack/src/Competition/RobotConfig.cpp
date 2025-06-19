@@ -2,7 +2,7 @@
 #include "pros/misc.hpp"
 #include "Utilities/Positioning.hpp"
 
-Pose robotPose(0,0,0);
+Pose globalRobotPose(0,0,0);
 
 pros::Controller mainController(pros::E_CONTROLLER_MASTER);
 

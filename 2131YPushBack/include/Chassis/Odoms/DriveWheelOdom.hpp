@@ -9,7 +9,8 @@
 class DriveWheelOdom /*: public AbstractOdom*/ {
 
     public:
-        DriveWheelOdom(Pose& robotPose,  pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right,double WheelOffset,double WheelDiameter);
+        DriveWheelOdom(Pose& RobotPose,  pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right,double WheelOffset,double WheelDiameter);
+        ~DriveWheelOdom();
 
         void startOdom() ;//override;
         void stopOdom() ;//override;
@@ -29,9 +30,9 @@ class DriveWheelOdom /*: public AbstractOdom*/ {
         Pose& m_currentPose;
 
 
-        pros::Task updateTask;
+        pros::Task m_updateTask;
 
-        double prevRotation;
+        double m_prevRotation;
 
         
 

@@ -6,7 +6,7 @@
 #include "Utilities/Positioning.hpp"
 
 
-extern Pose robotPose;
+extern Pose globalRobotPose;
 
 extern pros::Controller mainController;
 

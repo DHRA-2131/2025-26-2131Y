@@ -4,6 +4,7 @@
 #include "Competition/RobotConfig.hpp"
 #include "Utilities/Logging.hpp"
 #include "pros/misc.hpp"
+#include <cmath>
 // #include "Chassis/BrainScreen.hpp"
 
 
@@ -93,28 +94,17 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 
- #include "Chassis/Drive.hpp"
+
  #include "Chassis/Odoms/DriveWheelOdom.hpp"
- #include "Utilities/Parameters.hpp"
  #include "Competition/RobotConfig.hpp"
 
 
 void opcontrol() {
-    log(logLocation::MAIN, "%f", IMU.get_heading());
-    Pose testPose(0,0,0);
-    testPose.theta = 5;
-    DriveWheelOdom(robotPose, IMU, leftDrive, rightDrive, 7, 3.25);
-    log(logLocation::MAIN, "Made it out of odom constructor");
-
-    drivingParameters test;
-
-
-   chassis.driveToPoint( Point(1,1), test);
-    
-    
-    while(1);
-    while(1){
     log(logLocation::MAIN, "Op Control Started");
+    DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
+       
+    while(1){
+    
     leftDrive.move(-linearJoystick.value() - angularJoystick.value());
     rightDrive.move(-linearJoystick.value() + angularJoystick.value());
   
