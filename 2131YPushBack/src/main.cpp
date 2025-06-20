@@ -2,6 +2,7 @@
 
 #include "Chassis/ControllerInput.hpp"
 #include "Competition/RobotConfig.hpp"
+#include "Chassis/Drive.hpp"
 #include "Utilities/Logging.hpp"
 #include "pros/misc.hpp"
 #include <cmath>
@@ -65,18 +66,20 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-    log(logLocation::MAIN, "Auton Started");
-    pros::Task autonTask = pros::Task([]{}); //Replace with auton task
-    pros::delay(14.5*1000); //Delay 14.5 seconds
+    // log(logLocation::MAIN, "Auton Started");
+    // pros::Task autonTask = pros::Task([]{}); //Replace with auton task
+    // pros::delay(14900); //Delay 14.5 seconds
 
-    autonTask.remove(); //Kill Auton Task
-    log(logLocation::MAIN, "Auton Killed!");
+    // autonTask.remove(); //Kill Auton Task
+    // log(logLocation::MAIN, "Auton Killed!");
     
-    leftDrive.set_brake_mode(pros::MotorBrake::brake);
-    rightDrive.set_brake_mode(pros::MotorBrake::brake);
+    // leftDrive.set_brake_mode(pros::MotorBrake::brake);
+    // rightDrive.set_brake_mode(pros::MotorBrake::brake);
 
-    leftDrive.brake();
-    rightDrive.brake();
+    // leftDrive.brake();
+    // rightDrive.brake();
+
+    
 
 }
 
@@ -100,14 +103,16 @@ void autonomous() {
 
 
 void opcontrol() {
+    chassis.driveToPoint(Point(1000, 1000), {});
+    /*
     log(logLocation::MAIN, "Op Control Started");
     DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
        
-    while(1){
+    while(true){
     
     leftDrive.move(-linearJoystick.value() - angularJoystick.value());
     rightDrive.move(-linearJoystick.value() + angularJoystick.value());
   
     pros::delay(20);
-    }
+    }*/
 }

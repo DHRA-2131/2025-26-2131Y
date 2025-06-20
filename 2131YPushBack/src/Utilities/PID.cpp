@@ -24,5 +24,5 @@ void PID::reset(){
 }
 
 
-PID lateralPID(1,0,0);
-PID angularPID(0,0,0);
+PID lateralPID(100,0,0);
+PID angularPID(10,0,0);
