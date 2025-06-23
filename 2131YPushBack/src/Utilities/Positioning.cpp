@@ -3,7 +3,9 @@
 
 
 Point::Point(double x, double y) : x(x), y(y)
-{}
+{
+    
+}
 
 Pose::Pose(double x, double y, double theta) : Point(x, y), theta(theta)
 {}
@@ -17,7 +19,9 @@ double Point::getDistanceTo(Point& otherPoint){
 double Pose::getAngleTo(Point& otherPoint){
 
     //Calculate angle between two points
-    double angle = toRad(std::atan2(otherPoint.y-this->y, otherPoint.x-this->x));
+    double angle = toDeg(std::atan2(otherPoint.y-this->y, otherPoint.x-this->x));
+
+
     
     //Error (wrapped between -180 and 180)
     return wrapAngle(angle - this->theta);

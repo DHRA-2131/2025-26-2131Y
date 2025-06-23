@@ -6,10 +6,16 @@
 #include "pros/motor_group.hpp"
 #include "pros/imu.hpp"
 
-class DriveWheelOdom : public AbstractOdom {
+class DriveWheelOdom /*: public AbstractOdom*/ {
 
     public:
-        DriveWheelOdom(Pose& robotPose, pros::MotorGroup& Left, pros::MotorGroup& Right,double WheelOffset,double WheelDiameter, pros::IMU& Imu);
+        DriveWheelOdom(Pose& RobotPose,  pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right,double WheelOffset,double WheelDiameter);
+        ~DriveWheelOdom();
+
+        void startOdom() ;//override;
+        void stopOdom() ;//override;
+
+        void setPosition(Pose& newPose) ;//override;
 
     private:
         
@@ -20,10 +26,13 @@ class DriveWheelOdom : public AbstractOdom {
         const double m_wheelDiameter;
         const double m_wheelOffset;
 
+        pros::Imu& m_imu;
+        Pose& m_currentPose;
 
-        pros::Task updateTask;
 
-        double prevRotation;
+        pros::Task m_updateTask;
+
+        double m_prevRotation;
 
         
 

@@ -1,6 +1,7 @@
 #include "Chassis/Drive.hpp"
 
 #include "Competition/RobotConfig.hpp"
+#include "Utilities/Logging.hpp"
 #include "Utilities/PID.hpp"
 #include "Utilities/ExitConditions.hpp"
 #include "Utilities/Parameters.hpp"
@@ -43,13 +44,16 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
     double prevLateralOutput = 0;
     double prevAngularOutput = 0;
 
-    ExitCondition settleExit(drivingSettings.settleExitRange,drivingSettings.settleExitTime,10);
-    ExitCondition velocitySettleExit(drivingSettings.velocitySettleExitRange,drivingSettings.velocitySettleExitTime,10);
+    ExitCondition settleExit(drivingSettings.settleExitRange, drivingSettings.settleExitTime, 10);
+    ExitCondition velocitySettleExit(drivingSettings.velocitySettleExitRange, drivingSettings.velocitySettleExitTime, 10);
 
-
+    
     m_angularPID.reset();
     m_lateralPID.reset();
 
+    
+
+    // Async Movements
     if (!drivingSettings.waitForCompletion){
         drivingSettings.waitForCompletion = false;
         
@@ -57,47 +61,70 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         return;
     }
 
-    do {
-        distanceToPoint = this->currentPose.getDistanceTo(point);
-        angleToPoint = this->currentPose.getAngleTo(point);
+   
 
+    do {
+
+        // Calculate Distance and Angle To
+        distanceToPoint = currentPose.getDistanceTo(point);
+        angleToPoint = currentPose.getAngleTo(point);
+
+         
+        // Calculate Lateral Error
         lateralError = distanceToPoint * cos(toRad(angleToPoint));
 
-        if (!drivingSettings.forward) angleToPoint = (angleToPoint < 0) ? angleToPoint + 180 : angleToPoint - 180;
+        // Angle based on Forward Movement
+        if (!drivingSettings.forward) 
+            angleToPoint = (angleToPoint < 0) ? angleToPoint + 180 : angleToPoint - 180;
 
+        // Calculate Lateral PID
         lateralOutput = m_lateralPID.calculate(lateralError);
+
+        
 
         //Prevent turning when close enough
         angularOutput = (distanceToPoint < drivingSettings.lockAngleDistance) ? 0 : m_angularPID.calculate(angleToPoint);
 
         angularOutput = constrainAccel(std::clamp(angularOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed), prevAngularOutput, drivingSettings.maxAccel);
         
-        //Might need to only constrain on decel for speed
-        lateralOutput = constrainAccel(std::clamp(lateralOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed), prevLateralOutput, drivingSettings.maxAccel);
+        // Might need to only constrain on decel for speed
+        lateralOutput = constrainAccel(lateralOutput/*std::clamp<double>(lateralOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed)*/, prevLateralOutput, drivingSettings.maxAccel);
 
+        // Checking Minimum Speed
+        if (lateralOutput > 0) {
+            if (lateralOutput < drivingSettings.minSpeed)
+                lateralOutput = drivingSettings.minSpeed;
+        }
+        else if (lateralOutput > -drivingSettings.minSpeed) {
+            lateralOutput = -drivingSettings.minSpeed;
+        }
 
-        if (lateralOutput > 0) {if (lateralOutput < drivingSettings.minSpeed) lateralOutput = drivingSettings.minSpeed;}
-        else if (lateralOutput < -drivingSettings.minSpeed) lateralOutput = -drivingSettings.minSpeed;
-
+        // Set Previous Outputs
         prevLateralOutput = lateralOutput;
         prevAngularOutput = angularOutput;
 
-        this->leftSide.move_voltage(lateralOutput-angularOutput);
-        this->rightSide.move_voltage(lateralOutput-angularOutput);
+    //    lateralOutput = 314;
+    //    angularOutput = 12;
 
-        if (drivingSettings.stopDriving){
-
-            this->leftSide.set_brake_mode(pros::MotorBrake::brake);
-            this->rightSide.set_brake_mode(pros::MotorBrake::brake);
-
-            this->leftSide.brake();
-            this->rightSide.brake();
-        }
-
-
+        // Move Motors
+        this->leftSide.move(lateralOutput-angularOutput);
+        this->rightSide.move(lateralOutput-angularOutput);
+        
         pros::delay(10);
-    } while(!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint));
+        
+    } while(true /*!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint)*/);
 
+    // Stop Driving
+    if (drivingSettings.stopDriving){
+
+        leftSide.set_brake_mode(pros::MotorBrake::brake);
+        rightSide.set_brake_mode(pros::MotorBrake::brake);
+
+        leftSide.brake();
+        rightSide.brake();
+    }
+
+    log(logLocation::Drive, "Got Here!");
 
 }
 
@@ -155,7 +182,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
 }
 
 
-Pose testPose(0,0,0);
 
 
-Drive chassis(leftDrive, rightDrive, testPose, lateralPID, angularPID);
+
+Drive chassis(leftDrive, rightDrive, globalRobotPose, lateralPID, angularPID);

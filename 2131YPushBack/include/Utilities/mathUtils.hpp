@@ -4,7 +4,6 @@
 #include <vector>
 #include <numeric>
 
-
 #define toDeg(rad) (rad * 180/M_PI)
 #define toRad(deg) (deg * M_PI/180)
 
