@@ -1,6 +1,7 @@
 #include "main.h"
 
 #include "Chassis/ControllerInput.hpp"
+#include "Chassis/Odoms/DriveWheelOdom.hpp"
 #include "Competition/RobotConfig.hpp"
 #include "Chassis/Drive.hpp"
 #include "Utilities/Logging.hpp"
@@ -109,16 +110,16 @@ void autonomous() {
 
 
 void opcontrol() {
-    // chassis.driveToPoint(Point(24, 24), {});
+    chassis.driveToPoint(Point(24, 24), {});
     
-    log(logLocation::MAIN, "Op Control Started");
-    DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
+    // log(logLocation::MAIN, "Op Control Started");
+    // DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
        
-    while(true){
+    // while(true){
     
-    leftDrive.move(linearJoystick.value() + angularJoystick.value());
-    rightDrive.move(linearJoystick.value() - angularJoystick.value());
+    // leftDrive.move(linearJoystick.value() + angularJoystick.value());
+    // rightDrive.move(linearJoystick.value() - angularJoystick.value());
   
-    pros::delay(20);
-    }
+    // pros::delay(20);
+    // }
 }

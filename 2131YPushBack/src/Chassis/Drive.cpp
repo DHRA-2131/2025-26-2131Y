@@ -7,6 +7,7 @@
 #include "Utilities/Parameters.hpp"
 #include "Utilities/Positioning.hpp"
 #include "Utilities/mathUtils.hpp"
+#include "pros/screen.hpp"
 #include <algorithm>
 
 
@@ -105,13 +106,16 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         // lateralOutput = 314;
         // angularOutput = 0;
 
+        pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Angle: %f", angularOutput);
+        pros::screen::print(pros::E_TEXT_MEDIUM, 2, "Lateral: %f", lateralOutput);
+
         // Move Motors
-        this->leftSide.move(lateralOutput-angularOutput);
-        this->rightSide.move(lateralOutput-angularOutput);
+        this->leftSide.move(lateralOutput + angularOutput);
+        this->rightSide.move(lateralOutput - angularOutput);
         
         pros::delay(10);
         
-    } while(!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint));
+    } while(true/*!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint)*/);
 
     // Stop Driving
     if (drivingSettings.stopDriving){

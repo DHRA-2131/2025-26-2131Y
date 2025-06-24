@@ -3,6 +3,7 @@
 #include "Utilities/Logging.hpp"
 #include "Utilities/mathUtils.hpp"
 #include "Competition/RobotConfig.hpp"
+#include "pros/screen.hpp"
 
 DriveWheelOdom::DriveWheelOdom(Pose& RobotPose, pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right, double WheelOffset, double WheelDiameter) :
 /*AbstractOdom(RobotPose, Imu),*/
@@ -17,7 +18,7 @@ m_prevPose(0,0,0),
 m_updateTask([=, this](){
   
     while(true){
-        
+        pros::screen::print(pros::E_TEXT_MEDIUM, 3, "It worked!");
         this->m_currentPose.theta = m_imu.get_heading();
   
         double angle = toRad(wrapAngle(m_currentPose.theta - m_prevPose.theta)); //Wrap it here and again becasue some stuff just uses straight angle
@@ -66,9 +67,7 @@ m_updateTask([=, this](){
 
     }
 })
-{
-
-}
+{}
 
 DriveWheelOdom::~DriveWheelOdom(){
     m_updateTask.remove();
@@ -77,3 +76,5 @@ DriveWheelOdom::~DriveWheelOdom(){
 void DriveWheelOdom::startOdom(){}
 void DriveWheelOdom::stopOdom(){}
 void DriveWheelOdom::setPosition(Pose& newPose){}
+
+DriveWheelOdom robotOdom(globalRobotPose, IMU, leftDrive, rightDrive, 8, 3.25);

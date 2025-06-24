@@ -37,3 +37,5 @@ class DriveWheelOdom /*: public AbstractOdom*/ {
         
 
 };
+
+extern DriveWheelOdom robotOdom;
