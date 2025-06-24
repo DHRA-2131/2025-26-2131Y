@@ -88,7 +88,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         angularOutput = constrainAccel(std::clamp(angularOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed), prevAngularOutput, drivingSettings.maxAccel);
         
         // Might need to only constrain on decel for speed
-        lateralOutput = constrainAccel(lateralOutput/*std::clamp<double>(lateralOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed)*/, prevLateralOutput, drivingSettings.maxAccel);
+        lateralOutput = constrainAccel(std::clamp<double>(lateralOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed), prevLateralOutput, drivingSettings.maxAccel);
 
         // Checking Minimum Speed
         if (lateralOutput > 0) {
