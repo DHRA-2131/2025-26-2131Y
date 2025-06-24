@@ -111,7 +111,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         
         pros::delay(10);
         
-    } while(true /*!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint)*/);
+    } while(!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint));
 
     // Stop Driving
     if (drivingSettings.stopDriving){
