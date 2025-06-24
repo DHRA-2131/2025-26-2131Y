@@ -27,6 +27,8 @@ void initialize() {
 
     int test = 0;
 
+    
+
     //Logger<int>("TestVar", &test, 200);
 
     
@@ -107,16 +109,16 @@ void autonomous() {
 
 
 void opcontrol() {
-    chassis.driveToPoint(Point(1000, 1000), {});
-    /*
+    // chassis.driveToPoint(Point(24, 24), {});
+    
     log(logLocation::MAIN, "Op Control Started");
     DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
        
     while(true){
     
-    leftDrive.move(-linearJoystick.value() - angularJoystick.value());
-    rightDrive.move(-linearJoystick.value() + angularJoystick.value());
+    leftDrive.move(linearJoystick.value() + angularJoystick.value());
+    rightDrive.move(linearJoystick.value() - angularJoystick.value());
   
     pros::delay(20);
-    }*/
+    }
 }

@@ -80,9 +80,8 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         // Calculate Lateral PID
         lateralOutput = m_lateralPID.calculate(lateralError);
 
-        
 
-        //Prevent turning when close enough
+        // Prevent turning when close enough
         angularOutput = (distanceToPoint < drivingSettings.lockAngleDistance) ? 0 : m_angularPID.calculate(angleToPoint);
 
         angularOutput = constrainAccel(std::clamp(angularOutput, -drivingSettings.maxSpeed, drivingSettings.maxSpeed), prevAngularOutput, drivingSettings.maxAccel);
@@ -103,8 +102,8 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         prevLateralOutput = lateralOutput;
         prevAngularOutput = angularOutput;
 
-    //    lateralOutput = 314;
-    //    angularOutput = 12;
+        // lateralOutput = 314;
+        // angularOutput = 0;
 
         // Move Motors
         this->leftSide.move(lateralOutput-angularOutput);
