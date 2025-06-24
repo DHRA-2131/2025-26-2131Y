@@ -22,6 +22,9 @@ void initialize() {
     log(logLocation::MAIN, "Program Started: Battery at %f%%", pros::battery::get_capacity());
     log(logLocation::MAIN, "Initializing...");
 
+    IMU.reset(true);
+    log(logLocation::MAIN, "Imu Calibrated");
+
     int test = 0;
 
     //Logger<int>("TestVar", &test, 200);
@@ -52,6 +55,7 @@ void disabled() {
  */
 void competition_initialize() {
     log(logLocation::MAIN, "Connected to TM");
+
 }
 
 /**
