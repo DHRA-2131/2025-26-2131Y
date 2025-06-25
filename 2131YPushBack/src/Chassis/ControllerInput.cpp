@@ -20,7 +20,8 @@ ControllerButton::ControllerButton(pros::controller_digital_e_t Button, bool Inv
 {}
 
 bool ControllerButton::value(){
-    (m_inverted) ? (!mainController.get_digital(m_button)) : (mainController.get_digital(m_button));
+    return (m_inverted) ? (!mainController.get_digital(m_button)) : (mainController.get_digital(m_button));
+    
 }
 
 ControllerJoystick linearJoystick(pros::E_CONTROLLER_ANALOG_LEFT_Y, 0, 1);

@@ -46,7 +46,7 @@ class Drive
          * @param drivingSettings
          */
 
-        void driveToPoint(Point point, drivingParameters drivingSettings);
+        void driveToPoint(Point point, drivingParameters drivingSettings = {});
 
 
         /**
@@ -56,7 +56,7 @@ class Drive
          * @param turningSettings
          */
 
-        void turnToPoint(Point point, turningParameters turningSettings);
+        void turnToPoint(Point point, turningParameters turningSettings = {});
 
 
         /**
@@ -66,7 +66,7 @@ class Drive
          * @param turningSettings
          */
 
-        void turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings);
+        void turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings = {});
 
         Pose currentPose;
 
