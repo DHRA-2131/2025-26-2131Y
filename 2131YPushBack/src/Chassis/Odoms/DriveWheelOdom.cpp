@@ -1,5 +1,6 @@
 #include "DriveWheelOdom.hpp"
 
+#include "Utilities/logging.hpp"
 #include "Utilities/mathUtils.hpp"
 #include "Competition/RobotConfig.hpp"
 #include "pros/screen.hpp"
@@ -18,29 +19,41 @@ m_updateTask([=, this](){
   
     while(true){
         pros::screen::print(pros::E_TEXT_MEDIUM, 3, "It worked!");
-        this->m_currentPose.theta = m_imu.get_heading();
+        this->m_currentPose.theta = (m_imu.get_heading());
   
-        double angle = toRad(wrapAngle(m_currentPose.theta - m_prevPose.theta)); //Wrap it here and again becasue some stuff just uses straight angle
-        double avgAngle = wrapAngle((m_currentPose.theta + m_prevPose.theta)/2, false); //Set wrapAngle to radians
+        double deltaAngle = 0;//toRad(wrapAngle(m_currentPose.theta - m_prevPose.theta)); //Wrap it here and again becasue some stuff just uses straight angle
+        double avgAngle = 0;//toRad(((m_currentPose.theta + m_prevPose.theta)/2)); //Set wrapAngle to radians
+
+        log(logLocation::Odom, "Angle %f, Avg Angle: %f", deltaAngle, avgAngle);
 
 
         
-        double avgRotation = (m_leftMotors.get_position()+m_rightMotors.get_position())/2;
+        double avgRotation = ((m_leftMotors.get_position()*0.75));
 
-        double deltaRotation = avgRotation - m_prevRotation;
+        double deltaRotation = (toRad((avgRotation - m_prevRotation)));
 
-        
+        log(logLocation::Odom, "Avg Rotation: %f, Delta Rotation: %f", avgRotation, deltaRotation);
 
-        double distanceTraveled = deltaRotation*m_wheelDiameter/2;
-        double radius = (distanceTraveled/angle);
-
+        //log(logLocation::Odom, "Avg: %f, Prev %f, Delta %f, DeltaRotation(Rad): %f",avgRotation, m_prevRotation, avgRotation - m_prevRotation, deltaRotation);
 
         
 
+        double distanceTraveled = deltaRotation/(m_wheelDiameter/2);
+
+        //log(logLocation::Odom, "Distance Traveled: %f", distanceTraveled);
         
 
-        if (!(angle == 0)){
-            double linearDistance = 2*radius*sin(angle/2);
+        //log(logLocation::Odom, "Distance Traveled: %f, Radius: %f",distanceTraveled, radius);
+
+
+        
+
+        
+
+        if (!(deltaAngle == 0)){
+            double radius = (distanceTraveled/deltaAngle)-WheelOffset;
+            double linearDistance = 2*radius*sin(deltaAngle/2);
+            log(logLocation::Odom, "Linear Distance %f", linearDistance);
 
 
             
@@ -50,12 +63,16 @@ m_updateTask([=, this](){
 
         }
         else {
-            m_currentPose.x += distanceTraveled*cos(avgAngle);
-            m_currentPose.y += distanceTraveled*sin(avgAngle);
+            
+            m_currentPose.x += distanceTraveled*cos(toRad(m_currentPose.theta));
+            m_currentPose.y += distanceTraveled*sin(toRad(m_currentPose.theta));
         }
 
         m_prevPose = m_currentPose;
         m_prevRotation = avgRotation;
+    
+
+        log(logLocation::Odom, "X: %f, Y: %f, Theta: %f", m_currentPose.x, m_currentPose.y, m_currentPose.theta);
         
 
        
@@ -76,4 +93,4 @@ void DriveWheelOdom::startOdom(){}
 void DriveWheelOdom::stopOdom(){}
 void DriveWheelOdom::setPosition(Pose& newPose){}
 
-DriveWheelOdom robotOdom(globalRobotPose, IMU, leftDrive, rightDrive, 8, 3.25);
+//DriveWheelOdom robotOdom(globalRobotPose, IMU, leftDrive, rightDrive, 8, 3.25);

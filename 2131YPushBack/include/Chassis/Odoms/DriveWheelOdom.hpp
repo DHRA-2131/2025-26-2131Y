@@ -38,4 +38,4 @@ class DriveWheelOdom /*: public AbstractOdom*/ {
 
 };
 
-extern DriveWheelOdom robotOdom;
+//extern DriveWheelOdom robotOdom;

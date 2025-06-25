@@ -7,6 +7,7 @@
 #include "Utilities/Logging.hpp"
 #include "pros/misc.hpp"
 #include <cmath>
+#include <ios>
 // #include "Chassis/BrainScreen.hpp"
 
 
@@ -25,6 +26,7 @@ void initialize() {
 
     IMU.reset(true);
     log(logLocation::MAIN, "Imu Calibrated");
+
 
     int test = 0;
 
@@ -110,16 +112,24 @@ void autonomous() {
 
 
 void opcontrol() {
-    chassis.driveToPoint(Point(24, 24), {});
+    log(logLocation::MAIN, "Op Control Started");
     
-    // log(logLocation::MAIN, "Op Control Started");
-    // DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
-       
-    // while(true){
     
-    // leftDrive.move(linearJoystick.value() + angularJoystick.value());
-    // rightDrive.move(linearJoystick.value() - angularJoystick.value());
+    
+    DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
+    while(true);
+
+    
+    //chassis.driveToPoint(Point(24, 24));
+    /*ç   
+    while(true){
+    
+    leftDrive.move(linearJoystick.value() + angularJoystick.value());
+    rightDrive.move(linearJoystick.value() - angularJoystick.value());
   
-    // pros::delay(20);
-    // }
+     pros::delay(20);
+     }
+     */
+
+   
 }
