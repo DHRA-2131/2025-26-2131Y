@@ -27,3 +27,45 @@ double  constrainAccel(double targetVelocity, double currentVelocity, double max
 
     
 }
+
+
+Angle::Angle(double angleValue) 
+    : angleValue(angleValue), radians(false)
+{}
+
+
+Angle::Angle(double angleValue, bool radians)
+    : angleValue(angleValue), radians(radians)
+{}
+
+
+double Angle::getDeg()
+{
+    if (!radians)
+        return angleValue;
+    else
+        return angleValue * (180 / M_PI);
+}
+
+
+double Angle::getRad()
+{
+    if (radians)
+        return angleValue;
+    else
+        return angleValue * (M_PI / 180);
+}
+
+
+void Angle::setAngleDeg(double angleDeg)
+{
+    angleValue = angleDeg;
+    radians = false;
+}
+
+
+void Angle::setAngleRad(double angleRad)
+{
+    angleValue = angleRad;
+    radians = true;
+}

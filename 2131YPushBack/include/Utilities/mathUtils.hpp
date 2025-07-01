@@ -24,3 +24,41 @@ T average(std::vector<T> averageValues)
     T summation = std::accumulate(averageValues.begin(), averageValues.end(), 0.0);
     return summation / (averageValues.size());
 }
+
+
+struct Angle
+{
+    private:
+
+        // Class Member Variables
+        double angleValue;
+        bool radians;
+
+    public:
+
+        // Class Constructor
+
+        /**
+         * @brief Construct a new Angle object
+         * 
+         * @param angleValue 
+         */
+        Angle(double angleValue);
+
+        /**
+         * @brief Construct a new Angle object
+         * 
+         * @param angleValue 
+         * @param radians 
+         */
+        Angle(double angleValue, bool radians);
+
+
+        // Class Methods
+
+        double getDeg();
+        double getRad();
+        void setAngleDeg(double angleDeg);
+        void setAngleRad(double angleRad);
+
+};
