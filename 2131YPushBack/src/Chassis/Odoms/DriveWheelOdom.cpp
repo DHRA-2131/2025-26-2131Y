@@ -24,7 +24,7 @@ m_updateTask([=, this](){
         double deltaAngle = 0;//toRad(wrapAngle(m_currentPose.theta - m_prevPose.theta)); //Wrap it here and again becasue some stuff just uses straight angle
         double avgAngle = 0;//toRad(((m_currentPose.theta + m_prevPose.theta)/2)); //Set wrapAngle to radians
 
-        log(logLocation::Odom, "Angle %f, Avg Angle: %f", deltaAngle, avgAngle);
+        //log(logLocation::Odom, "Angle %f, Avg Angle: %f", deltaAngle, avgAngle);
 
 
         
@@ -32,7 +32,7 @@ m_updateTask([=, this](){
 
         double deltaRotation = (toRad((avgRotation - m_prevRotation)));
 
-        log(logLocation::Odom, "Avg Rotation: %f, Delta Rotation: %f", avgRotation, deltaRotation);
+        //log(logLocation::Odom, "Avg Rotation: %f, Delta Rotation: %f", avgRotation, deltaRotation);
 
         //log(logLocation::Odom, "Avg: %f, Prev %f, Delta %f, DeltaRotation(Rad): %f",avgRotation, m_prevRotation, avgRotation - m_prevRotation, deltaRotation);
 
@@ -53,7 +53,7 @@ m_updateTask([=, this](){
         if (!(deltaAngle == 0)){
             double radius = (distanceTraveled/deltaAngle)-WheelOffset;
             double linearDistance = 2*radius*sin(deltaAngle/2);
-            log(logLocation::Odom, "Linear Distance %f", linearDistance);
+            //log(logLocation::Odom, "Linear Distance %f", linearDistance);
 
 
             

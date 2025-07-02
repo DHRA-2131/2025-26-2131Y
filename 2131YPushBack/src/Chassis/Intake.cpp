@@ -1,7 +1,7 @@
 #include "Chassis/Intake.hpp"
 #include "pros/abstract_motor.hpp"
 #include "pros/motor_group.hpp"
-
+#include "Competition/RobotConfig.hpp"
 
 Intake::Intake(pros::MotorGroup& intakeMotors) : m_intakeMotors(intakeMotors)
 {}
@@ -26,3 +26,5 @@ void Intake::set(intakeState state){
             m_intakeMotors.move_voltage(0); //Dont brake if something gets set weird, but stop
     }
 }
+
+Intake intake(intakeGroup);

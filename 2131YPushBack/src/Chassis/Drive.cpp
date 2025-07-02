@@ -108,6 +108,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
 
         pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Angle: %f", angularOutput);
         pros::screen::print(pros::E_TEXT_MEDIUM, 2, "Lateral: %f", lateralOutput);
+        log(logLocation::Drive, "Angular: %f, Lateral %f", angularOutput, lateralOutput);
 
         // Move Motors
         this->leftSide.move(lateralOutput + angularOutput);

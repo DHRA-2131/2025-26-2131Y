@@ -25,3 +25,5 @@ class Intake
         pros::MotorGroup& m_intakeMotors;
 
 };
+
+extern Intake intake;

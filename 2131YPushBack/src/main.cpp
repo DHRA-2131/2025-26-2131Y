@@ -5,6 +5,7 @@
 #include "Competition/RobotConfig.hpp"
 #include "Chassis/Drive.hpp"
 #include "Utilities/Logging.hpp"
+#include "pros/misc.h"
 #include "pros/misc.hpp"
 #include <cmath>
 #include <ios>
@@ -109,6 +110,7 @@ void autonomous() {
 
  #include "Chassis/Odoms/DriveWheelOdom.hpp"
  #include "Competition/RobotConfig.hpp"
+ #include "Chassis/Intake.hpp"
 
 
 void opcontrol() {
@@ -116,20 +118,30 @@ void opcontrol() {
     
     
     
-    DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
-    while(true);
+    //DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
+    //while(true);
 
     
-    //chassis.driveToPoint(Point(24, 24));
-    /*ç   
+    //chassis.driveToPoint(Point(24, 0));
+    const bool tank = false;   
     while(true){
-    
+    if (!tank){
     leftDrive.move(linearJoystick.value() + angularJoystick.value());
     rightDrive.move(linearJoystick.value() - angularJoystick.value());
-  
+    }
+    else {
+        leftDrive.move(tankLeftJoystick.value());
+        rightDrive.move(tankRightJoystick.value());
+    }
+    
+    if (intakeButton.value()) intake.set(intakeState::Forward);
+    else if (outtakeButton.value()) intake.set(intakeState::Reverse);
+    else intake.set(intakeState::Stop);
+
+
      pros::delay(20);
-     }
-     */
+    }
+     
 
    
 }

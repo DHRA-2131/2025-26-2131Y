@@ -25,4 +25,11 @@ bool ControllerButton::value(){
 }
 
 ControllerJoystick linearJoystick(pros::E_CONTROLLER_ANALOG_LEFT_Y, 0, 1);
-ControllerJoystick angularJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_X, 0, 0.75);
+ControllerJoystick angularJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_X, 15, 0.5);
+
+ControllerJoystick tankLeftJoystick(pros::E_CONTROLLER_ANALOG_LEFT_Y, 0, 1);
+ControllerJoystick tankRightJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_Y, 0, 1);
+
+ControllerButton intakeButton(pros::E_CONTROLLER_DIGITAL_R1, false);
+ControllerButton outtakeButton(pros::E_CONTROLLER_DIGITAL_R2, false);
+

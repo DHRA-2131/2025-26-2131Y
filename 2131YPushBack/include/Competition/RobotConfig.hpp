@@ -14,3 +14,5 @@ extern pros::MotorGroup leftDrive;
 extern pros::MotorGroup rightDrive;
 
 extern pros::Imu IMU;
+
+extern pros::MotorGroup intakeGroup;

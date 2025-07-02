@@ -45,3 +45,9 @@ class ControllerButton
 
 extern ControllerJoystick linearJoystick;
 extern ControllerJoystick angularJoystick;
+
+extern ControllerJoystick tankLeftJoystick;
+extern ControllerJoystick tankRightJoystick;
+
+extern ControllerButton intakeButton;
+extern ControllerButton outtakeButton;
