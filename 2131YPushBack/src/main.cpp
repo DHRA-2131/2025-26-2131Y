@@ -2,6 +2,7 @@
 
 #include "Chassis/ControllerInput.hpp"
 #include "Chassis/Odoms/DriveWheelOdom.hpp"
+#include "Chassis/Odoms/TrackingWheelOdom.hpp"
 #include "Competition/RobotConfig.hpp"
 #include "Chassis/Drive.hpp"
 #include "Utilities/Logging.hpp"
@@ -118,12 +119,15 @@ void opcontrol() {
     
     
     
-    //DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25);
-    //while(true);
+   DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
+    //TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 1.25, 1.25, IMU);
+    while(true);
 
     
     //chassis.driveToPoint(Point(24, 0));
-    const bool tank = false;   
+
+    
+    /*const bool tank = false;   
     while(true){
     if (!tank){
     leftDrive.move(linearJoystick.value() + angularJoystick.value());
@@ -133,14 +137,15 @@ void opcontrol() {
         leftDrive.move(tankLeftJoystick.value());
         rightDrive.move(tankRightJoystick.value());
     }
-    
+
     if (intakeButton.value()) intake.set(intakeState::Forward);
     else if (outtakeButton.value()) intake.set(intakeState::Reverse);
     else intake.set(intakeState::Stop);
 
 
      pros::delay(20);
-    }
+    }*/
+     
      
 
    

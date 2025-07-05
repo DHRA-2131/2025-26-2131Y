@@ -9,6 +9,11 @@ class TrackingWheelOdom : public AbstractOdom
     public:
 
         TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel,double VerticalWheelOffset, double WheelDiameter, pros::IMU& Imu);
+        ~TrackingWheelOdom();
+
+        void startOdom() override;
+        void stopOdom() override;
+        void setPosition(Pose&) override;
 
     private:
         pros::Rotation& m_verticalTrackingWheel;

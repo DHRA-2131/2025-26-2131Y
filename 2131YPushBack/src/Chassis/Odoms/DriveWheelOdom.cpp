@@ -5,7 +5,7 @@
 #include "Competition/RobotConfig.hpp"
 #include "pros/screen.hpp"
 
-DriveWheelOdom::DriveWheelOdom(Pose& RobotPose, pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right, double WheelOffset, double WheelDiameter) :
+DriveWheelOdom::DriveWheelOdom(Pose& RobotPose, pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right, double WheelOffset, double WheelDiameter, double GearRatio) :
 /*AbstractOdom(RobotPose, Imu),*/
 m_currentPose(RobotPose),
 m_imu(Imu),
@@ -13,6 +13,7 @@ m_leftMotors(Left),
 m_rightMotors(Right),
 m_wheelDiameter(WheelDiameter),
 m_wheelOffset(WheelDiameter),
+m_gearRatio(GearRatio),
 m_prevPose(0,0,0),
 
 m_updateTask([=, this](){
@@ -21,14 +22,14 @@ m_updateTask([=, this](){
         pros::screen::print(pros::E_TEXT_MEDIUM, 3, "It worked!");
         this->m_currentPose.theta = (m_imu.get_heading());
   
-        double deltaAngle = 0;//toRad(wrapAngle(m_currentPose.theta - m_prevPose.theta)); //Wrap it here and again becasue some stuff just uses straight angle
-        double avgAngle = 0;//toRad(((m_currentPose.theta + m_prevPose.theta)/2)); //Set wrapAngle to radians
+        double deltaAngle = toRad(wrapAngle(m_currentPose.theta-m_prevPose.theta));
+        double avgAngle = toRad(((m_currentPose.theta+m_prevPose.theta)/2));//toRad(((m_currentPose.theta + m_prevPose.theta)/2)); //Set wrapAngle to radians
 
-        //log(logLocation::Odom, "Angle %f, Avg Angle: %f", deltaAngle, avgAngle);
+        log(logLocation::Odom, "Angle %f, Avg Angle: %f", deltaAngle, avgAngle);
 
 
         
-        double avgRotation = ((m_leftMotors.get_position()*0.75));
+        double avgRotation = ((m_leftMotors.get_position())/m_gearRatio);
 
         double deltaRotation = (toRad((avgRotation - m_prevRotation)));
 
@@ -50,7 +51,7 @@ m_updateTask([=, this](){
 
         
 
-        if (!(deltaAngle == 0)){
+        if (!(fabs(deltaAngle) <= 0.05)){
             double radius = (distanceTraveled/deltaAngle)-WheelOffset;
             double linearDistance = 2*radius*sin(deltaAngle/2);
             //log(logLocation::Odom, "Linear Distance %f", linearDistance);

@@ -9,7 +9,7 @@
 class DriveWheelOdom /*: public AbstractOdom*/ {
 
     public:
-        DriveWheelOdom(Pose& RobotPose,  pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right,double WheelOffset,double WheelDiameter);
+        DriveWheelOdom(Pose& RobotPose,  pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right,double WheelOffset,double WheelDiameter, double GearRatio);
         ~DriveWheelOdom();
 
         void startOdom() ;//override;
@@ -25,6 +25,7 @@ class DriveWheelOdom /*: public AbstractOdom*/ {
 
         const double m_wheelDiameter;
         const double m_wheelOffset;
+        const double m_gearRatio;
 
         pros::Imu& m_imu;
         Pose& m_currentPose;
