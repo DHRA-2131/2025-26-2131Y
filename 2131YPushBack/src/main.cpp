@@ -119,8 +119,8 @@ void opcontrol() {
     
     
     
-   DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
-    //TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 1.25, 1.25, IMU);
+   //DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
+    TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 0, horizontalRotation,8, 2, IMU);
     while(true);
 
     
@@ -142,6 +142,7 @@ void opcontrol() {
     else if (outtakeButton.value()) intake.set(intakeState::Reverse);
     else intake.set(intakeState::Stop);
 
+    
 
      pros::delay(20);
     }*/

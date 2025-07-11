@@ -8,7 +8,7 @@ class TrackingWheelOdom : public AbstractOdom
 {   
     public:
 
-        TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel,double VerticalWheelOffset, double WheelDiameter, pros::IMU& Imu);
+        TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel,double VerticalWheelOffset, pros::Rotation& HorizontalTrackingWheel, double HorizontalWheelOffset, double WheelDiameter, pros::IMU& Imu);
         ~TrackingWheelOdom();
 
         void startOdom() override;
@@ -17,9 +17,12 @@ class TrackingWheelOdom : public AbstractOdom
 
     private:
         pros::Rotation& m_verticalTrackingWheel;
+        pros::Rotation& m_horizontalTrackingWheel;
+
 
         const double m_verticalWheelOffset;
-    
+        const double m_horizontalWheelOffset;
+
         const double m_wheelDiameter;
 
      
@@ -27,6 +30,7 @@ class TrackingWheelOdom : public AbstractOdom
         pros::Task m_updateTask;
 
         double m_prevVerticalTrackingRotation;
+        double m_prevHorizontalTrackingRotation;
 
         Pose m_prevPose;
 

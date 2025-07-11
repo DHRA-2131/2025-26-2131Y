@@ -6,6 +6,8 @@
 #include "Utilities/Positioning.hpp"
 #include "pros/rotation.hpp"
 
+#define PROG_CHASSIS 1
+
 
 extern Pose globalRobotPose;
 
@@ -18,4 +20,9 @@ extern pros::Imu IMU;
 
 extern pros::MotorGroup intakeGroup;
 
+#ifdef PROG_CHASSIS
+
 extern pros::Rotation verticalRotation;
+extern pros::Rotation horizontalRotation;
+
+#endif

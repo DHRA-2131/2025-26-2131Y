@@ -25,6 +25,7 @@ m_updateTask([=, this](){
         double deltaAngle = toRad(wrapAngle(m_currentPose.theta-m_prevPose.theta));
         double avgAngle = toRad(((m_currentPose.theta+m_prevPose.theta)/2));//toRad(((m_currentPose.theta + m_prevPose.theta)/2)); //Set wrapAngle to radians
 
+
         log(logLocation::Odom, "Angle %f, Avg Angle: %f", deltaAngle, avgAngle);
 
 
@@ -52,7 +53,7 @@ m_updateTask([=, this](){
         
 
         if (!(fabs(deltaAngle) <= 0.05)){
-            double radius = (distanceTraveled/deltaAngle)-WheelOffset;
+            double radius = (distanceTraveled/deltaAngle)-m_wheelOffset;
             double linearDistance = 2*radius*sin(deltaAngle/2);
             //log(logLocation::Odom, "Linear Distance %f", linearDistance);
 
