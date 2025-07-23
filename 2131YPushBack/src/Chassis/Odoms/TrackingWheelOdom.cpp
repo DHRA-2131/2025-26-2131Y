@@ -4,6 +4,7 @@
 #include <cmath>
 #include "Utilities/Logging.hpp"
 #include "pros/rotation.hpp"
+#include "pros/rtos.h"
 
 
 TrackingWheelOdom::TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel,  double VerticalWheelOffset, pros::Rotation& HorizontalTrackingWheel, double HorizontalWheelOffset, double WheelDiameter, pros::IMU& Imu) :
@@ -16,7 +17,7 @@ m_horizontalWheelOffset(HorizontalWheelOffset),
 m_wheelDiameter(WheelDiameter),
 
 m_prevPose(0,0,0),
-m_updateTask([this]{
+m_updateTask([=,this]{
 
     //Why suspend this task before starting it?
     m_verticalTrackingWheel.set_position(0);
@@ -29,8 +30,8 @@ m_updateTask([this]{
     double avgAngle = toRad(((m_currentPose.theta + m_prevPose.theta)/2));
 
     //Convert to float to keep precision
-    double avgRotation = ((float)m_verticalTrackingWheel.get_position()/100);
-    double deltaRotation = (toRad((avgRotation - m_prevVerticalTrackingRotation)));
+    double currentRotation = ((float)m_verticalTrackingWheel.get_position()/100);
+    double deltaRotation = (toRad((currentRotation - m_prevVerticalTrackingRotation)));
 
     double distanceTraveled = deltaRotation/(m_wheelDiameter/2);
 
@@ -52,21 +53,27 @@ m_updateTask([this]{
         m_currentPose.y += distanceTraveled*sin(toRad(m_currentPose.theta));
     }
 
-     m_prevVerticalTrackingRotation = avgRotation;
+     m_prevVerticalTrackingRotation = currentRotation;
 
     /******************************/
     /* Horizontal Wheel           */
     /******************************/
-
+    
     //Convert to float to keep precision
-    avgRotation = ((float)m_horizontalTrackingWheel.get_position()/100);
-    deltaRotation = (toRad((avgRotation - m_prevHorizontalTrackingRotation)));
+    currentRotation = ((float)m_horizontalTrackingWheel.get_position()/100);
+    deltaRotation = (toRad((currentRotation - m_prevHorizontalTrackingRotation)));
 
     distanceTraveled = deltaRotation/(m_wheelDiameter/2);
 
+    //log(logLocation::Odom, "Tick Count: %i, Current Rot: %f, Delta Rot %f, Distance %f", m_horizontalTrackingWheel.get_position(), currentRotation, deltaRotation, distanceTraveled);
+
     if (!(fabs(deltaAngle) <= 0.05)){
+
+            //log(logLocation::Odom, "Delta Angle Threshold reached!");
             double radius = (distanceTraveled/deltaAngle)-m_horizontalWheelOffset;
             double linearDistance = 2*radius*sin(deltaAngle/2);
+
+            //log(logLocation::Odom, "Radius: %f, Distance: %f", radius, linearDistance);
             //log(logLocation::Odom, "Linear Distance %f", linearDistance);
 
 
@@ -84,11 +91,13 @@ m_updateTask([this]{
 
 
     m_prevPose = m_currentPose;
-    m_prevHorizontalTrackingRotation = avgRotation;
+    m_prevHorizontalTrackingRotation = currentRotation;
+
    
-    log(logLocation::Odom, "X: %f, Y: %f, Theta: %f, Rotation: %i", m_currentPose.x, m_currentPose.y, m_currentPose.theta,   m_verticalTrackingWheel.get_position());
+    //log(logLocation::Odom, "X: %f, Y: %f, Theta: %f, Rotation: %i", m_currentPose.x, m_currentPose.y, m_currentPose.theta,   m_verticalTrackingWheel.get_position());
 
     pros::delay(10);
+    
 
 }
 
@@ -98,7 +107,7 @@ m_updateTask([this]{
     
     
    
-})
+}, TASK_PRIORITY_MAX)
 {}
 
 

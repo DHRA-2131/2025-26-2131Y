@@ -91,8 +91,15 @@ DriveWheelOdom::~DriveWheelOdom(){
     m_updateTask.remove();
 }
 
-void DriveWheelOdom::startOdom(){}
-void DriveWheelOdom::stopOdom(){}
-void DriveWheelOdom::setPosition(Pose& newPose){}
+void DriveWheelOdom::startOdom(){
+    m_updateTask.resume();
+}
+void DriveWheelOdom::stopOdom(){
+    m_updateTask.suspend();
+}
+void DriveWheelOdom::setPosition(Pose& newPose){
+    m_currentPose = newPose;
+    m_prevPose = newPose;
+}
 
 //DriveWheelOdom robotOdom(globalRobotPose, IMU, leftDrive, rightDrive, 8, 3.25);

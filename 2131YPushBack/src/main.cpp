@@ -24,13 +24,13 @@
  */
 void initialize() {
     log(logLocation::MAIN, "Program Started: Battery at %f%%", pros::battery::get_capacity());
-    log(logLocation::MAIN, "Initializing...");
+    log(logLocation::MAIN, "Initializing... Calibrating IMU...");
 
     IMU.reset(true);
     log(logLocation::MAIN, "Imu Calibrated");
 
 
-    int test = 0;
+
 
     
 
@@ -120,8 +120,8 @@ void opcontrol() {
     
     
    //DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
-    TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 0, horizontalRotation,8, 2, IMU);
-    while(true);
+    TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 0, horizontalRotation,8.125, 2, IMU);
+   while(true);
 
     
     //chassis.driveToPoint(Point(24, 0));

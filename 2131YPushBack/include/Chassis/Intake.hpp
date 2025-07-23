@@ -17,8 +17,20 @@ class Intake
     
     public:
 
+        /** 
+        * @brief Intake Constructor
+        *
+        * @param intakeMotors
+        */
+
         Intake(pros::MotorGroup& intakeMotors);
 
+
+        /**
+        * @brief Set Intake's Rotation
+        *
+        * @param state
+        */
         void set(intakeState state);
 
     private:
