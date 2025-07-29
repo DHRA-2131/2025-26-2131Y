@@ -10,7 +10,7 @@ ControllerJoystick::ControllerJoystick(pros::controller_analog_e_t Joystick, int
 double ControllerJoystick::value(){
     double value;
     (std::fabs(mainController.get_analog(m_joystick)) > m_deadZone) ? value = mainController.get_analog(m_joystick)*m_scale : value = 0;
-    log(logLocation::MAIN, "%d", value);
+    //log(logLocation::MAIN, "%d", value);
 
     return value;
 }
@@ -25,7 +25,7 @@ bool ControllerButton::value(){
 }
 
 ControllerJoystick linearJoystick(pros::E_CONTROLLER_ANALOG_LEFT_Y, 0, 1);
-ControllerJoystick angularJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_X, 15, 0.5);
+ControllerJoystick angularJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_X, 25, 0.5);
 
 ControllerJoystick tankLeftJoystick(pros::E_CONTROLLER_ANALOG_LEFT_Y, 0, 1);
 ControllerJoystick tankRightJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_Y, 0, 1);

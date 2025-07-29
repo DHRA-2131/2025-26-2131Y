@@ -43,14 +43,14 @@ m_updateTask([=,this]{
 
             
 
-            m_currentPose.x += linearDistance*cos(avgAngle);
-            m_currentPose.y += linearDistance*sin(avgAngle);
+            m_currentPose.y += linearDistance*cos(avgAngle);
+            m_currentPose.x -= linearDistance*sin(avgAngle);
 
         }
     else {
         
-        m_currentPose.x += distanceTraveled*cos(toRad(m_currentPose.theta));
-        m_currentPose.y += distanceTraveled*sin(toRad(m_currentPose.theta));
+        m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
+        m_currentPose.x -= distanceTraveled*sin(toRad(m_currentPose.theta));
     }
 
      m_prevVerticalTrackingRotation = currentRotation;
@@ -58,6 +58,8 @@ m_updateTask([=,this]{
     /******************************/
     /* Horizontal Wheel           */
     /******************************/
+
+    /*
     
     //Convert to float to keep precision
     currentRotation = ((float)m_horizontalTrackingWheel.get_position()/100);
@@ -87,14 +89,14 @@ m_updateTask([=,this]{
         
         m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
         m_currentPose.x += distanceTraveled*sin(toRad(m_currentPose.theta));
-    }
+    }*/
 
 
     m_prevPose = m_currentPose;
     m_prevHorizontalTrackingRotation = currentRotation;
 
    
-    //log(logLocation::Odom, "X: %f, Y: %f, Theta: %f, Rotation: %i", m_currentPose.x, m_currentPose.y, m_currentPose.theta,   m_verticalTrackingWheel.get_position());
+    log(logLocation::Odom, "X: %f, Y: %f, Theta: %f, Rotation: %i", m_currentPose.x, m_currentPose.y, m_currentPose.theta,   m_verticalTrackingWheel.get_position());
 
     pros::delay(10);
     

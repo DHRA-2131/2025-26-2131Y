@@ -68,7 +68,7 @@ class Drive
 
         void turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings = {});
 
-        Pose currentPose;
+        Pose& currentPose;
 
     
     private:

@@ -10,7 +10,7 @@ struct drivingParameters{
     bool forward = true;
     bool waitForCompletion = true;
 
-    int settleExitTime = 0;
+    int settleExitTime = 1;
     int settleExitRange = 0;
     int velocitySettleExitTime = 0;
     int velocitySettleExitRange = 0;
@@ -20,7 +20,7 @@ struct drivingParameters{
 
     double maxAccel = -1; //Volts/S^2
 
-    double lockAngleDistance = 0;
+    double lockAngleDistance = 5;
 
     bool stopDriving = true;
 };
@@ -30,15 +30,15 @@ struct turningParameters{
 
      bool waitForCompletion = true;
      
-     int settleExitTime = 0;
+     int settleExitTime = 1;
      int settleExitRange = 0;
      int velocitySettleExitTime = 0;
      int velocitySettleExitRange = 0;
 
-     double minSpeed = 0;
-     double maxSpeed = 12; //Volts
+     double minSpeed = 5;
+     double maxSpeed = 127; //Volts
 
-     double maxAccel = 0; //Volts/S/S
+     double maxAccel = 6; //Volts/S/S
 
      bool stopDriving = true;
 

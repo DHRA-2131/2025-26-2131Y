@@ -120,14 +120,16 @@ void opcontrol() {
     
     
    //DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
-    TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 0, horizontalRotation,8.125, 2, IMU);
-   while(true);
+    TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 1.25, horizontalRotation,8.125, 2, IMU);
+    //chassis.driveToPoint(Point(0,24));
+    chassis.turnToAbsoluteHeading(90);
+   //while(true);
 
     
     //chassis.driveToPoint(Point(24, 0));
-
+    /*
     
-    /*const bool tank = false;   
+    const bool tank = false;   
     while(true){
     if (!tank){
     leftDrive.move(linearJoystick.value() + angularJoystick.value());
@@ -143,9 +145,10 @@ void opcontrol() {
     else intake.set(intakeState::Stop);
 
     
-
+    */
      pros::delay(20);
-    }*/
+    //}
+     
      
      
 

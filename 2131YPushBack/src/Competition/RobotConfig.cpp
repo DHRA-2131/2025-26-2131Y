@@ -21,7 +21,7 @@ pros::MotorGroup rightDrive({16, 20, 13}); //14, 2, 1 - 16, 20, 13
 
 /* Robot Testing Chassis */
 pros::Rotation verticalRotation(-18);
-pros::Rotation horizontalRotation(9);
+pros::Rotation horizontalRotation(-9);
 
 #else
 pros::MotorGroup leftDrive({-16, -17, -19}); //-16,-17,-19 for actual robot - -10,-21, -15 for drivebase

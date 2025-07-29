@@ -106,9 +106,9 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         // lateralOutput = 314;
         // angularOutput = 0;
 
-        pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Angle: %f", angularOutput);
-        pros::screen::print(pros::E_TEXT_MEDIUM, 2, "Lateral: %f", lateralOutput);
-        log(logLocation::Drive, "Angular: %f, Lateral %f", angularOutput, lateralOutput);
+        //pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Angle: %f", angularOutput);
+        //pros::screen::print(pros::E_TEXT_MEDIUM, 2, "Lateral: %f", lateralOutput);
+        log(logLocation::Drive, "Angular: %f, Lateral %f, GlobalX: %f, Distance: %f, Angle: %f, Velocity: %f, Settle %i, Vel Settle: %i", angularOutput, lateralOutput, currentPose.x, distanceToPoint,angleToPoint, distanceToPoint-prevDistanceToPoint, settleExit.canExit(distanceToPoint), velocitySettleExit.canExit(distanceToPoint-prevDistanceToPoint));
 
         // Move Motors
         this->leftSide.move(lateralOutput + angularOutput);
@@ -116,7 +116,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         
         pros::delay(10);
         
-    } while(true/*!settleExit.canExit(distanceToPoint) && !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint)*/);
+    } while(!settleExit.canExit(distanceToPoint) || !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint));
 
     // Stop Driving
     if (drivingSettings.stopDriving){
@@ -171,16 +171,18 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     if (turningSettings.arc == arcDirection::arcToLeft) this->rightSide.move_voltage(output);
     else if (turningSettings.arc == arcDirection::arcToRight) this->leftSide.move_voltage(output);
     else {
-        this->leftSide.move_voltage(-output);
-        this->rightSide.move_voltage(output);
+        this->leftSide.move(-output);
+        this->rightSide.move(output);
     }
 
     prev_error = error;
     prev_output = output;
+
+    log(logLocation::Drive, "Output: %f, Settle %i", output, settledExit.canExit(error));
     pros::delay(10);
     
     
-    } while (!settledExit.canExit(error) && !velocitySettleExit.canExit(error-prev_error));
+    } while (!settledExit.canExit(error) || !velocitySettleExit.canExit(error-prev_error));
 
 
 }
