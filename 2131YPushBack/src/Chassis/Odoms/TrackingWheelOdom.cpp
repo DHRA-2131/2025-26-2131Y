@@ -17,13 +17,13 @@ m_horizontalWheelOffset(HorizontalWheelOffset),
 m_wheelDiameter(WheelDiameter),
 
 m_prevPose(0,0,0),
-m_updateTask([=,this]{
+m_updateTask([=]{
 
     //Why suspend this task before starting it?
     m_verticalTrackingWheel.set_position(0);
     m_horizontalTrackingWheel.set_position(0);
 
-    while(1){
+    while(true){
 
     this->m_currentPose.theta = m_imu.get_heading();
     double deltaAngle = toRad(wrapAngle(m_currentPose.theta - m_prevPose.theta)); //Fix to -180 to 180
@@ -59,7 +59,7 @@ m_updateTask([=,this]{
     /* Horizontal Wheel           */
     /******************************/
 
-    /*
+    
     
     //Convert to float to keep precision
     currentRotation = ((float)m_horizontalTrackingWheel.get_position()/100);
@@ -81,15 +81,15 @@ m_updateTask([=,this]{
 
             
 
-            m_currentPose.y += linearDistance*cos(avgAngle);
-            m_currentPose.x += linearDistance*sin(avgAngle);
+            m_currentPose.x += linearDistance*cos(avgAngle);
+            m_currentPose.y += linearDistance*sin(avgAngle);
 
         }
     else {
         
-        m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
-        m_currentPose.x += distanceTraveled*sin(toRad(m_currentPose.theta));
-    }*/
+        m_currentPose.x += distanceTraveled*cos(toRad(m_currentPose.theta));
+        m_currentPose.y += distanceTraveled*sin(toRad(m_currentPose.theta));
+    }
 
 
     m_prevPose = m_currentPose;
