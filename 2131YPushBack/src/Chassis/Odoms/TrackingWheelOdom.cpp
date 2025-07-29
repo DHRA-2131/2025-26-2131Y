@@ -5,6 +5,7 @@
 #include "Utilities/Logging.hpp"
 #include "pros/rotation.hpp"
 #include "pros/rtos.h"
+#include "pros/screen.hpp"
 
 
 TrackingWheelOdom::TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel,  double VerticalWheelOffset, pros::Rotation& HorizontalTrackingWheel, double HorizontalWheelOffset, double WheelDiameter, pros::IMU& Imu) :
@@ -94,6 +95,7 @@ m_updateTask([=]{
 
     m_prevPose = m_currentPose;
     m_prevHorizontalTrackingRotation = currentRotation;
+    pros::screen::print(pros::E_TEXT_MEDIUM, 9, "X: %f, Y: %f", m_currentPose.x, m_currentPose.y);
 
    
     log(logLocation::Odom, "X: %f, Y: %f, Theta: %f, Rotation: %i", m_currentPose.x, m_currentPose.y, m_currentPose.theta,   m_verticalTrackingWheel.get_position());
