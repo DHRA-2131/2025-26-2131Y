@@ -48,9 +48,8 @@ m_updateTask([=](){
         //log(logLocation::Odom, "Distance Traveled: %f, Radius: %f",distanceTraveled, radius);
 
 
-        
 
-        
+
 
         if (!(fabs(deltaAngle) <= 0.05)){
             double radius = (distanceTraveled/deltaAngle)-m_wheelOffset;
