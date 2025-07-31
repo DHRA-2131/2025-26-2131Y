@@ -62,43 +62,43 @@ m_updateTask([=]{
 
     
     
-    //Convert to float to keep precision
-    currentRotation = ((float)m_horizontalTrackingWheel.get_position()/100);
-    deltaRotation = (toRad((currentRotation - m_prevHorizontalTrackingRotation)));
+    // //Convert to float to keep precision
+    // currentRotation = ((float)m_horizontalTrackingWheel.get_position()/100);
+    // deltaRotation = (toRad((currentRotation - m_prevHorizontalTrackingRotation)));
 
-    distanceTraveled = deltaRotation/(m_wheelDiameter/2);
+    // distanceTraveled = deltaRotation/(m_wheelDiameter/2);
 
-    //log(logLocation::Odom, "Tick Count: %i, Current Rot: %f, Delta Rot %f, Distance %f", m_horizontalTrackingWheel.get_position(), currentRotation, deltaRotation, distanceTraveled);
+    // //log(logLocation::Odom, "Tick Count: %i, Current Rot: %f, Delta Rot %f, Distance %f", m_horizontalTrackingWheel.get_position(), currentRotation, deltaRotation, distanceTraveled);
 
-    if (!(fabs(deltaAngle) <= 0.05)){
+    // if (!(fabs(deltaAngle) <= 0.05)){
 
-            //log(logLocation::Odom, "Delta Angle Threshold reached!");
-            double radius = (distanceTraveled/deltaAngle)-m_horizontalWheelOffset;
-            double linearDistance = 2*radius*sin(deltaAngle/2);
+    //         //log(logLocation::Odom, "Delta Angle Threshold reached!");
+    //         double radius = (distanceTraveled/deltaAngle)-m_horizontalWheelOffset;
+    //         double linearDistance = 2*radius*sin(deltaAngle/2);
 
-            //log(logLocation::Odom, "Radius: %f, Distance: %f", radius, linearDistance);
-            //log(logLocation::Odom, "Linear Distance %f", linearDistance);
+    //         //log(logLocation::Odom, "Radius: %f, Distance: %f", radius, linearDistance);
+    //         //log(logLocation::Odom, "Linear Distance %f", linearDistance);
 
 
             
 
-            m_currentPose.x += linearDistance*cos(avgAngle);
-            m_currentPose.y += linearDistance*sin(avgAngle);
+    //         m_currentPose.x += linearDistance*cos(avgAngle);
+    //         m_currentPose.y += linearDistance*sin(avgAngle);
 
-        }
-    else {
+    //     }
+    // else {
         
-        m_currentPose.x += distanceTraveled*cos(toRad(m_currentPose.theta));
-        m_currentPose.y += distanceTraveled*sin(toRad(m_currentPose.theta));
-    }
+    //     m_currentPose.x += distanceTraveled*cos(toRad(m_currentPose.theta));
+    //     m_currentPose.y += distanceTraveled*sin(toRad(m_currentPose.theta));
+    // }
 
 
     m_prevPose = m_currentPose;
-    m_prevHorizontalTrackingRotation = currentRotation;
-    pros::screen::print(pros::E_TEXT_MEDIUM, 9, "X: %f, Y: %f", m_currentPose.x , m_currentPose.y);
+    // m_prevHorizontalTrackingRotation = currentRotation;
+    // pros::screen::print(pros::E_TEXT_MEDIUM, 9, "X: %f, Y: %f", m_currentPose.x , m_currentPose.y);
 
    
-    log(logLocation::Odom, "X: %f, Y: %f, Theta: %f, Rotation: %i", m_currentPose.x, m_currentPose.y, m_currentPose.theta,   m_verticalTrackingWheel.get_position());
+    // log(logLocation::Odom, "X: %f, Y: %f, Theta: %f, Rotation: %i", m_currentPose.x, m_currentPose.y, m_currentPose.theta,   m_verticalTrackingWheel.get_position());
 
     pros::delay(10);
     
