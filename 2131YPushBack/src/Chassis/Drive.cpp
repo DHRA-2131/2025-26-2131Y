@@ -56,7 +56,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
 
     // Async Movements
     if (!drivingSettings.waitForCompletion){
-        drivingSettings.waitForCompletion = false;
+        drivingSettings.waitForCompletion = true;
         
         pros::Task asyncTask([=,this]{driveToPoint(point, drivingSettings);});
         return;
@@ -153,7 +153,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     m_angularPID.reset();
 
     if (!turningSettings.waitForCompletion){
-        turningSettings.waitForCompletion = false;
+        turningSettings.waitForCompletion = true;
 
         pros::Task asyncTask([=, this]{turnToAbsoluteHeading(targetHeading, turningSettings);});
         return;
@@ -168,8 +168,8 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     output = constrainAccel(output, prev_output, turningSettings.maxAccel);
     
 
-    if (turningSettings.arc == arcDirection::arcToLeft) this->rightSide.move_voltage(output);
-    else if (turningSettings.arc == arcDirection::arcToRight) this->leftSide.move_voltage(output);
+    if (turningSettings.arc == arcDirection::arcToLeft) this->rightSide.move(output);
+    else if (turningSettings.arc == arcDirection::arcToRight) this->leftSide.move(output);
     else {
         this->leftSide.move(-output);
         this->rightSide.move(output);

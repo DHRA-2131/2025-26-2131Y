@@ -68,7 +68,7 @@ m_updateTask([=]{
 
     // distanceTraveled = deltaRotation/(m_wheelDiameter/2);
 
-    // //log(logLocation::Odom, "Tick Count: %i, Current Rot: %f, Delta Rot %f, Distance %f", m_horizontalTrackingWheel.get_position(), currentRotation, deltaRotation, distanceTraveled);
+    //  //log(logLocation::Odom, "Tick Count: %i, Current Rot: %f, Delta Rot %f, Distance %f", m_horizontalTrackingWheel.get_position(), currentRotation, deltaRotation, distanceTraveled);
 
     // if (!(fabs(deltaAngle) <= 0.05)){
 

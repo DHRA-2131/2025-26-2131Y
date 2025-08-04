@@ -12,7 +12,7 @@ pros::Controller mainController(pros::E_CONTROLLER_MASTER);
 
 pros::Imu IMU(17);
 
-pros::MotorGroup intakeGroup({11, 9, 4});
+pros::MotorGroup intakeGroup({10, -9, 4});
 
 
 #ifdef PROG_CHASSIS

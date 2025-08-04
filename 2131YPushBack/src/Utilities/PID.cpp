@@ -1,6 +1,6 @@
 #include "Utilities/PID.hpp"
 
-PID::PID(double kP, double kI, double kD) : m_kp(kP), m_ki(kI), m_kd(kD), m_derivative(0), m_prevError(0), m_integral(0), m_integralDamp(1)
+PID::PID(double kP, double kI, double kD) : m_kp(kP), m_ki(kI), m_kd(kD), m_derivative(0), m_prevError(0), m_integral(0), m_integralDamp(0.95)
 {}
 
 
@@ -24,5 +24,5 @@ void PID::reset(){
 }
 
 
-PID lateralPID(0, 0, 0);
-PID angularPID(0.125, 0, 18 );
+PID lateralPID(10, 0, 0);
+PID angularPID(0, 0, 0);

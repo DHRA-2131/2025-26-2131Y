@@ -16,7 +16,7 @@ m_wheelOffset(WheelDiameter),
 m_gearRatio(GearRatio),
 m_prevPose(0,0,0),
 
-m_updateTask([=](){
+m_updateTask([=, this](){
   
     while(true){
         pros::screen::print(pros::E_TEXT_MEDIUM, 3, "It worked!");

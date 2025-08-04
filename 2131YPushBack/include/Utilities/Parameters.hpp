@@ -38,7 +38,7 @@ struct turningParameters{
      double minSpeed = 5;
      double maxSpeed = 127; //Volts
 
-     double maxAccel = 6; //Volts/S/S
+     double maxAccel = -1; //Volts/S/S
 
      bool stopDriving = true;
 
