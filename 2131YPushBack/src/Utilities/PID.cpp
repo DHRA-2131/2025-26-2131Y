@@ -26,7 +26,7 @@ void PID::reset(){
 
 #if PROG_CHASSIS
 
-PID lateralPID(10, 0, 0);
+PID lateralPID(8, 0, 40);
 PID angularPID(0, 0, 0);
 
 #else
