@@ -129,7 +129,7 @@ void opcontrol() {
     chassis.driveToPoint(Point(0, 24));
     
     
-    /*const bool tank = true;   
+    /*const bool tank = false;   
     while(true){
     if (!tank){
     leftDrive.move(linearJoystick.value() + angularJoystick.value());
@@ -147,8 +147,8 @@ void opcontrol() {
     
 
      pros::delay(20);
-    }*/
-     
+    }
+     */
      
      
 

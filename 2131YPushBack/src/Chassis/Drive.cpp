@@ -108,7 +108,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
 
         //pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Angle: %f", angularOutput);
         //pros::screen::print(pros::E_TEXT_MEDIUM, 2, "Lateral: %f", lateralOutput);
-        log(logLocation::Drive, "Angular: %f, Lateral %f, GlobalX: %f, Distance: %f, Angle: %f, Velocity: %f, Settle %i, Vel Settle: %i", angularOutput, lateralOutput, currentPose.x, distanceToPoint,angleToPoint, distanceToPoint-prevDistanceToPoint, settleExit.canExit(distanceToPoint), velocitySettleExit.canExit(distanceToPoint-prevDistanceToPoint));
+        //log(logLocation::Drive, "Angular: %f, Lateral %f, GlobalX: %f, Distance: %f, Angle: %f, Velocity: %f, Settle %i, Vel Settle: %i", angularOutput, lateralOutput, currentPose.x, distanceToPoint,angleToPoint, distanceToPoint-prevDistanceToPoint, settleExit.canExit(distanceToPoint), velocitySettleExit.canExit(distanceToPoint-prevDistanceToPoint));
 
         // Move Motors
         this->leftSide.move(lateralOutput + angularOutput);
@@ -127,8 +127,6 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         leftSide.brake();
         rightSide.brake();
     }
-
-    log(logLocation::Drive, "Got Here!");
 
 }
 
@@ -178,7 +176,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     prev_error = error;
     prev_output = output;
 
-    log(logLocation::Drive, "Output: %f, Settle %i", output, settledExit.canExit(error));
+    //log(logLocation::Drive, "Output: %f, Settle %i", output, settledExit.canExit(error));
     pros::delay(10);
     
     

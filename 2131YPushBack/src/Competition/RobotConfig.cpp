@@ -15,7 +15,7 @@ pros::Imu IMU(17);
 pros::MotorGroup intakeGroup({10, -9, 4});
 
 
-#ifdef PROG_CHASSIS
+#if  PROG_CHASSIS
 pros::MotorGroup leftDrive({-10, -21, -15}); //-16,-17,-19 for actual robot - -10,-21, -15 for drivebase
 pros::MotorGroup rightDrive({16, 20, 13}); //14, 2, 1 - 16, 20, 13
 

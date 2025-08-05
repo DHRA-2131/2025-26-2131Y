@@ -18,7 +18,7 @@ struct drivingParameters{
     double minSpeed = 0;
     double maxSpeed = 127; //Volts
 
-    double maxAccel = -1; //Volts/S^2
+    double maxAccel = 4; //Volts/S^2
 
     double lockAngleDistance = 5;
 
