@@ -22,6 +22,10 @@ void Intake::set(intakeState state){
             m_intakeMotors.move_voltage(-12000);
             break;
 
+        case intakeState::OuttakeMid:
+            
+            
+
         default:
             m_intakeMotors.move_voltage(0); //Dont brake if something gets set weird, but stop
     }

@@ -31,5 +31,7 @@ ControllerJoystick tankLeftJoystick(pros::E_CONTROLLER_ANALOG_LEFT_Y, 0, 1);
 ControllerJoystick tankRightJoystick(pros::E_CONTROLLER_ANALOG_RIGHT_Y, 0, 1);
 
 ControllerButton intakeButton(pros::E_CONTROLLER_DIGITAL_R1, false);
-ControllerButton outtakeButton(pros::E_CONTROLLER_DIGITAL_R2, false);
+ControllerButton reverseIntakeButton(pros::E_CONTROLLER_DIGITAL_R2, false);
+ControllerButton outtakeTop(pros::E_CONTROLLER_DIGITAL_L1, false);
+ControllerButton outtakeMid(pros::E_CONTROLLER_DIGITAL_L2, false);
 

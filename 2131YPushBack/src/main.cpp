@@ -120,16 +120,16 @@ void opcontrol() {
     
     
    //DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
-    TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 1.25, horizontalRotation,8.125, 2, IMU);
+    //TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 1.25, horizontalRotation,8.125, 2, IMU);
     //chassis.driveToPoint(Point(0,24));
     // chassis.turnToAbsoluteHeading(90);
    //while(true);
 
     
-    chassis.driveToPoint(Point(0, 24));
+    //chassis.driveToPoint(Point(0, 24));
     
     
-    /*const bool tank = false;   
+    const bool tank = false;   
     while(true){
     if (!tank){
     leftDrive.move(linearJoystick.value() + angularJoystick.value());
@@ -140,15 +140,22 @@ void opcontrol() {
         rightDrive.move(tankRightJoystick.value());
     }
 
-    if (intakeButton.value()) intake.set(intakeState::Forward);
-    else if (outtakeButton.value()) intake.set(intakeState::Reverse);
-    else intake.set(intakeState::Stop);
 
+    //If R1 Intake ALL
+    //If R2 Reverse ALL
+
+    //If L1, Outtake Top Only
+    //If L2, Top roller spin opposite
+   if (intakeButton.value())intake.set(intakeState::Forward);
+   else if (reverseIntakeButton.value()) intake.set(intakeState::Forward);
+   else if (outtakeMid.value()) intake.set(intakeState::OuttakeMid);
+   else if (outtakeTop.value()) intake.set(intakeState::OuttakeTop);
+   else intake.set(intakeState::Stop);
     
 
      pros::delay(20);
     }
-     */
+     
      
      
 

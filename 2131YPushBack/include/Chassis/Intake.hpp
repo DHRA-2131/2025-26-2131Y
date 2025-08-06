@@ -8,7 +8,9 @@ enum class intakeState
 {
     Stop,
     Forward,
-    Reverse
+    Reverse,
+    OuttakeMid,
+    OuttakeTop
 };
 
 

@@ -50,4 +50,6 @@ extern ControllerJoystick tankLeftJoystick;
 extern ControllerJoystick tankRightJoystick;
 
 extern ControllerButton intakeButton;
-extern ControllerButton outtakeButton;
+extern ControllerButton reverseIntakeButton;
+extern ControllerButton outtakeTop;
+extern ControllerButton outtakeMid;
