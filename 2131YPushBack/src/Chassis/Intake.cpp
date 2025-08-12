@@ -10,8 +10,8 @@ void Intake::set(intakeState state){
     switch(state){
 
         case intakeState::Stop:
-            m_intakemotor1.set_brake_mode(pros::MotorBrake::brake);
-            m_intakemotor2.set_brake_mode(pros::MotorBrake::brake);
+            //m_intakemotor1.set_brake_mode(pros::MotorBrake::brake);
+            //m_intakemotor2.set_brake_mode(pros::MotorBrake::brake);
             m_intakemotor1.move(0);
             m_intakemotor2.move(0);
             m_intakemotor3.move(0);
@@ -32,11 +32,11 @@ void Intake::set(intakeState state){
         case intakeState::OuttakeMid:
             m_intakemotor1.move(127);
             m_intakemotor2.move(-127);
-            m_intakemotor3.move(127);
+            m_intakemotor3.move(-127);
             break;
         
         case intakeState::OuttakeTop:
-            m_intakemotor1.move(0);
+            m_intakemotor1.move(127);
             m_intakemotor2.move(127);
             m_intakemotor3.move(-127);
             break;
