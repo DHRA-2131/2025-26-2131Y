@@ -147,13 +147,13 @@ void opcontrol() {
     //If L1, Outtake Top Only
     //If L2, Top roller spin opposite
    if (intakeButton.value())intake.set(intakeState::Forward);
-   else if (reverseIntakeButton.value()) intake.set(intakeState::Forward);
+   else if (reverseIntakeButton.value()) intake.set(intakeState::Reverse);
    else if (outtakeMid.value()) intake.set(intakeState::OuttakeMid);
    else if (outtakeTop.value()) intake.set(intakeState::OuttakeTop);
    else intake.set(intakeState::Stop);
     
 
-     pros::delay(20);
+     pros::delay(21);
     }
      
      

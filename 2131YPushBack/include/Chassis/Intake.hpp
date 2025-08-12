@@ -25,7 +25,7 @@ class Intake
         * @param intakeMotors
         */
 
-        Intake(pros::MotorGroup& intakeMotors);
+        Intake(pros::Motor& intakemotor1, pros::Motor& intakemotor2, pros::Motor& intakemotor3);
 
 
         /**
@@ -36,7 +36,9 @@ class Intake
         void set(intakeState state);
 
     private:
-        pros::MotorGroup& m_intakeMotors;
+        pros::Motor& m_intakemotor1;
+        pros::Motor& m_intakemotor2;
+        pros::Motor& m_intakemotor3;
 
 };
 
