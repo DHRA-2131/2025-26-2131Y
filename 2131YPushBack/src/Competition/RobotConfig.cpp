@@ -2,6 +2,7 @@
 #include "pros/misc.hpp"
 #include "Utilities/Positioning.hpp"
 #include "pros/motor_group.hpp"
+#include "pros/motors.hpp"
 #include "pros/rotation.hpp"
 
 Pose globalRobotPose(0,0,0);
@@ -12,7 +13,11 @@ pros::Controller mainController(pros::E_CONTROLLER_MASTER);
 
 pros::Imu IMU(17);
 
-pros::MotorGroup intakeGroup({-10, 9, 4});
+namespace intakeMotors{
+    pros::Motor front(9);
+    pros::Motor top(4);
+    pros::Motor back(-10);
+}
 
 
 #if  PROG_CHASSIS

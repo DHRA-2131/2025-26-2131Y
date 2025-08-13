@@ -18,7 +18,13 @@ extern pros::MotorGroup rightDrive;
 
 extern pros::Imu IMU;
 
-extern pros::MotorGroup intakeGroup;
+
+namespace intakeMotors {
+    extern pros::Motor front;
+    extern pros::Motor top;
+    extern pros::Motor back;
+
+}
 
 #ifdef PROG_CHASSIS
 

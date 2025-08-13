@@ -36,9 +36,9 @@ class Intake
         void set(intakeState state);
 
     private:
-        pros::Motor& m_intakemotor1;
-        pros::Motor& m_intakemotor2;
-        pros::Motor& m_intakemotor3;
+        pros::Motor& m_intakeFront;
+        pros::Motor& m_intakeTop;
+        pros::Motor& m_intakeBack;
 
 };
 
