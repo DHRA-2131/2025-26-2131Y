@@ -7,6 +7,7 @@
 #include "Utilities/Parameters.hpp"
 #include "Utilities/Positioning.hpp"
 #include "Utilities/mathUtils.hpp"
+#include "pros/abstract_motor.hpp"
 #include "pros/screen.hpp"
 #include <algorithm>
 
@@ -108,7 +109,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
 
         //pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Angle: %f", angularOutput);
         //pros::screen::print(pros::E_TEXT_MEDIUM, 2, "Lateral: %f", lateralOutput);
-        //log(logLocation::Drive, "Angular: %f, Lateral %f, GlobalX: %f, Distance: %f, Angle: %f, Velocity: %f, Settle %i, Vel Settle: %i", angularOutput, lateralOutput, currentPose.x, distanceToPoint,angleToPoint, distanceToPoint-prevDistanceToPoint, settleExit.canExit(distanceToPoint), velocitySettleExit.canExit(distanceToPoint-prevDistanceToPoint));
+        log(logLocation::Drive, "Angular: %f, Lateral %f, GlobalX: %f, Distance: %f, Angle: %f, Velocity: %f, Settle %i, Vel Settle: %i", angularOutput, lateralOutput, currentPose.x, distanceToPoint,angleToPoint, distanceToPoint-prevDistanceToPoint, settleExit.canExit(distanceToPoint), velocitySettleExit.canExit(distanceToPoint-prevDistanceToPoint));
 
         // Move Motors
         this->leftSide.move(lateralOutput + angularOutput);
@@ -127,6 +128,8 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         leftSide.brake();
         rightSide.brake();
     }
+    leftSide.move(0);
+    rightSide.move(0);
 
 }
 
@@ -142,8 +145,8 @@ void Drive::turnToPoint(Point point, turningParameters turningSettings){
 
 void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turningSettings){
     /* Set up turning paramters*/
-    ExitCondition settledExit(turningSettings.settleExitRange,turningSettings.settleExitTime,10);
-    ExitCondition velocitySettleExit(turningSettings.velocitySettleExitRange,turningSettings.velocitySettleExitTime,10);
+    ExitCondition settledExit(turningSettings.settleExitRange,turningSettings.settleExitTime,20);
+    ExitCondition velocitySettleExit(turningSettings.velocitySettleExitRange,turningSettings.velocitySettleExitTime,20);
     double error = 0;
     double prev_error = 0;
     double prev_output = 0;
@@ -156,31 +159,38 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
         pros::Task asyncTask([=, this]{turnToAbsoluteHeading(targetHeading, turningSettings);});
         return;
     }
-
+    
     do {
 
     //Prevent turning more than nessisary
-    error = wrapAngle(targetHeading - currentPose.theta);
-    
-    double output = std::clamp(m_angularPID.calculate(error), -turningSettings.maxSpeed, turningSettings.maxSpeed);
+    error = wrapAngle((targetHeading - currentPose.theta));
+
+    double pidOutput = m_angularPID.calculate(error);
+    double output = std::clamp(pidOutput, -turningSettings.maxSpeed, turningSettings.maxSpeed);
     output = constrainAccel(output, prev_output, turningSettings.maxAccel);
     
 
     if (turningSettings.arc == arcDirection::arcToLeft) this->rightSide.move(output);
     else if (turningSettings.arc == arcDirection::arcToRight) this->leftSide.move(output);
     else {
-        this->leftSide.move(-output);
-        this->rightSide.move(output);
+        this->leftSide.move(output);
+        this->rightSide.move(-output);
     }
 
     prev_error = error;
     prev_output = output;
 
     //log(logLocation::Drive, "Output: %f, Settle %i", output, settledExit.canExit(error));
-    pros::delay(10);
+    //log(logLocation::Drive, "Angle: %f, Output: %f, Error %f, Actual Error: %f, PID Output: %f", currentPose.theta, output, error, targetHeading-currentPose.theta, pidOutput);
+    log(logLocation::Drive, "%f, %f, %f", output, pidOutput, error);
+    pros::delay(20);
     
     
-    } while (!settledExit.canExit(error) || !velocitySettleExit.canExit(error-prev_error));
+    } while (!settledExit.canExit(error)|| !velocitySettleExit.canExit(error-prev_error));
+    this->leftSide.brake();
+    this->rightSide.brake();
+    this->leftSide.move(0);
+    this->rightSide.move(0);
 
 
 }

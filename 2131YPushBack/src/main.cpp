@@ -90,6 +90,13 @@ void autonomous() {
     // leftDrive.brake();
     // rightDrive.brake();
 
+    DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
+    //TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 1.25, horizontalRotation,8.125, 2, IMU);
+    //chassis.driveToPoint(Point(0,24));
+    chassis.turnToAbsoluteHeading(90);
+    
+    while(true);
+
     
 
 }
@@ -119,14 +126,11 @@ void opcontrol() {
     
     
     
-   //DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
-    //TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 1.25, horizontalRotation,8.125, 2, IMU);
-    //chassis.driveToPoint(Point(0,24));
-    // chassis.turnToAbsoluteHeading(90);
-   //while(true);
+   
 
     
-    //chassis.driveToPoint(Point(0, 24));
+    
+
     
     
     const bool tank = false;   

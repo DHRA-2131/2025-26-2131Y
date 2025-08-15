@@ -26,7 +26,7 @@ m_updateTask([=, this](){
         double avgAngle = toRad(((m_currentPose.theta+m_prevPose.theta)/2));//toRad(((m_currentPose.theta + m_prevPose.theta)/2)); //Set wrapAngle to radians
 
 
-        log(logLocation::Odom, "Angle %f, Avg Angle: %f", deltaAngle, avgAngle);
+        //log(logLocation::Odom, "Angle %f, Avg Angle: %f", deltaAngle, avgAngle);
 
 
         
@@ -59,21 +59,21 @@ m_updateTask([=, this](){
 
             
 
-            m_currentPose.x += linearDistance*cos(avgAngle);
-            m_currentPose.y += linearDistance*sin(avgAngle);
+            m_currentPose.y += linearDistance*cos(avgAngle);
+            m_currentPose.x += linearDistance*sin(avgAngle);
 
         }
         else {
             
-            m_currentPose.x += distanceTraveled*cos(toRad(m_currentPose.theta));
-            m_currentPose.y += distanceTraveled*sin(toRad(m_currentPose.theta));
+            m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
+            m_currentPose.x += distanceTraveled*sin(toRad(m_currentPose.theta));
         }
 
         m_prevPose = m_currentPose;
         m_prevRotation = avgRotation;
     
 
-        log(logLocation::Odom, "X: %f, Y: %f, Theta: %f", m_currentPose.x, m_currentPose.y, m_currentPose.theta);
+        //log(logLocation::Odom, "X: %f, Y: %f, Theta: %f", m_currentPose.x, m_currentPose.y, m_currentPose.theta);
         
 
        

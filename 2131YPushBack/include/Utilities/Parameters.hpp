@@ -31,12 +31,12 @@ struct turningParameters{
      bool waitForCompletion = true;
      
      int settleExitTime = 1;
-     int settleExitRange = 0;
-     int velocitySettleExitTime = 0;
-     int velocitySettleExitRange = 0;
+     int settleExitRange = 2;
+     int velocitySettleExitTime = 1;
+     int velocitySettleExitRange = 50;
 
-     double minSpeed = 5;
-     double maxSpeed = 127; //Volts
+     double minSpeed = 0;
+     double maxSpeed = 127; //-127 - 127
 
      double maxAccel = -1; //Volts/S/S
 
