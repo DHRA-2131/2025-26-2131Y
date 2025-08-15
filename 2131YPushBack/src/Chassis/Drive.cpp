@@ -135,7 +135,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
 
 void Drive::turnToPoint(Point point, turningParameters turningSettings){
     //Calculate target heading
-    double angle = toRad(std::atan2(point.y-this->currentPose.y, point.x-this->currentPose.y));
+    double angle = toDeg(std::atan2(point.y-this->currentPose.y, point.x-this->currentPose.y));
     
     //Error (wrapped between -180 and 180)
     angle = wrapAngle(angle - this->currentPose.theta);

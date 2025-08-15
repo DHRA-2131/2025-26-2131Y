@@ -9,7 +9,7 @@ double wrapAngle(double angle, bool degrees){
     }
     
     // Same but for rads
-    else angle = (angle > (2 * M_PI)) ? angle - (4 * M_PI) : ((angle < (-2 * M_PI)) ? angle + (4 * M_PI) : angle);
+    else angle = (angle > (M_PI)) ? angle - (2 * M_PI) : ((angle < (-1 * M_PI)) ? angle + (2 * M_PI) : angle);
     
     return angle;
 }
