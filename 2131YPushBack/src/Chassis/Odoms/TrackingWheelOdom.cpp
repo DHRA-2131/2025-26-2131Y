@@ -18,11 +18,11 @@ m_horizontalWheelOffset(HorizontalWheelOffset),
 m_wheelDiameter(WheelDiameter),
 
 m_prevPose(0,0,0),
-m_updateTask([=]{
+m_updateTask([=, this]{
 
     //Why suspend this task before starting it?
-    m_verticalTrackingWheel.set_position(0);
-    m_horizontalTrackingWheel.set_position(0);
+    this->m_verticalTrackingWheel.set_position(0);
+    this->m_horizontalTrackingWheel.set_position(0);
 
     while(true){
 
@@ -44,17 +44,17 @@ m_updateTask([=]{
 
             
 
-            m_currentPose.y += linearDistance*cos(avgAngle);
-            m_currentPose.x -= linearDistance*sin(avgAngle);
+            this->m_currentPose.y += linearDistance*cos(avgAngle);
+            this->m_currentPose.x -= linearDistance*sin(avgAngle);
 
         }
     else {
         
-        m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
-        m_currentPose.x -= distanceTraveled*sin(toRad(m_currentPose.theta));
+        this->m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
+        this->m_currentPose.x -= distanceTraveled*sin(toRad(m_currentPose.theta));
     }
 
-     m_prevVerticalTrackingRotation = currentRotation;
+     this->m_prevVerticalTrackingRotation = currentRotation;
 
     /******************************/
     /* Horizontal Wheel           */
@@ -93,13 +93,10 @@ m_updateTask([=]{
     // }
 
 
-    m_prevPose = m_currentPose;
-    // m_prevHorizontalTrackingRotation = currentRotation;
-    // pros::screen::print(pros::E_TEXT_MEDIUM, 9, "X: %f, Y: %f", m_currentPose.x , m_currentPose.y);
-
-   
-    //log(logLocation::Odom, "X: %f, Y: %f, Theta: %f, Rotation: %i", m_currentPose.x, m_currentPose.y, m_currentPose.theta,   m_verticalTrackingWheel.get_position());
-    log(logLocation::Odom, "%f", m_currentPose.y);
+    this->m_prevPose = this->m_currentPose;
+    //this->m_prevHorizontalTrackingRotation = currentRotation;
+    
+    
     pros::delay(10);
     
 
@@ -116,7 +113,7 @@ m_updateTask([=]{
 
 
 TrackingWheelOdom::~TrackingWheelOdom(){
-    m_updateTask.remove();
+    this->m_updateTask.remove();
 }
 
 void TrackingWheelOdom::startOdom(){};

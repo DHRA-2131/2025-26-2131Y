@@ -1,18 +1,15 @@
 #include "main.h"
 
-#include "Chassis/ControllerInput.hpp"
-#include "Chassis/Odoms/DriveWheelOdom.hpp"
-#include "Chassis/Odoms/TrackingWheelOdom.hpp"
 #include "Competition/RobotConfig.hpp"
+
+#include "Chassis/ControllerInput.hpp"
+#include "Chassis/Intake.hpp"
 #include "Chassis/Drive.hpp"
+
 #include "Utilities/Logging.hpp"
-#include "pros/misc.h"
+
 #include "pros/misc.hpp"
 #include <cmath>
-#include <ios>
-// #include "Chassis/BrainScreen.hpp"
-
-
 
 
 
@@ -28,17 +25,6 @@ void initialize() {
 
     IMU.reset(true);
     log(logLocation::MAIN, "Imu Calibrated");
-
-
-
-
-    
-
-    //Logger<int>("TestVar", &test, 200);
-
-    
-
-
     
 }
 
@@ -77,29 +63,15 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-    // log(logLocation::MAIN, "Auton Started");
-    // pros::Task autonTask = pros::Task([]{}); //Replace with auton task
-    // pros::delay(14900); //Delay 14.5 seconds
+    log(logLocation::MAIN, "Auton Started, Current X and Y: (%f, %f)", globalRobotPose.x, globalRobotPose.y);
 
-    // autonTask.remove(); //Kill Auton Task
-    // log(logLocation::MAIN, "Auton Killed!");
-    
-    // leftDrive.set_brake_mode(pros::MotorBrake::brake);
-    // rightDrive.set_brake_mode(pros::MotorBrake::brake);
-
-    // leftDrive.brake();
-    // rightDrive.brake();
-
-    DriveWheelOdom Odom(globalRobotPose, IMU, leftDrive, rightDrive, 7, 3.25, 0.4115);
-    //TrackingWheelOdom Odom(globalRobotPose, verticalRotation, 1.25, horizontalRotation,8.125, 2, IMU);
-    //chassis.driveToPoint(Point(0,24));
     chassis.turnToAbsoluteHeading(90);
     
     while(true);
 
     
 
-}
+} //autonomous
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -116,52 +88,41 @@ void autonomous() {
  */
 
 
- #include "Chassis/Odoms/DriveWheelOdom.hpp"
- #include "Competition/RobotConfig.hpp"
- #include "Chassis/Intake.hpp"
+
 
 
 void opcontrol() {
     log(logLocation::MAIN, "Op Control Started");
-    
-    
-    
-   
-
-    
-    
-
-    
-    
+      
     const bool tank = false;   
     while(true){
-    if (!tank){
-    leftDrive.move(linearJoystick.value() + angularJoystick.value());
-    rightDrive.move(linearJoystick.value() - angularJoystick.value());
-    }
-    else {
-        leftDrive.move(tankLeftJoystick.value());
-        rightDrive.move(tankRightJoystick.value());
-    }
+        if (!tank){
+        leftDrive.move(linearJoystick.value() + angularJoystick.value());
+        rightDrive.move(linearJoystick.value() - angularJoystick.value());
+        }
+        else {
+            leftDrive.move(tankLeftJoystick.value());
+            rightDrive.move(tankRightJoystick.value());
+        }
 
 
-    //If R1 Intake ALL
-    //If R2 Reverse ALL
+        //If R1 Intake ALL
+        //If R2 Reverse ALL
 
-    //If L1, Outtake Top Only
-    //If L2, Top roller spin opposite
-   if (intakeButton.value())intake.set(intakeState::Forward);
-   else if (reverseIntakeButton.value()) intake.set(intakeState::Reverse);
-   else if (outtakeMid.value()) intake.set(intakeState::OuttakeMid);
-   else if (outtakeTop.value()) intake.set(intakeState::OuttakeTop);
-   else intake.set(intakeState::Stop);
+        //If L1, Outtake Top Only
+        //If L2, Top roller spin opposite
+        if (intakeButton.value())intake.set(intakeState::Forward);
+        else if (reverseIntakeButton.value()) intake.set(intakeState::Reverse);
+        else if (outtakeMid.value()) intake.set(intakeState::OuttakeMid);
+        else if (outtakeTop.value()) intake.set(intakeState::OuttakeTop);
+        else intake.set(intakeState::Stop);
     
 
-     pros::delay(21);
-    }
+        pros::delay(21);
+    } //Opcontrol While True
      
      
      
 
    
-}
+} //opcontrol()

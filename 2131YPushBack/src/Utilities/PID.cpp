@@ -30,11 +30,11 @@ void PID::reset(){
 #if PROG_CHASSIS
 
 PID lateralPID(8, 0, 40);
-PID angularPID(0, 0, 0);
+PID angularPID(1.5, 0, 5);
 
 #else
 
 PID lateralPID(8,0,40);
-PID angularPID(0.75,0,0); //kp 0.5
+PID angularPID(0.8,0,6); //kp 0.5
 
 #endif

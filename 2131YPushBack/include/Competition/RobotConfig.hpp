@@ -5,8 +5,9 @@
 #include "pros/motor_group.hpp"
 #include "Utilities/Positioning.hpp"
 #include "pros/rotation.hpp"
+#include "Chassis/Odoms/DriveWheelOdom.hpp"
 
-#define PROG_CHASSIS 0
+#define PROG_CHASSIS 1
 
 
 extern Pose globalRobotPose;
@@ -18,6 +19,8 @@ extern pros::MotorGroup rightDrive;
 
 extern pros::Imu IMU;
 
+extern DriveWheelOdom Odom;
+
 
 namespace intakeMotors {
     extern pros::Motor front;
@@ -25,6 +28,8 @@ namespace intakeMotors {
     extern pros::Motor back;
 
 }
+
+
 
 #ifdef PROG_CHASSIS
 

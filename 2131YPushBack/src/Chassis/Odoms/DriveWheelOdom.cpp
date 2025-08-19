@@ -17,6 +17,8 @@ m_gearRatio(GearRatio),
 m_prevPose(0,0,0),
 
 m_updateTask([=, this](){
+
+    this->m_updateTask.suspend();
   
     while(true){
         pros::screen::print(pros::E_TEXT_MEDIUM, 3, "It worked!");
@@ -59,18 +61,18 @@ m_updateTask([=, this](){
 
             
 
-            m_currentPose.y += linearDistance*cos(avgAngle);
-            m_currentPose.x += linearDistance*sin(avgAngle);
+            this->m_currentPose.y += linearDistance*cos(avgAngle);
+            this->m_currentPose.x += linearDistance*sin(avgAngle);
 
         }
         else {
             
-            m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
-            m_currentPose.x += distanceTraveled*sin(toRad(m_currentPose.theta));
+            this->m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
+            this->m_currentPose.x += distanceTraveled*sin(toRad(m_currentPose.theta));
         }
 
-        m_prevPose = m_currentPose;
-        m_prevRotation = avgRotation;
+        this->m_prevPose = this->m_currentPose;
+        this->m_prevRotation = avgRotation;
     
 
         //log(logLocation::Odom, "X: %f, Y: %f, Theta: %f", m_currentPose.x, m_currentPose.y, m_currentPose.theta);
@@ -87,18 +89,18 @@ m_updateTask([=, this](){
 {}
 
 DriveWheelOdom::~DriveWheelOdom(){
-    m_updateTask.remove();
+    this->m_updateTask.remove();
 }
 
 void DriveWheelOdom::startOdom(){
-    m_updateTask.resume();
+    this->m_updateTask.resume();
 }
 void DriveWheelOdom::stopOdom(){
-    m_updateTask.suspend();
+    this->m_updateTask.suspend();
 }
 void DriveWheelOdom::setPosition(Pose& newPose){
-    m_currentPose = newPose;
-    m_prevPose = newPose;
+    this->m_currentPose = newPose;
+    this->m_prevPose = newPose;
 }
 
 //DriveWheelOdom robotOdom(globalRobotPose, IMU, leftDrive, rightDrive, 8, 3.25);

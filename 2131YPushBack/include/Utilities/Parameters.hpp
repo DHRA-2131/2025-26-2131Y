@@ -30,10 +30,10 @@ struct turningParameters{
 
      bool waitForCompletion = true;
      
-     int settleExitTime = 1;
+     int settleExitTime = 100;
      int settleExitRange = 2;
-     int velocitySettleExitTime = 1;
-     int velocitySettleExitRange = 50;
+     int velocitySettleExitTime = 100;
+     int velocitySettleExitRange = 100;
 
      double minSpeed = 0;
      double maxSpeed = 127; //-127 - 127

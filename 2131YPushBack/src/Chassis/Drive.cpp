@@ -163,7 +163,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     do {
 
     //Prevent turning more than nessisary
-    error = wrapAngle((targetHeading - currentPose.theta));
+    error = wrapAngle((targetHeading - IMU.get_heading()));
 
     double pidOutput = m_angularPID.calculate(error);
     double output = std::clamp(pidOutput, -turningSettings.maxSpeed, turningSettings.maxSpeed);
@@ -182,7 +182,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
 
     //log(logLocation::Drive, "Output: %f, Settle %i", output, settledExit.canExit(error));
     //log(logLocation::Drive, "Angle: %f, Output: %f, Error %f, Actual Error: %f, PID Output: %f", currentPose.theta, output, error, targetHeading-currentPose.theta, pidOutput);
-    log(logLocation::Drive, "%f, %f, %f", output, pidOutput, error);
+    log(logLocation::Drive, "%f, %f, %f, %f", output, pidOutput, error, IMU.get_heading());
     pros::delay(20);
     
     
@@ -191,6 +191,9 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     this->rightSide.brake();
     this->leftSide.move(0);
     this->rightSide.move(0);
+
+    
+    
 
 
 }
