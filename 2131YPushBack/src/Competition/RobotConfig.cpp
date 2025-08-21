@@ -25,7 +25,8 @@ namespace intakeMotors{
 pros::MotorGroup leftDrive({-10, -21, -15}); //-16,-17,-19 for actual robot - -10,-21, -15 for drivebase
 pros::MotorGroup rightDrive({16, 20, 13}); //14, 2, 1 - 16, 20, 13
 
-pros::Imu IMU(17);
+pros::IMU IMU1(17);
+pros::IMU IMU2(21);
 
 /* Robot Testing Chassis */
 pros::Rotation verticalRotation(-18);
