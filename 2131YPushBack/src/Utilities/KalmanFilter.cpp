@@ -23,3 +23,7 @@ double KalmanFilter::calculateFilter(double MeasuredMean, double EstimateMean){
 
     return EstimateMean;
 }
+
+
+KalmanFilter GyroFilter1(0, 0, 0);
+KalmanFilter GyroFilter2(0, 0, 0);
