@@ -17,7 +17,6 @@ extern pros::Controller mainController;
 extern pros::MotorGroup leftDrive;
 extern pros::MotorGroup rightDrive;
 
-extern pros::Imu IMU;
 
 extern DriveWheelOdom Odom;
 
@@ -35,5 +34,10 @@ namespace intakeMotors {
 
 extern pros::Rotation verticalRotation;
 extern pros::Rotation horizontalRotation;
+
+namespace chassisIMUs {
+extern pros::Imu IMU1;
+extern pros::Imu IMU2;
+}
 
 #endif
