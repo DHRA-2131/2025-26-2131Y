@@ -7,6 +7,9 @@
 #define toDeg(rad) (rad * 180/M_PI)
 #define toRad(deg) (deg * M_PI/180)
 
+#define metersToInches(meters) (meters*39.3701)
+#define inchesToMeters(inches) (inches/39.3701)
+
 double wrapAngle(double angle, bool degrees = true);
 double constrainAccel(double targetVelocity, double currentVelocity, double maxAccel);
 

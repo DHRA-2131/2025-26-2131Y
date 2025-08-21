@@ -14,7 +14,7 @@ class AbstractOdom
          * @param imu
          *
          */
-        AbstractOdom(Pose& RobotPose, pros::IMU& imu) : m_currentPose(RobotPose), m_imu(imu){};
+        AbstractOdom(Pose& RobotPose, pros::IMU& imu, pros::Task UpdateTask) : m_currentPose(RobotPose), m_imu(imu), m_updateTask(UpdateTask){};
         virtual void startOdom() = 0; //Making it pure virtual
         virtual void stopOdom() = 0;
 
@@ -24,6 +24,8 @@ class AbstractOdom
     protected: //Not private so child classes can access
         Pose& m_currentPose;
         pros::IMU& m_imu;
+
+        pros::Task& m_updateTask;
 
        
 

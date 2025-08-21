@@ -2,25 +2,18 @@
 #include "Utilities/AbstractOdom.hpp"
 #include "Utilities/mathUtils.hpp"
 #include <cmath>
-#include "Utilities/Logging.hpp"
+
 #include "pros/rotation.hpp"
 #include "pros/rtos.h"
-#include "pros/screen.hpp"
+
 
 
 TrackingWheelOdom::TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel,  double VerticalWheelOffset, pros::Rotation& HorizontalTrackingWheel, double HorizontalWheelOffset, double WheelDiameter, pros::IMU& Imu) :
-AbstractOdom(robotPose, Imu),
-m_verticalTrackingWheel(VerticalTrackingWheel),
-m_horizontalTrackingWheel(HorizontalTrackingWheel),
-
-m_verticalWheelOffset(VerticalWheelOffset),
-m_horizontalWheelOffset(HorizontalWheelOffset),
-m_wheelDiameter(WheelDiameter),
-
-m_prevPose(0,0,0),
-m_updateTask([=, this]{
+AbstractOdom(robotPose, Imu, pros::Task([=, this]{
 
     //Why suspend this task before starting it?
+    this->m_updateTask.suspend();
+    
     this->m_verticalTrackingWheel.set_position(0);
     this->m_horizontalTrackingWheel.set_position(0);
 
@@ -108,7 +101,15 @@ m_updateTask([=, this]{
     
     
    
-}, TASK_PRIORITY_MAX)
+}, TASK_PRIORITY_MAX)),
+m_verticalTrackingWheel(VerticalTrackingWheel),
+m_horizontalTrackingWheel(HorizontalTrackingWheel),
+
+m_verticalWheelOffset(VerticalWheelOffset),
+m_horizontalWheelOffset(HorizontalWheelOffset),
+m_wheelDiameter(WheelDiameter),
+
+m_prevPose(0,0,0)
 {}
 
 

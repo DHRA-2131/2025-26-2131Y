@@ -8,7 +8,6 @@
 #include "Utilities/Positioning.hpp"
 #include "Utilities/mathUtils.hpp"
 #include "pros/abstract_motor.hpp"
-#include "pros/screen.hpp"
 #include <algorithm>
 
 
@@ -151,7 +150,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     double prev_error = 0;
     double prev_output = 0;
 
-    m_angularPID.reset();
+    this->m_angularPID.reset();
 
     if (!turningSettings.waitForCompletion){
         turningSettings.waitForCompletion = true;
@@ -165,7 +164,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     //Prevent turning more than nessisary
     error = wrapAngle((targetHeading - IMU.get_heading()));
 
-    double pidOutput = m_angularPID.calculate(error);
+    double pidOutput = this->m_angularPID.calculate(error);
     double output = std::clamp(pidOutput, -turningSettings.maxSpeed, turningSettings.maxSpeed);
     output = constrainAccel(output, prev_output, turningSettings.maxAccel);
     
@@ -186,7 +185,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     pros::delay(20);
     
     
-    } while (!settledExit.canExit(error)|| !velocitySettleExit.canExit(error-prev_error));
+    } while (!settledExit.canExit(error) || !velocitySettleExit.canExit(error-prev_error));
     this->leftSide.brake();
     this->rightSide.brake();
     this->leftSide.move(0);

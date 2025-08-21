@@ -1,21 +1,20 @@
 #pragma once
 
-#include "Utilities/AbstractOdom.hpp"
 #include "Utilities/Positioning.hpp"
-
+#include "Utilities/AbstractOdom.hpp"
 #include "pros/motor_group.hpp"
 #include "pros/imu.hpp"
 
-class DriveWheelOdom /*: public AbstractOdom*/ {
+class DriveWheelOdom : public AbstractOdom{
 
     public:
         DriveWheelOdom(Pose& RobotPose,  pros::IMU& Imu, pros::MotorGroup& Left, pros::MotorGroup& Right,double WheelOffset,double WheelDiameter, double GearRatio);
         ~DriveWheelOdom();
 
-        void startOdom() ;//override;
-        void stopOdom() ;//override;
+        void startOdom() override;
+        void stopOdom() override;
 
-        void setPosition(Pose& newPose) ;//override;
+        void setPosition(Pose& newPose) override;
 
     private:
         
@@ -31,7 +30,7 @@ class DriveWheelOdom /*: public AbstractOdom*/ {
         Pose& m_currentPose;
 
 
-        pros::Task m_updateTask;
+        
 
         double m_prevRotation;
 

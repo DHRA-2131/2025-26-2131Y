@@ -25,9 +25,6 @@ class TrackingWheelOdom : public AbstractOdom
 
         const double m_wheelDiameter;
 
-     
-
-        pros::Task m_updateTask;
 
         double m_prevVerticalTrackingRotation;
         double m_prevHorizontalTrackingRotation;
