@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Chassis/Odoms/GpsOdom.hpp"
 #include "pros/imu.hpp"
 #include "pros/misc.hpp"
 #include "pros/motor_group.hpp"
@@ -18,7 +19,7 @@ extern pros::MotorGroup leftDrive;
 extern pros::MotorGroup rightDrive;
 
 
-extern DriveWheelOdom Odom;
+
 
 
 namespace intakeMotors {
@@ -35,9 +36,15 @@ namespace intakeMotors {
 extern pros::Rotation verticalRotation;
 extern pros::Rotation horizontalRotation;
 
+extern DriveWheelOdom BaseOdom;
+extern GpsOdom Odom;
+
 namespace chassisIMUs {
 extern pros::Imu IMU1;
 extern pros::Imu IMU2;
 }
+
+#else
+extern DriveWheelOdom Odom;
 
 #endif

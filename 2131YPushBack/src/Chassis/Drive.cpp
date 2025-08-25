@@ -162,7 +162,9 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     do {
 
     //Prevent turning more than nessisary
+    this->currentPose.mutex->take();
     error = wrapAngle((targetHeading - chassisIMUs::IMU1.get_heading()));
+    this->currentPose.mutex->give();
 
     double pidOutput = this->m_angularPID.calculate(error);
     double output = std::clamp(pidOutput, -turningSettings.maxSpeed, turningSettings.maxSpeed);

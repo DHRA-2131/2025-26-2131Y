@@ -10,22 +10,25 @@
 
 TrackingWheelOdom::TrackingWheelOdom(Pose& robotPose, pros::Rotation& VerticalTrackingWheel,  double VerticalWheelOffset, pros::Rotation& HorizontalTrackingWheel, double HorizontalWheelOffset, double WheelDiameter, pros::IMU& Imu) :
 
-AbstractOdom(robotPose, Imu, pros::Task([=, this]{
+AbstractOdom(robotPose, Imu, new pros::Task([=, this]{
 
 
 
 
     //Why suspend this task before starting it?
-    this->m_updateTask.suspend();
+    this->m_updateTask->suspend();
     
     this->m_verticalTrackingWheel.set_position(0);
     this->m_horizontalTrackingWheel.set_position(0);
 
         while(true){
-
+        this->m_currentPose.mutex->take();
         this->m_currentPose.theta = m_imu.get_heading();
+        
+        
         double deltaAngle = toRad(wrapAngle(m_currentPose.theta - m_prevPose.theta)); //Fix to -180 to 180
         double avgAngle = toRad(((m_currentPose.theta + m_prevPose.theta)/2));
+        this->m_currentPose.mutex->give();
 
         //Convert to float to keep precision
         double currentRotation = ((float)m_verticalTrackingWheel.get_position()/100);
@@ -37,13 +40,13 @@ AbstractOdom(robotPose, Imu, pros::Task([=, this]{
             double radius = (distanceTraveled/deltaAngle)-m_verticalWheelOffset;
             double linearDistance = 2*radius*sin(deltaAngle/2);
             //log(logLocation::Odom, "Linear Distance %f", linearDistance);
-            
+            this->m_currentPose.mutex->take();
             this->m_currentPose.y += linearDistance*cos(avgAngle);
             this->m_currentPose.x -= linearDistance*sin(avgAngle);
 
         }
         else {
-            
+            this->m_currentPose.mutex->take();
             this->m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
             this->m_currentPose.x -= distanceTraveled*sin(toRad(m_currentPose.theta));
         }
@@ -86,6 +89,7 @@ AbstractOdom(robotPose, Imu, pros::Task([=, this]{
 
 
         this->m_prevPose = this->m_currentPose;
+        this->m_currentPose.mutex->give();
         //this->m_prevHorizontalTrackingRotation = currentRotation;
         
         
@@ -107,7 +111,7 @@ m_prevPose(0,0,0)
 
 
 TrackingWheelOdom::~TrackingWheelOdom(){
-    this->m_updateTask.remove();
+   delete this->m_updateTask;
 }
 
 void TrackingWheelOdom::startOdom(){};

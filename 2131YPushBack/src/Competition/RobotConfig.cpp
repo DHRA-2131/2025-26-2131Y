@@ -1,5 +1,8 @@
 #include "Competition/RobotConfig.hpp"
 
+#include "Chassis/Odoms/GpsOdom.hpp"
+#include "Utilities/KalmanFilter.hpp"
+#include "pros/gps.hpp"
 #include "pros/misc.hpp"
 #include "Utilities/Positioning.hpp"
 #include "pros/motor_group.hpp"
@@ -34,7 +37,12 @@ pros::IMU IMU2(21);
 pros::Rotation verticalRotation(-18);
 pros::Rotation horizontalRotation(-9);
 
-DriveWheelOdom Odom(globalRobotPose, chassisIMUs::IMU1, leftDrive, rightDrive, 7, 3.25, 0.4115);
+DriveWheelOdom BaseOdom(globalRobotPose, chassisIMUs::IMU1, leftDrive, rightDrive, 7, 3.25, 0.4115);
+
+pros::Gps gps(8);
+KalmanFilter xKalmanFilter(0,0,0);
+KalmanFilter yKalmanFilter(0,0,0);
+GpsOdom Odom(BaseOdom, gps,xKalmanFilter,yKalmanFilter);
 
 #else
 

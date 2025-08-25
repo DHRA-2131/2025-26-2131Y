@@ -1,6 +1,8 @@
 #pragma once
 
+#include "pros/rtos.hpp"
 #include <math.h>
+#include <memory>
 
 class Point
 {
@@ -24,6 +26,15 @@ class Point
          */
 
         double getDistanceTo(Point& otherPoint);
+
+        double getX();
+        double getY();
+
+        std::shared_ptr<pros::Mutex> mutex; 
+
+    private:
+        
+
 };
 
 class Pose : public Point 
@@ -47,4 +58,8 @@ class Pose : public Point
          * @param otherPoint
          */
         double getAngleTo(Point& otherPoint);
+
+        private:
+           
+
 };

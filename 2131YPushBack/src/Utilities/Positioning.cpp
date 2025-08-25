@@ -1,8 +1,9 @@
 #include "Utilities/Positioning.hpp"
 #include "Utilities/mathUtils.hpp"
+#include "pros/rtos.hpp"
 
 
-Point::Point(double x, double y) : x(x), y(y)
+Point::Point(double x, double y) : x(x), y(y), mutex(std::make_shared<pros::Mutex>())
 {
     
 }
@@ -10,16 +11,34 @@ Point::Point(double x, double y) : x(x), y(y)
 Pose::Pose(double x, double y, double theta) : Point(x, y), theta(theta)
 {}
 
+double Point::getX(){
+    mutex->take();
+    double x = this->x;
+    mutex->give();
+    return x;
+}
+
+double Point::getY(){
+     mutex->take();
+    double y = this->y;
+    mutex->give();
+    return y;
+}
+
 double Point::getDistanceTo(Point& otherPoint){
     //Pythagorean theorem
-    return sqrt(pow(otherPoint.y-this->y,2) + pow((otherPoint.x-this->x),2));
+    mutex->lock();
+    return sqrt(pow(otherPoint.getY()-this->y,2) + pow((otherPoint.getX()-this->x),2));
+    mutex->give();
     
 }
 
 double Pose::getAngleTo(Point& otherPoint){
 
     //Calculate angle between two points
-    double angle = toDeg(std::atan2(otherPoint.x-this->x, otherPoint.y-this->y));
+    mutex->lock();
+    double angle = toDeg(std::atan2(otherPoint.getX()-this->x, otherPoint.getY()-this->y));
+    mutex->give();
 
 
     

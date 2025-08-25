@@ -7,11 +7,19 @@
 class GpsOdom : public AbstractOdom{
     public:
         GpsOdom(AbstractOdom& BaseOdomClass, pros::GPS& Gps, KalmanFilter& XKalman, KalmanFilter& YKalman);
+        ~GpsOdom();
 
         void startOdom() override;
         void stopOdom() override;
 
         void setPosition(Pose& newPose) override;
+
+        /* GPS Debug Functions*/
+        Pose getGpsPosition();
+        bool isGpsConnected();
+        double gpsConfidence();
+        double gpsDeltaConfidence();
+
     
     private:
         pros::GPS& m_gps;
@@ -19,6 +27,8 @@ class GpsOdom : public AbstractOdom{
         KalmanFilter m_yKalman;
 
         pros::Task m_gpsTask;
+
+        double m_prevGpsConfidence;
 
 
 };
