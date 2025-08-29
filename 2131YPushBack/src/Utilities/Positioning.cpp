@@ -19,7 +19,7 @@ double Point::getX(){
 }
 
 double Point::getY(){
-     mutex->take();
+    mutex->take();
     double y = this->y;
     mutex->give();
     return y;
