@@ -36,8 +36,16 @@ namespace intakeMotors {
 extern pros::Rotation verticalRotation;
 extern pros::Rotation horizontalRotation;
 
-extern DriveWheelOdom BaseOdom;
+#if GPS_ODOM
+
+
 extern GpsOdom Odom;
+
+#else
+extern DriveWheelOdom Odom;
+
+
+#endif
 
 namespace chassisIMUs {
 extern pros::Imu IMU1;

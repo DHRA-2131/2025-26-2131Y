@@ -11,9 +11,9 @@ struct drivingParameters{
     bool waitForCompletion = true;
 
     int settleExitTime = 1;
-    int settleExitRange = 0;
-    int velocitySettleExitTime = 0;
-    int velocitySettleExitRange = 0;
+    int settleExitRange = 1;
+    int velocitySettleExitTime = 100;
+    int velocitySettleExitRange = 100;
 
     double minSpeed = 0;
     double maxSpeed = 127; //Volts

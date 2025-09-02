@@ -33,6 +33,7 @@ void Drive::driveVoltage(double leftVoltage, double rightVoltage){
 }
 
 void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
+    log(logLocation::Drive, "Drive to Point Started (%f,%f)", point.getX(),point.getY());
     double distanceToPoint = 0;
     double prevDistanceToPoint = 0;
 
@@ -52,23 +53,30 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
     m_angularPID.reset();
     m_lateralPID.reset();
 
+    log(logLocation::Drive, "PIDs Reset!");
+
     
 
     // Async Movements
     if (!drivingSettings.waitForCompletion){
         drivingSettings.waitForCompletion = true;
+
+        log(logLocation::Drive, "Async Task Called");
         
         pros::Task asyncTask([=,this]{driveToPoint(point, drivingSettings);});
         return;
     }
 
    
-
+    log(logLocation::Drive,"Starting Main Loop");
     do {
-
         // Calculate Distance and Angle To
         distanceToPoint = currentPose.getDistanceTo(point);
         angleToPoint = currentPose.getAngleTo(point);
+        log(logLocation::Drive, "Angle %f, Distance %f, (%f, %f)", angleToPoint, distanceToPoint, this->currentPose.getX(), this->currentPose.getY());
+
+        
+        
 
          
         // Calculate Lateral Error
@@ -108,7 +116,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
 
         //pros::screen::print(pros::E_TEXT_MEDIUM, 1, "Angle: %f", angularOutput);
         //pros::screen::print(pros::E_TEXT_MEDIUM, 2, "Lateral: %f", lateralOutput);
-        log(logLocation::Drive, "Angular: %f, Lateral %f, GlobalX: %f, Distance: %f, Angle: %f, Velocity: %f, Settle %i, Vel Settle: %i", angularOutput, lateralOutput, currentPose.x, distanceToPoint,angleToPoint, distanceToPoint-prevDistanceToPoint, settleExit.canExit(distanceToPoint), velocitySettleExit.canExit(distanceToPoint-prevDistanceToPoint));
+        log(logLocation::Drive, "Angular: %f, Lateral %f, GlobalX: %f, Distance: %f, Angle: %f, Velocity: %f, Settle %i, Vel Settle: %i", angularOutput, lateralOutput, currentPose.getX(), distanceToPoint,angleToPoint, distanceToPoint-prevDistanceToPoint, settleExit.canExit(distanceToPoint), velocitySettleExit.canExit(distanceToPoint-prevDistanceToPoint));
 
         // Move Motors
         this->leftSide.move(lateralOutput + angularOutput);
@@ -117,6 +125,7 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         pros::delay(10);
         
     } while(!settleExit.canExit(distanceToPoint) || !velocitySettleExit.canExit(distanceToPoint - prevDistanceToPoint));
+    log(logLocation::Drive,"Exited Main Loop");
 
     // Stop Driving
     if (drivingSettings.stopDriving){
@@ -158,13 +167,15 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
         pros::Task asyncTask([=, this]{turnToAbsoluteHeading(targetHeading, turningSettings);});
         return;
     }
+
+    bool settleExit;
+    bool velocityExit;
     
     do {
 
     //Prevent turning more than nessisary
-    this->currentPose.mutex->take();
+    
     error = wrapAngle((targetHeading - chassisIMUs::IMU1.get_heading()));
-    this->currentPose.mutex->give();
 
     double pidOutput = this->m_angularPID.calculate(error);
     double output = std::clamp(pidOutput, -turningSettings.maxSpeed, turningSettings.maxSpeed);
@@ -184,10 +195,16 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     //log(logLocation::Drive, "Output: %f, Settle %i", output, settledExit.canExit(error));
     //log(logLocation::Drive, "Angle: %f, Output: %f, Error %f, Actual Error: %f, PID Output: %f", currentPose.theta, output, error, targetHeading-currentPose.theta, pidOutput);
     log(logLocation::Drive, "%f, %f, %f, %f", output, pidOutput, error, chassisIMUs::IMU1.get_heading());
+    
+    
+    settleExit = settledExit.canExit(error);
+    velocityExit = velocitySettleExit.canExit(error-prev_error); 
+
+    log(logLocation::Drive, "Settle %i, Velocity %i, Actual Velocity %f", settleExit, velocityExit, error-prev_error);
+
     pros::delay(20);
     
-    
-    } while (!settledExit.canExit(error) || !velocitySettleExit.canExit(error-prev_error));
+    } while (!settleExit || !velocityExit);
     this->leftSide.brake();
     this->rightSide.brake();
     this->leftSide.move(0);

@@ -1,5 +1,6 @@
 #include "Utilities/Positioning.hpp"
 #include "Utilities/mathUtils.hpp"
+#include "logging.hpp"
 #include "pros/rtos.hpp"
 
 
@@ -28,8 +29,9 @@ double Point::getY(){
 double Point::getDistanceTo(Point& otherPoint){
     //Pythagorean theorem
     mutex->lock();
-    return sqrt(pow(otherPoint.getY()-this->y,2) + pow((otherPoint.getX()-this->x),2));
+    double distance = sqrt(pow(otherPoint.getY()-this->y,2) + pow((otherPoint.getX()-this->x),2));
     mutex->give();
+    return distance;
     
 }
 
@@ -38,12 +40,18 @@ double Pose::getAngleTo(Point& otherPoint){
     //Calculate angle between two points
     mutex->lock();
     double angle = toDeg(std::atan2(otherPoint.getX()-this->x, otherPoint.getY()-this->y));
-    mutex->give();
-
+    angle = wrapAngle(angle-this->theta);
+    
 
     
+    mutex->give();
+    
     //Error (wrapped between -180 and 180)
-    return wrapAngle(angle - this->theta);
+
+    
+    return angle;
+
+    
 
 
 }

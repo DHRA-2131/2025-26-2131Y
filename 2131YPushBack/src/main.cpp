@@ -28,7 +28,7 @@ void initialize() {
 
     log(logLocation::MAIN, "Imu Calibrated");
 
-    (Odom.isGpsConnected()) ? (log(logLocation::MAIN, "Odom is Connected, X: %f, Y: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY())) : (log(logLocation::MAIN, "GPS is NOT Connected"));
+    //(Odom.isGpsConnected()) ? (log(logLocation::MAIN, "Odom is Connected, X: %f, Y: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY())) : (log(logLocation::MAIN, "GPS is NOT Connected"));
 
     
 }
@@ -69,8 +69,13 @@ void competition_initialize() {
  */
 void autonomous() {
     log(logLocation::MAIN, "Auton Started, Current X and Y: (%f, %f)", globalRobotPose.getX(), globalRobotPose.getY());
+    Odom.startOdom();
 
-    chassis.turnToAbsoluteHeading(90);
+    log(logLocation::MAIN, "(%f,%f)", globalRobotPose.getX(), globalRobotPose.getY());
+
+    //chassis.turnToAbsoluteHeading(90);
+  
+    chassis.driveToPoint(Point(10,10));
     
     while(true);
 
@@ -122,7 +127,7 @@ void opcontrol() {
         else if (outtakeTop.value()) intake.set(intakeState::OuttakeTop);
         else intake.set(intakeState::Stop);
 
-        log(logLocation::MAIN, "GPS: x: %f, y: %f, Confidence: %f, Delta Confidence: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY(), Odom.gpsConfidence(), Odom.gpsDeltaConfidence());
+        //log(logLocation::MAIN, "GPS: x: %f, y: %f, Confidence: %f, Delta Confidence: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY(), Odom.gpsConfidence(), Odom.gpsDeltaConfidence());
     
 
         pros::delay(21);

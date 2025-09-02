@@ -37,12 +37,16 @@ pros::IMU IMU2(21);
 pros::Rotation verticalRotation(-18);
 pros::Rotation horizontalRotation(-9);
 
-DriveWheelOdom BaseOdom(globalRobotPose, chassisIMUs::IMU1, leftDrive, rightDrive, 7, 3.25, 0.4115);
+    #if GPSODOM
+    pros::Gps gps(8);
+    KalmanFilter xKalmanFilter(0,0,0);
+    KalmanFilter yKalmanFilter(0,0,0);
+    GpsOdom Odom(BaseOdom, gps,xKalmanFilter,yKalmanFilter);
 
-pros::Gps gps(8);
-KalmanFilter xKalmanFilter(0,0,0);
-KalmanFilter yKalmanFilter(0,0,0);
-GpsOdom Odom(BaseOdom, gps,xKalmanFilter,yKalmanFilter);
+    #else
+    DriveWheelOdom Odom(globalRobotPose, chassisIMUs::IMU1, leftDrive, rightDrive, 7, 3.25, 0.4115);
+
+    #endif
 
 #else
 

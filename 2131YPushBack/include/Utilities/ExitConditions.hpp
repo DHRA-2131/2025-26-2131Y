@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cstdint>
 class ExitCondition
 {
 
@@ -22,7 +23,7 @@ class ExitCondition
         const double m_settleTime;
         const double m_delayTime;
 
-        double m_count;
+        uint8_t m_count;
 
 
 };

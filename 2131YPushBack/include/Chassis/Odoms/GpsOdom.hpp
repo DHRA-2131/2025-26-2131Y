@@ -14,8 +14,11 @@ class GpsOdom : public AbstractOdom{
 
         void setPosition(Pose& newPose) override;
 
-        /* GPS Debug Functions*/
         Pose getGpsPosition();
+
+
+        /* GPS Debug Functions*/
+       
         bool isGpsConnected();
         double gpsConfidence();
         double gpsDeltaConfidence();
@@ -29,6 +32,10 @@ class GpsOdom : public AbstractOdom{
         pros::Task m_gpsTask;
 
         double m_prevGpsConfidence;
+        Pose m_lastGpsPosition;
+
+
+        bool m_gpsIsAccurate();
 
 
 };
