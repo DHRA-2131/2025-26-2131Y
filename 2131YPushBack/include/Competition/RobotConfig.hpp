@@ -8,7 +8,7 @@
 #include "pros/rotation.hpp"
 #include "Chassis/Odoms/DriveWheelOdom.hpp"
 
-#define PROG_CHASSIS 1
+#define PROG_CHASSIS 0
 
 
 extern Pose globalRobotPose;
@@ -17,7 +17,7 @@ extern pros::Controller mainController;
 
 extern pros::MotorGroup leftDrive;
 extern pros::MotorGroup rightDrive;
-
+extern pros::adi::Pneumatics shovel;
 
 
 

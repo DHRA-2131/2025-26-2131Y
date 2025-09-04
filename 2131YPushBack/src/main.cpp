@@ -127,6 +127,12 @@ void opcontrol() {
         else if (outtakeTop.value()) intake.set(intakeState::OuttakeTop);
         else intake.set(intakeState::Stop);
 
+        static bool shovelToggle = false;
+        static bool prevShovel = false;
+        shovelToggle = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_B) && !prevShovel) ? !shovelToggle : shovelToggle;
+        prevShovel = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
+        shovel.set_value(shovelToggle);
+
         //log(logLocation::MAIN, "GPS: x: %f, y: %f, Confidence: %f, Delta Confidence: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY(), Odom.gpsConfidence(), Odom.gpsDeltaConfidence());
     
 
