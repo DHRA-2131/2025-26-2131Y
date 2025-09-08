@@ -52,6 +52,9 @@ class Pose : public Point
 
         double theta;
 
+
+        double getTheta();
+
         /**
          * @brief return angle to another point
          *

@@ -53,3 +53,5 @@ extern ControllerButton intakeButton;
 extern ControllerButton reverseIntakeButton;
 extern ControllerButton outtakeTop;
 extern ControllerButton outtakeMid;
+
+extern ControllerButton matchLoadMechButton;

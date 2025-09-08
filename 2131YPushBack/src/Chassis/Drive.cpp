@@ -119,8 +119,8 @@ void Drive::driveToPoint(Point point, drivingParameters drivingSettings){
         log(logLocation::Drive, "Angular: %f, Lateral %f, GlobalX: %f, Distance: %f, Angle: %f, Velocity: %f, Settle %i, Vel Settle: %i", angularOutput, lateralOutput, currentPose.getX(), distanceToPoint,angleToPoint, distanceToPoint-prevDistanceToPoint, settleExit.canExit(distanceToPoint), velocitySettleExit.canExit(distanceToPoint-prevDistanceToPoint));
 
         // Move Motors
-        this->leftSide.move(lateralOutput + angularOutput);
-        this->rightSide.move(lateralOutput - angularOutput);
+        this->leftSide.move(lateralOutput - angularOutput);
+        this->rightSide.move(lateralOutput + angularOutput);
         
         pros::delay(10);
         
@@ -198,6 +198,7 @@ void Drive::turnToAbsoluteHeading(double targetHeading, turningParameters turnin
     
     
     settleExit = settledExit.canExit(error);
+    log(logLocation::Drive, "Velocity Exit");
     velocityExit = velocitySettleExit.canExit(error-prev_error); 
 
     log(logLocation::Drive, "Settle %i, Velocity %i, Actual Velocity %f", settleExit, velocityExit, error-prev_error);

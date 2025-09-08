@@ -35,6 +35,13 @@ double Point::getDistanceTo(Point& otherPoint){
     
 }
 
+double Pose::getTheta(){
+    mutex->lock();
+    double theta = this->theta;
+    mutex->give();
+    return theta;
+}
+
 double Pose::getAngleTo(Point& otherPoint){
 
     //Calculate angle between two points

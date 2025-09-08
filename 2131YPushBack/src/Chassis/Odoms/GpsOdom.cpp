@@ -12,7 +12,7 @@ GpsOdom::GpsOdom(AbstractOdom& BaseOdomClass, pros::GPS& Gps, KalmanFilter& XKal
     m_gpsTask.suspend();
 
     while(true){
-        
+       /* 
         // Iterate to Check GPS Update
         static int gpsIterator = 0;
         gpsIterator++;
@@ -32,7 +32,7 @@ GpsOdom::GpsOdom(AbstractOdom& BaseOdomClass, pros::GPS& Gps, KalmanFilter& XKal
 
                 gpsIterator = 0;
             }
-        }
+        }*/
     }
 })
 {}

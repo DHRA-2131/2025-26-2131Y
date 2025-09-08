@@ -23,8 +23,8 @@ void initialize() {
     log(logLocation::MAIN, "Program Started: Battery at %f%%", pros::battery::get_capacity());
     log(logLocation::MAIN, "Initializing... Calibrating IMU...");
 
-    chassisIMUs::IMU1.reset(false);
-    chassisIMUs::IMU2.reset(true);
+    chassisIMUs::IMU1.reset(true);
+ //   chassisIMUs::IMU2.reset(true);
 
     log(logLocation::MAIN, "Imu Calibrated");
 

@@ -7,6 +7,7 @@
 #include "Utilities/Positioning.hpp"
 #include "pros/rotation.hpp"
 #include "Chassis/Odoms/DriveWheelOdom.hpp"
+#include "pros/adi.hpp"
 
 #define PROG_CHASSIS 0
 

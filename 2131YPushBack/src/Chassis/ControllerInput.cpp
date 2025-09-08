@@ -35,3 +35,7 @@ ControllerButton reverseIntakeButton(pros::E_CONTROLLER_DIGITAL_R2, false);
 ControllerButton outtakeTop(pros::E_CONTROLLER_DIGITAL_L1, false);
 ControllerButton outtakeMid(pros::E_CONTROLLER_DIGITAL_L2, false);
 
+ControllerButton matchLoadMechButton(pros::E_CONTROLLER_DIGITAL_B, false);
+
+
+
