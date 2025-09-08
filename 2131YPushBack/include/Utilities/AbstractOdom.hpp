@@ -23,6 +23,8 @@ class AbstractOdom
 
         virtual void setPosition(Pose& newPose) = 0;
 
+        void resetPosition(){m_currentPose.mutex->lock(); m_currentPose.x = 0; m_currentPose.y = 0; m_currentPose.mutex->give();}
+
       
 
 

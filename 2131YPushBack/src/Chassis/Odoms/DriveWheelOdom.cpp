@@ -53,8 +53,6 @@ AbstractOdom(RobotPose, Imu, new pros::Task([=, this](){
 
             
             this->m_currentPose.mutex->take(); 
-            int* null_ptr = nullptr;
-    *null_ptr = 10;
             this->m_currentPose.y += linearDistance*cos(avgAngle);
            
             this->m_currentPose.x += linearDistance*sin(avgAngle);
@@ -73,8 +71,7 @@ AbstractOdom(RobotPose, Imu, new pros::Task([=, this](){
             log(logLocation::Odom, "(%f, %f, %f)", m_currentPose.x, m_currentPose.y, globalRobotPose.theta);
 
             this->m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
-            int* null_ptr = nullptr;
-    *null_ptr = 10;
+        
             this->m_currentPose.x += distanceTraveled*sin(toRad(m_currentPose.theta));
             log(logLocation::Odom, "(%f, %f, %f)", m_currentPose.x, m_currentPose.y, globalRobotPose.theta);
             this->m_currentPose.mutex->give();

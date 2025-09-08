@@ -24,9 +24,15 @@ void initialize() {
     log(logLocation::MAIN, "Initializing... Calibrating IMU...");
 
     chassisIMUs::IMU1.reset(true);
- //   chassisIMUs::IMU2.reset(true);
+    chassisIMUs::IMU2.reset(true);
 
     log(logLocation::MAIN, "Imu Calibrated");
+   
+
+    log(logLocation::MAIN, "Resetting Odom Position...");
+    Odom.resetPosition();
+    log(logLocation::MAIN, "Odom Position Reset");
+
 
     //(Odom.isGpsConnected()) ? (log(logLocation::MAIN, "Odom is Connected, X: %f, Y: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY())) : (log(logLocation::MAIN, "GPS is NOT Connected"));
 
@@ -69,13 +75,13 @@ void competition_initialize() {
  */
 void autonomous() {
     log(logLocation::MAIN, "Auton Started, Current X and Y: (%f, %f)", globalRobotPose.getX(), globalRobotPose.getY());
-    Odom.startOdom();
+   
 
     log(logLocation::MAIN, "(%f,%f)", globalRobotPose.getX(), globalRobotPose.getY());
 
     //chassis.turnToAbsoluteHeading(90);
   
-    chassis.driveToPoint(Point(10,10));
+    //chassis.driveToPoint(Point(10,10));
     
     while(true);
 
@@ -99,10 +105,12 @@ void autonomous() {
 
 
 
-
+#if !PROG_CHASSIS
 
 void opcontrol() {
     log(logLocation::MAIN, "Op Control Started");
+
+     Odom.startOdom();
       
     const bool tank = false;   
     while(true){
@@ -144,3 +152,8 @@ void opcontrol() {
 
    
 } //opcontrol()
+
+#else
+void opcontrol(){}
+
+#endif
