@@ -2,9 +2,9 @@
 
 #include "Competition/RobotConfig.hpp"
 
-#include "Chassis/ControllerInput.hpp"
-#include "Chassis/Intake.hpp"
-#include "Chassis/Drive.hpp"
+
+
+
 
 #include "Utilities/Logging.hpp"
 
@@ -21,17 +21,7 @@
  */
 void initialize() {
     log(logLocation::MAIN, "Program Started: Battery at %f%%", pros::battery::get_capacity());
-    log(logLocation::MAIN, "Initializing... Calibrating IMU...");
-
-    chassisIMUs::IMU1.reset(true);
-    chassisIMUs::IMU2.reset(true);
-
-    log(logLocation::MAIN, "Imu Calibrated");
-   
-
-    log(logLocation::MAIN, "Resetting Odom Position...");
-    Odom.resetPosition();
-    log(logLocation::MAIN, "Odom Position Reset");
+    chassis.calibrate();
 
 
     //(Odom.isGpsConnected()) ? (log(logLocation::MAIN, "Odom is Connected, X: %f, Y: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY())) : (log(logLocation::MAIN, "GPS is NOT Connected"));
@@ -74,11 +64,7 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-    log(logLocation::MAIN, "Auton Started, Current X and Y: (%f, %f)", globalRobotPose.getX(), globalRobotPose.getY());
-   
-
-    log(logLocation::MAIN, "(%f,%f)", globalRobotPose.getX(), globalRobotPose.getY());
-
+    
     //chassis.turnToAbsoluteHeading(90);
   
     //chassis.driveToPoint(Point(10,10));
@@ -154,6 +140,13 @@ void opcontrol() {
 } //opcontrol()
 
 #else
-void opcontrol(){}
+void opcontrol(){
+     int leftY = mainController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+        int rightX = mainController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
+        // move the chassis with curvature drive
+        chassis.arcade(leftY, rightX);
+        // delay to save resources
+        pros::delay(10);
+}
 
 #endif

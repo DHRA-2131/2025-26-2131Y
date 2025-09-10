@@ -1,18 +1,19 @@
 #pragma once
 
-#include "Chassis/Odoms/GpsOdom.hpp"
+
 #include "pros/imu.hpp"
 #include "pros/misc.hpp"
 #include "pros/motor_group.hpp"
-#include "Utilities/Positioning.hpp"
+
 #include "pros/rotation.hpp"
-#include "Chassis/Odoms/DriveWheelOdom.hpp"
+
 #include "pros/adi.hpp"
 
+#include "lemlib/chassis/chassis.hpp"
 #define PROG_CHASSIS 1
 
 
-extern Pose globalRobotPose;
+
 
 extern pros::Controller mainController;
 
@@ -23,12 +24,6 @@ extern pros::adi::Pneumatics shovel;
 
 
 
-namespace intakeMotors {
-    extern pros::Motor front;
-    extern pros::Motor top;
-    extern pros::Motor back;
-
-}
 
 
 
@@ -37,23 +32,22 @@ namespace intakeMotors {
 extern pros::Rotation verticalRotation;
 extern pros::Rotation horizontalRotation;
 
-#if GPS_ODOM
 
 
-extern GpsOdom Odom;
+extern pros::Imu IMU;
+
+
+extern lemlib::Chassis chassis;
 
 #else
-extern DriveWheelOdom Odom;
 
 
-#endif
+amespace intakeMotors {
+    extern pros::Motor front;
+    extern pros::Motor top;
+    extern pros::Motor back;
 
-namespace chassisIMUs {
-extern pros::Imu IMU1;
-extern pros::Imu IMU2;
 }
 
-#else
-extern DriveWheelOdom Odom;
 
 #endif
