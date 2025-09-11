@@ -90,6 +90,9 @@ namespace intakeMotors{
 }
 
 
+Intake intake(intakeMotors::front, intakeMotors::top, intakeMotors::back);
+
+
 pros::adi::Pneumatics shovel('a', false);
 
 #endif

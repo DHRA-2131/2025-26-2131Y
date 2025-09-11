@@ -49,5 +49,7 @@ amespace intakeMotors {
 
 }
 
+extern Intake intake;
+
 
 #endif

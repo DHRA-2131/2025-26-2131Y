@@ -96,7 +96,6 @@ void autonomous() {
 void opcontrol() {
     log(logLocation::MAIN, "Op Control Started");
 
-     Odom.startOdom();
       
     const bool tank = false;   
     while(true){
@@ -141,12 +140,15 @@ void opcontrol() {
 
 #else
 void opcontrol(){
+
+    while(true){
      int leftY = mainController.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
         int rightX = mainController.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
         // move the chassis with curvature drive
         chassis.arcade(leftY, rightX);
         // delay to save resources
         pros::delay(10);
+    }
 }
 
 #endif
