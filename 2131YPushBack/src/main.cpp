@@ -1,16 +1,5 @@
 #include "main.h"
 
-#include "Competition/RobotConfig.hpp"
-
-#include "Chassis/ControllerInput.hpp"
-#include "Chassis/Intake.hpp"
-#include "Chassis/Drive.hpp"
-
-#include "Utilities/Logging.hpp"
-
-#include "pros/misc.hpp"
-#include <cmath>
-
 
 
 /**
@@ -20,22 +9,6 @@
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    log(logLocation::MAIN, "Program Started: Battery at %f%%", pros::battery::get_capacity());
-    log(logLocation::MAIN, "Initializing... Calibrating IMU...");
-
-    chassisIMUs::IMU1.reset(true);
-    chassisIMUs::IMU2.reset(true);
-
-    log(logLocation::MAIN, "Imu Calibrated");
-   
-
-    log(logLocation::MAIN, "Resetting Odom Position...");
-    Odom.resetPosition();
-    log(logLocation::MAIN, "Odom Position Reset");
-
-
-    //(Odom.isGpsConnected()) ? (log(logLocation::MAIN, "Odom is Connected, X: %f, Y: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY())) : (log(logLocation::MAIN, "GPS is NOT Connected"));
-
     
 }
 
@@ -45,7 +18,6 @@ void initialize() {
  * the robot is enabled, this task will exit.
  */
 void disabled() {
-    log(logLocation::MAIN, "Robot Disabled");
 }
 
 /**
@@ -58,7 +30,6 @@ void disabled() {
  * starts.
  */
 void competition_initialize() {
-    log(logLocation::MAIN, "Connected to TM");
 
 }
 
@@ -74,20 +45,8 @@ void competition_initialize() {
  * from where it left off.
  */
 void autonomous() {
-    log(logLocation::MAIN, "Auton Started, Current X and Y: (%f, %f)", globalRobotPose.getX(), globalRobotPose.getY());
-   
 
-    log(logLocation::MAIN, "(%f,%f)", globalRobotPose.getX(), globalRobotPose.getY());
-
-    //chassis.turnToAbsoluteHeading(90);
-  
-    //chassis.driveToPoint(Point(10,10));
-    
-    while(true);
-
-    
-
-} //autonomous
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -103,57 +62,6 @@ void autonomous() {
  * task, not resume it from where it left off.
  */
 
-
-
-#if !PROG_CHASSIS
-
 void opcontrol() {
-    log(logLocation::MAIN, "Op Control Started");
-
-     Odom.startOdom();
-      
-    const bool tank = false;   
-    while(true){
-        if (!tank){
-        leftDrive.move(linearJoystick.value() + angularJoystick.value());
-        rightDrive.move(linearJoystick.value() - angularJoystick.value());
-        }
-        else {
-            leftDrive.move(tankLeftJoystick.value());
-            rightDrive.move(tankRightJoystick.value());
-        }
-
-
-        //If R1 Intake ALL
-        //If R2 Reverse ALL
-
-        //If L1, Outtake Top Only
-        //If L2, Top roller spin opposite
-        if (intakeButton.value())intake.set(intakeState::Forward);
-        else if (reverseIntakeButton.value()) intake.set(intakeState::Reverse);
-        else if (outtakeMid.value()) intake.set(intakeState::OuttakeMid);
-        else if (outtakeTop.value()) intake.set(intakeState::OuttakeTop);
-        else intake.set(intakeState::Stop);
-
-        static bool shovelToggle = false;
-        static bool prevShovel = false;
-        shovelToggle = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_B) && !prevShovel) ? !shovelToggle : shovelToggle;
-        prevShovel = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
-        shovel.set_value(shovelToggle);
-
-        //log(logLocation::MAIN, "GPS: x: %f, y: %f, Confidence: %f, Delta Confidence: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY(), Odom.gpsConfidence(), Odom.gpsDeltaConfidence());
     
-
-        pros::delay(21);
-    } //Opcontrol While True
-     
-     
-     
-
-   
-} //opcontrol()
-
-#else
-void opcontrol(){}
-
-#endif
+}
