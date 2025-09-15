@@ -12,19 +12,96 @@
 
 #pragma once
 
+#include <iostream>
 
-struct Point
+
+class Point
 {
+    private:
+        float x, y;
+
     public:
-        int x, y;
+
+        /**
+         * @brief Construct a new Point object
+         * 
+         * @param x 
+         * @param y 
+         */
+        Point(float x, float y);
 
 
-        Point(int x, int y);
+        /**
+         * @brief Add Two Points Together
+         * 
+         * @param otherPoint 
+         * @return Point 
+         */
+        Point add(Point otherPoint);
 
+        /**
+         * @brief Subtract one Point from Another
+         * 
+         * @param otherPoint 
+         * @return Point 
+         */
+        Point subtract(Point otherPoint);
 
+        /**
+         * @brief Multiply a Point by a Scalar
+         * 
+         * @param scalar 
+         * @return Point 
+         */
+        Point multiply(float scalar);
+
+        /**
+         * @brief Divide a Point by a Scalar
+         * 
+         * @param scalar 
+         * @return Point 
+         */
+        Point divide(float scalar);
+
+        /**
+         * @brief Add Two Points Together
+         * 
+         * @param otherPoint 
+         * @return Point 
+         */
         Point operator+(Point otherPoint);
+
+        /**
+         * @brief Subtract one Point from Another
+         * 
+         * @param otherPoint 
+         * @return Point 
+         */
         Point operator-(Point otherPoint);
-        Point operator*(Point otherPoint);
-        Point operator/(Point otherPoint);
+
+        /**
+         * @brief Multiply a Point by a Scalar
+         * 
+         * @param scalar 
+         * @return Point 
+         */
+        Point operator*(float scalar);
+
+        /**
+         * @brief Divide a Point by a Scalar
+         * 
+         * @param scalar 
+         * @return Point 
+         */
+        Point operator/(float scalar);
+
+
+        friend std::ostream& operator<<(std::ostream& os, const Point& printPoint);
 
 };
+
+std::ostream& operator<<(std::ostream& os, const Point& printPoint)
+{
+    os << printPoint.x << ", " << printPoint.y;
+    return os;
+}
