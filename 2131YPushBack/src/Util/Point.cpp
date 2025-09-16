@@ -55,7 +55,7 @@ Point Point::operator/(float& scalar) const
 
 float Point::distanceTo(Point& otherPoint) const
 {
-    
+
 }
 
 std::ostream& operator<<(std::ostream& os, const Point& printPoint)
