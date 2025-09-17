@@ -71,6 +71,11 @@ Angle Angle::operator/(float& scalar) const
     return this->divide(scalar);
 }
 
+std::ostream& operator<<(std::ostream& os, const Angle& printAngle){
+    os << printAngle.m_theta;
+    return os;
+}
+
 
 
 
