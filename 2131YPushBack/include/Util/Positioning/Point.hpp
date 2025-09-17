@@ -1,7 +1,7 @@
 /**
  * @file Positioning.hpp
  * @author Ezra Jones (2131Y)
- * @brief Positioning Classes
+ * @brief Point Class for Positioning
  * @version 2.0
  * @date 2025-09-15
  * 
@@ -15,12 +15,12 @@
 #include <iostream>
 
 
-struct Point
+class Point
 {
     public:
-        float x, y;
+        float m_x, m_y;
 
-        
+
         /**
          * @brief Construct a new Point object
          * 
@@ -29,6 +29,34 @@ struct Point
          */
         Point(float x, float y);
 
+
+        /**
+         * @brief Get X Value
+         * 
+         * @return float 
+         */
+        float getX() const;
+
+        /**
+         * @brief Get Y Value
+         * 
+         * @return float 
+         */
+        float getY() const;
+
+        /**
+         * @brief Set X Value
+         * 
+         * @param x 
+         */
+        void setX(float x);
+
+        /**
+         * @brief Set Y Value
+         * 
+         * @param y 
+         */
+        void setY(float y);
 
         /**
          * @brief Add Two Points Together
