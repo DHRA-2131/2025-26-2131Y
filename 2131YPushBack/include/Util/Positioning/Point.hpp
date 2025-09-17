@@ -15,11 +15,12 @@
 #include <iostream>
 
 
-struct Point
+class Point
 {
-    public:
+    private:
         float x, y;
 
+    public:
 
         /**
          * @brief Construct a new Point object
@@ -36,7 +37,7 @@ struct Point
          * @param otherPoint 
          * @return Point 
          */
-        Point add(Point& otherPoint) const;
+        Point add(Point otherPoint) const;
 
         /**
          * @brief Subtract one Point from Another
@@ -44,7 +45,7 @@ struct Point
          * @param otherPoint 
          * @return Point 
          */
-        Point subtract(Point& otherPoint) const;
+        Point subtract(Point otherPoint);
 
         /**
          * @brief Multiply a Point by a Scalar
@@ -52,7 +53,7 @@ struct Point
          * @param scalar 
          * @return Point 
          */
-        Point multiply(float& scalar) const;
+        Point multiply(float scalar);
 
         /**
          * @brief Divide a Point by a Scalar
@@ -60,7 +61,7 @@ struct Point
          * @param scalar 
          * @return Point 
          */
-        Point divide(float& scalar) const;
+        Point divide(float scalar);
 
         /**
          * @brief Add Two Points Together
@@ -68,7 +69,7 @@ struct Point
          * @param otherPoint 
          * @return Point 
          */
-        Point operator+(Point& otherPoint) const;
+        Point operator+(Point otherPoint);
 
         /**
          * @brief Subtract one Point from Another
@@ -76,7 +77,7 @@ struct Point
          * @param otherPoint 
          * @return Point 
          */
-        Point operator-(Point& otherPoint) const;
+        Point operator-(Point otherPoint);
 
         /**
          * @brief Multiply a Point by a Scalar
@@ -84,7 +85,7 @@ struct Point
          * @param scalar 
          * @return Point 
          */
-        Point operator*(float& scalar) const;
+        Point operator*(float scalar);
 
         /**
          * @brief Divide a Point by a Scalar
@@ -92,27 +93,15 @@ struct Point
          * @param scalar 
          * @return Point 
          */
-        Point operator/(float& scalar) const;
+        Point operator/(float scalar);
 
-        /**
-         * @brief Find the Distance to Another Point
-         * 
-         * @param otherPoint 
-         * @return Point 
-         */
-        float distanceTo(Point& otherPoint) const;
 
-        
         friend std::ostream& operator<<(std::ostream& os, const Point& printPoint);
 
 };
 
-
-/**
- * @brief Friend Function to Print Point
- * 
- * @param os 
- * @param printPoint 
- * @return std::ostream& 
- */
-std::ostream& operator<<(std::ostream& os, const Point& printPoint);
+std::ostream& operator<<(std::ostream& os, const Point& printPoint)
+{
+    os << printPoint.x << ", " << printPoint.y;
+    return os;
+}
