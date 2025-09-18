@@ -12,7 +12,6 @@
 
 #pragma once
 
-#include <iostream>
 #include <ostream>
 #include "stdint.h"
 
@@ -25,6 +24,11 @@ class Pneumatic : pros::adi::Pneumatics
 
     public:
 
+        enum class Status{
+            Retracted,
+            Extended
+        }; 
+
         /**
          * @brief Construct a new Pneumatic object
          * 
@@ -36,11 +40,11 @@ class Pneumatic : pros::adi::Pneumatics
 
     
         /**
-         * @brief 
+         * @brief Set Pneumatic State
          * 
-         * @return std::int32_t 
+         * @param desiredState 
          */
-        std::int32_t set();
+        void set(Status desiredState);
 
         friend std::ostream& operator<<(std::ostream& os, const Pneumatic& printPneumatic);
     
