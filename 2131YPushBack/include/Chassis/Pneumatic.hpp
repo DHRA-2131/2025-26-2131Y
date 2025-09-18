@@ -19,7 +19,7 @@
 
  
 
-class Pneumatic : pros::adi::Pneumatics
+class Pneumatic : private pros::adi::Pneumatics
 {
 
     public:
