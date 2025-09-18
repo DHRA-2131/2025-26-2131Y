@@ -3,32 +3,19 @@
 #include <math.h>
 
 
-Angle::Angle(float theta, bool degrees)
-    : m_theta(theta), m_degrees(degrees)
+Angle::Angle(float theta, bool degrees = true)
+    : m_theta(
+        (degrees) ? theta * (M_PI / 180) : theta
+    )
 {}
 
-float Angle::getTheta() const 
+float Angle::getTheta(bool degrees = true) const 
 {
-    //Do we want this as a ternerary statement (?:) or an if statement? (if/else)
-    if (m_degrees) {
-        return m_theta*(M_PI/180);
-    }
-    else {
-        return m_theta;
-    }
+    return (degrees) ? m_theta * (M_PI / 180) : m_theta;
 }
 
-bool Angle::getDegrees() const
-{
-    return m_degrees;
-}
-
-void Angle::setTheta(float theta){
-    m_theta = theta;
-}
-
-void Angle::setDegrees(bool degrees){
-    m_degrees = degrees;
+void Angle::setTheta(float theta, bool degrees = true){
+    m_theta = (degrees) ? theta * (M_PI / 180) : theta;
 }
 
 Angle Angle::add(Angle& otherAngle) const

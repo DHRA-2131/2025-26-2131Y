@@ -1,4 +1,4 @@
-#include "Chassis/Pnumatic.cpp"
+#include "Chassis/Pnumatic.hpp"
 
 #include "pros/adi.h"
 
@@ -8,30 +8,30 @@ Pnumatic::Pnumatic(uint8_t port, const bool inverted)
 
 void Pnumatic::init()
 {
-    pros::c::adi_port_set_config(port, pros::E_ADI_ANALOG_OUT);
+    pros::c::adi_port_set_config(m_port, pros::E_ADI_ANALOG_OUT);
 }
 
 void Pnumatic::set(bool state)
 {   
-    m_state = (inverted) ? !state : state; //Adjust for inversion
+    m_state = (m_inverted) ? !state : state; //Adjust for inversion
     pros::c::adi_digital_write(m_port, m_state);
 
 }
 
-void Pnumatic::get()
+bool Pnumatic::get()
 {
-    return (inverted) ? !m_state : m_state; //Adjust to correct for inversion
+    return (m_inverted) ? !m_state : m_state; //Adjust to correct for inversion
 }
 
-void Pnumatic::toggle()
+void Pnuematic::toggle()
 {
     m_state != m_state;
     pros::c::adi_digital_write(m_port, m_state);
 }
 
-std::ostream& operator<<(std::ostream& os, const Pnumatic& printPnumatic)
+std::ostream& operator<<(std::ostream& os, const Pnumatic& printPnuematic)
 {
-    os << printPnumatic.m_state;
+    os << printPnuematic.m_state;
     return os;
 }
 

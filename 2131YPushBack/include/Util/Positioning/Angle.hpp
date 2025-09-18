@@ -20,45 +20,27 @@ class Angle
     private:
 
         float m_theta;
-        bool m_degrees;
-
 
         /**
          * @brief Construct a new Angle object
          * 
          * @param theta 
-         * @param degrees 
          */
-        Angle(float theta, bool degrees = false);
+        Angle(float theta, bool degrees = true);
 
         /**
          * @brief Get Theta Value
          * 
          * @return float 
          */
-        float getTheta() const;
-
-        /**
-         * @brief Get Degrees Value
-         * 
-         * @return true 
-         * @return false 
-         */
-        bool getDegrees() const;
+        float getTheta(bool degrees = true) const;
 
         /**
          * @brief Set Theta Value
          * 
          * @param theta 
          */
-        void setTheta(float theta);
-
-        /**
-         * @brief Set Degrees Value
-         * 
-         * @param degrees
-         */
-        void setDegrees(bool degrees);
+        void setTheta(float theta, bool degrees = true);
 
         /**
          * @brief Add Two Angles Together
