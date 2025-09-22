@@ -3,19 +3,24 @@
 #include <math.h>
 
 
-Angle::Angle(float theta, bool degrees = true)
+Angle::Angle(float theta, bool degrees)
     : m_theta(
         (degrees) ? theta * (M_PI / 180) : theta
     )
 {}
 
-float Angle::getTheta(bool degrees = true) const 
+float Angle::getTheta(bool degrees) const 
 {
     return (degrees) ? m_theta * (M_PI / 180) : m_theta;
 }
 
-void Angle::setTheta(float theta, bool degrees = true){
+void Angle::setTheta(float theta, bool degrees){
     m_theta = (degrees) ? theta * (M_PI / 180) : theta;
+    wrapAngle();
+}
+
+float Angle::wrapAngle(){
+    return  m_theta = (m_theta > (M_PI)) ? m_theta - (2 * M_PI) : ((m_theta < (-1 * M_PI)) ? m_theta + (2 * M_PI) : m_theta);
 }
 
 Angle Angle::add(Angle& otherAngle) const

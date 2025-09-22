@@ -52,7 +52,7 @@ class Pose : private Point
          * @param otherPoint 
          * @return float 
          */
-        float Pose::angleToPoint(Point& otherPoint) const;
+        float angleToPoint(Point& otherPoint) const;
 
 
         friend std::ostream& operator<<(std::ostream& os, const Pose& printPose);
