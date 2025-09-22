@@ -41,4 +41,9 @@ class PIDController
          */
         float update(float error);
 
+        /**
+         * @brief Reset PID Values
+         */
+        void reset();
+
 };
