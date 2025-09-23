@@ -1,6 +1,6 @@
 /**
  * @file Logging.hpp
- * @author Quinn Bracken
+ * @author Quinn Bracken (2131Y)
  * @brief Utility for logging 
  * @version 2.0 
  * @date 2025-09-22
@@ -12,9 +12,17 @@
 #include <cstdint>
 #include <string>
 class Logger 
- {
+{
     public:
-        enum class debugLevel; //Forward Declaration to make Logger happy
+
+        enum class debugLevel
+        {
+            None,
+            Warning,
+            Status,
+            Information,
+            Debug
+        };
         
         /**
          * @brief Construct a new Logger object
@@ -60,16 +68,7 @@ class Logger
         void outputAllVars();
 
 
-        enum class debugLevel
-        {
-            None,
-            Warning,
-            Status,
-            Information,
-            Debug
-        };
-
         friend std::ostream& operator<<(std::ostream& os, const Logger& printLogger);
- };
+};
 
- std::ostream& operator<<(std::ostream& os, const Logger& printLogger);
+std::ostream& operator<<(std::ostream& os, const Logger& printLogger);
