@@ -21,6 +21,8 @@ class Angle
 
         float m_theta;
 
+    public:
+
         /**
          * @brief Construct a new Angle object
          * 
