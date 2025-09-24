@@ -20,26 +20,33 @@ class MotorEncoder : private AbstractEncoder
     private:
 
         pros::MotorGroup& m_encoder;
+        float m_wheelGearing;
         
     public:
 
         /**
          * @brief Construct a new Motor Encoder object
          * 
+         * Attach an already existing motor group, add the radius and offset, and add the gear ratio
+         * Gear Ratio is in Input/Output, for example, a 12:48 ratio would be a 12/48 or a gear ratio of 4.
+         *
+         * @param motors 
+         * @param wheelRadius 
+         * @param wheelOffset 
          */
-        MotorEncoder(float wheelRadius, float wheelOffset);
+        MotorEncoder(pros::MotorGroup& motors, float wheelRadius, float wheelOffset, float wheelGearing);
 
         /**
          * @brief Get the Position of the Motor Encoder in degrees
          * 
          * @return float 
          */
-        virtual float getPosition() const = 0;
+        float getPosition() override;
 
         /**
          * @brief Reset the Motor Encoder's Values
          * 
          */
-        virtual void reset() = 0;
+        void reset() override;
 
 };
