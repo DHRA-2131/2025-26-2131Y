@@ -18,7 +18,7 @@
 class Timer
 {
     private:
-        uint32_t startTime;
+        uint32_t m_startTime;
 
     public:
 
@@ -32,7 +32,7 @@ class Timer
      * @brief Destroy the Timer object
      * 
      */
-    ~Timer();
+    // ~Timer();Why do we need a destructor?
 
     /**
      * @brief Get the Current Time
@@ -41,4 +41,8 @@ class Timer
      */
     uint32_t getCurrentTime();
 
+    friend std::ostream& operator<<(std::ostream& os, const Timer& printTimer);
+
 };
+
+std::ostream& operator<<(std::ostream& os, const Timer& printTimer);
