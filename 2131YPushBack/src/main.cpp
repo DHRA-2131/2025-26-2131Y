@@ -8,6 +8,7 @@
 
 #include "Utilities/Logging.hpp"
 
+#include "pros/adi.hpp"
 #include "pros/misc.hpp"
 #include <cmath>
 
@@ -24,7 +25,7 @@ void initialize() {
     log(logLocation::MAIN, "Initializing... Calibrating IMU...");
 
     chassisIMUs::IMU1.reset(true);
-    chassisIMUs::IMU2.reset(true);
+    //chassisIMUs::IMU2.reset(true);
 
     log(logLocation::MAIN, "Imu Calibrated");
    
@@ -107,6 +108,8 @@ void autonomous() {
 
 #if !PROG_CHASSIS
 
+pros::adi::Pneumatics goal(3, true, false);
+
 void opcontrol() {
     log(logLocation::MAIN, "Op Control Started");
 
@@ -140,6 +143,14 @@ void opcontrol() {
         shovelToggle = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_B) && !prevShovel) ? !shovelToggle : shovelToggle;
         prevShovel = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
         shovel.set_value(shovelToggle);
+
+        static bool goalToggle = false;
+        static bool prevGoal = false;
+        goalToggle = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN) && !prevGoal) ? !goalToggle : goalToggle;
+        prevGoal = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN));
+        goal.set_value(goalToggle);
+
+        log(logLocation::MAIN, "%i, %i", goalToggle, prevGoal);
 
         //log(logLocation::MAIN, "GPS: x: %f, y: %f, Confidence: %f, Delta Confidence: %f", Odom.getGpsPosition().getX(), Odom.getGpsPosition().getY(), Odom.gpsConfidence(), Odom.gpsDeltaConfidence());
     

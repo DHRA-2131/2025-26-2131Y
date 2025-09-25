@@ -15,8 +15,8 @@ AbstractOdom(RobotPose, Imu, new pros::Task([=, this](){
     this->m_updateTask->suspend();
 
     
-    log(logLocation::Odom, "(%f, %f, %f)", m_currentPose.getX(), m_currentPose.getY(), globalRobotPose.getTheta());
-    log(logLocation::Odom, "(%f, %f, %f)", globalRobotPose.getX(), globalRobotPose.getY(), globalRobotPose.getTheta());
+    //log(logLocation::Odom, "(%f, %f, %f)", m_currentPose.getX(), m_currentPose.getY(), globalRobotPose.getTheta());
+    //log(logLocation::Odom, "(%f, %f, %f)", globalRobotPose.getX(), globalRobotPose.getY(), globalRobotPose.getTheta());
 
           
 
@@ -49,7 +49,7 @@ AbstractOdom(RobotPose, Imu, new pros::Task([=, this](){
             double radius = (distanceTraveled/deltaAngle)-m_wheelOffset;
             double linearDistance = 2*radius*sin(deltaAngle/2);
 
-            log(logLocation::Odom, "Linear Distance %f", linearDistance);
+            //log(logLocation::Odom, "Linear Distance %f", linearDistance);
 
             
             this->m_currentPose.mutex->take(); 
@@ -68,12 +68,12 @@ AbstractOdom(RobotPose, Imu, new pros::Task([=, this](){
             
           
             this->m_currentPose.mutex->take();
-            log(logLocation::Odom, "(%f, %f, %f)", m_currentPose.x, m_currentPose.y, globalRobotPose.theta);
+            //log(logLocation::Odom, "(%f, %f, %f)", m_currentPose.x, m_currentPose.y, globalRobotPose.theta);
 
             this->m_currentPose.y += distanceTraveled*cos(toRad(m_currentPose.theta));
         
             this->m_currentPose.x += distanceTraveled*sin(toRad(m_currentPose.theta));
-            log(logLocation::Odom, "(%f, %f, %f)", m_currentPose.x, m_currentPose.y, globalRobotPose.theta);
+            //log(logLocation::Odom, "(%f, %f, %f)", m_currentPose.x, m_currentPose.y, globalRobotPose.theta);
             this->m_currentPose.mutex->give();
 
             

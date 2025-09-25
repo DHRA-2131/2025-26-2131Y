@@ -9,7 +9,7 @@
 #include "Chassis/Odoms/DriveWheelOdom.hpp"
 #include "pros/adi.hpp"
 
-#define PROG_CHASSIS 1
+#define PROG_CHASSIS 0
 
 
 extern Pose globalRobotPose;
@@ -50,7 +50,7 @@ extern DriveWheelOdom Odom;
 
 namespace chassisIMUs {
 extern pros::Imu IMU1;
-extern pros::Imu IMU2;
+//extern pros::Imu IMU2;
 }
 
 #else
