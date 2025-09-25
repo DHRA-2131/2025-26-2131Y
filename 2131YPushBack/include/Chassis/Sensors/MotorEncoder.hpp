@@ -41,7 +41,7 @@ class MotorEncoder : private AbstractEncoder
          * 
          * @return float 
          */
-        float getPosition() override;
+        float getPosition() const override;
 
         /**
          * @brief Reset the Motor Encoder's Values
