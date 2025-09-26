@@ -16,6 +16,7 @@
 #include "stdint.h"
 
 #include "pros/adi.hpp"
+#include "pros/misc.hpp"
 
  
 
@@ -29,6 +30,8 @@ class Pneumatic : private pros::adi::Pneumatics
             Extended
         }; 
 
+        pros::controller_digital_e_t m_controllerButton;
+
         /**
          * @brief Construct a new Pneumatic object
          * 
@@ -36,7 +39,7 @@ class Pneumatic : private pros::adi::Pneumatics
          * @param startExtended 
          * @param extendedIsLow 
          */
-        Pneumatic(std::uint8_t port, bool startExtended, bool extendedIsLow = false);
+        Pneumatic(pros::controller_digital_e_t controllerButton, std::uint8_t port, bool startExtended, bool extendedIsLow = false);
 
     
         /**
@@ -45,9 +48,18 @@ class Pneumatic : private pros::adi::Pneumatics
          * @param desiredState 
          */
         void set(Status desiredState);
+        
+        /**
+         * @brief Manage Drive Control
+         * 
+         */
+        void driveControl();
 
         friend std::ostream& operator<<(std::ostream& os, const Pneumatic& printPneumatic);
     
- };
+};
 
- std::ostream& operator<<(std::ostream& os, const Pneumatic& printPneumatic);
+std::ostream& operator<<(std::ostream& os, const Pneumatic& printPneumatic);
+
+
+extern Pneumatic shovelMech;

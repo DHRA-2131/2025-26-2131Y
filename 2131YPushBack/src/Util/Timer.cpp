@@ -1,13 +1,16 @@
 #include "Util/Timer.hpp"
 #include "pros/rtos.hpp"
 #include <cstdint>
-#include <ostream>
+#include <iostream>
 
 Timer::Timer() 
     : m_startTime(pros::millis())
 {}
 
-
+Timer::~Timer()
+{
+    std::cout << *this << std::endl;
+}
 
 uint32_t Timer::getCurrentTime()
 {

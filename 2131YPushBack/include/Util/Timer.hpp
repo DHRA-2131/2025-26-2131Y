@@ -32,7 +32,7 @@ class Timer
      * @brief Destroy the Timer object
      * 
      */
-    // ~Timer();Why do we need a destructor?
+    ~Timer();
 
     /**
      * @brief Get the Current Time

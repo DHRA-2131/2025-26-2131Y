@@ -21,14 +21,26 @@
 class DriveBase
 {
     private:
+
+        enum class ControlMethods
+        {
+            TankDrive = 0,
+            ArcadeDrive
+        };
+
         pros::MotorGroup& m_rightDrive;
         pros::MotorGroup& m_leftDrive;
 
         Odometry& m_robotOdom;
+
         PIDController& m_lateralPID;
         PIDController& m_angularPID;
 
         bool m_inMotion;
+        
+        ControlMethods m_driveControl;
+        int m_joystickDeadZone;
+
 
     public:
 
@@ -41,16 +53,17 @@ class DriveBase
          * @param lateralPID 
          * @param angularPID 
          * @param inMotion 
+         * @param driveControl 
          */
-        DriveBase(pros::MotorGroup& rightDrive, pros::MotorGroup& leftDrive, Odometry& robotOdom, PIDController& lateralPID, PIDController& angularPID, bool inMotion);
+        DriveBase(pros::MotorGroup& rightDrive, pros::MotorGroup& leftDrive, Odometry& robotOdom, 
+            PIDController& lateralPID, PIDController& angularPID, bool inMotion, 
+            ControlMethods driveControl = ControlMethods::ArcadeDrive, int joystickDeadZone = 10);
 
         /**
-         * @brief Drive at a Voltage
+         * @brief Manage Drive Control
          * 
-         * @param rightVoltage 
-         * @param leftVoltage 
          */
-        void driveAtVoltage(float rightVoltage, float leftVoltage);
+        void driveControl();
 
         /**
          * @brief Drive to a Point Location
@@ -81,9 +94,5 @@ class DriveBase
          * 
          */
         void delayUntilMovementsEnd() const;
-
-
-
-
 
 };
