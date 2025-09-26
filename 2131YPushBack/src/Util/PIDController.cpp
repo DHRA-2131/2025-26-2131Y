@@ -13,7 +13,10 @@ float PIDController::update(float error)
 
     // Calculate Derivative Value
     float derivative = error - m_prevError;
+
+    // Reset Previous Error
     m_prevError = error;
     
+    // Return PID Output
     return (m_kP * error) + (m_kI * m_integral) + (m_kD * derivative);
 }
