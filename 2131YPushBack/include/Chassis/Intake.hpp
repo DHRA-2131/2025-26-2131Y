@@ -12,3 +12,8 @@
 
 #pragma once
 
+class Intake
+{
+    Intake();
+};
+
