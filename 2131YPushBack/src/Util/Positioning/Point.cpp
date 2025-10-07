@@ -29,53 +29,6 @@ void Point::setY(float y)
     m_y = y;
 }
 
-Point Point::add(Point& otherPoint) const
-{
-    return Point(this->m_x + otherPoint.m_x, this->m_y + otherPoint.m_y);
-}
-
-
-Point Point::subtract(Point& otherPoint) const
-{
-    return Point(this->m_x - otherPoint.m_x, this->m_y - otherPoint.m_y);
-}
-
-
-Point Point::multiply(float& scalar) const
-{
-    return Point(this->m_x * scalar, this->m_y * scalar);
-}
-
-
-Point Point::divide(float& scalar) const
-{
-    return Point(this->m_x / scalar, this->m_y / scalar);
-}
-
-
-Point Point::operator+(Point& otherPoint) const
-{
-    return this->add(otherPoint);
-}
-
-
-Point Point::operator-(Point& otherPoint) const
-{
-    return this->subtract(otherPoint);
-}
-
-
-Point Point::operator*(float& scalar) const
-{
-    return this->multiply(scalar);
-}
-
-
-Point Point::operator/(float& scalar) const
-{
-    return this->divide(scalar);
-}
-
 float Point::distanceTo(Point& otherPoint) const
 {
     return sqrt(pow(this->m_x - otherPoint.m_x, 2) + pow(this->m_y - otherPoint.m_y, 2));

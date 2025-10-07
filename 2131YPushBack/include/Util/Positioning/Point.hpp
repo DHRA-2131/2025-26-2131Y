@@ -12,14 +12,16 @@
 
 #pragma once
 
-#include <iostream>
+#include <ostream>
 
 
 class Point
 {
-    public:
+    private:
         float m_x, m_y;
 
+    
+    public:
 
         /**
          * @brief Construct a new Point object
@@ -57,70 +59,6 @@ class Point
          * @param y 
          */
         void setY(float y);
-
-        /**
-         * @brief Add Two Points Together
-         * 
-         * @param otherPoint 
-         * @return Point 
-         */
-        Point add(Point& otherPoint) const;
-
-        /**
-         * @brief Subtract one Point from Another
-         * 
-         * @param otherPoint 
-         * @return Point 
-         */
-        Point subtract(Point& otherPoint) const;
-
-        /**
-         * @brief Multiply a Point by a Scalar
-         * 
-         * @param scalar 
-         * @return Point 
-         */
-        Point multiply(float& scalar) const;
-
-        /**
-         * @brief Divide a Point by a Scalar
-         * 
-         * @param scalar 
-         * @return Point 
-         */
-        Point divide(float& scalar) const;
-
-        /**
-         * @brief Add Two Points Together
-         * 
-         * @param otherPoint 
-         * @return Point 
-         */
-        Point operator+(Point& otherPoint) const;
-
-        /**
-         * @brief Subtract one Point from Another
-         * 
-         * @param otherPoint 
-         * @return Point 
-         */
-        Point operator-(Point& otherPoint) const;
-
-        /**
-         * @brief Multiply a Point by a Scalar
-         * 
-         * @param scalar 
-         * @return Point 
-         */
-        Point operator*(float& scalar) const;
-
-        /**
-         * @brief Divide a Point by a Scalar
-         * 
-         * @param scalar 
-         * @return Point 
-         */
-        Point operator/(float& scalar) const;
 
         /**
          * @brief Find Distance between Points
