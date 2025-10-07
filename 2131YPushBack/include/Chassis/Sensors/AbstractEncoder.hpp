@@ -15,7 +15,7 @@
 
 class AbstractEncoder
 {
-    private:
+    protected:
 
         float m_wheelRadius;
         float m_wheelOffset;

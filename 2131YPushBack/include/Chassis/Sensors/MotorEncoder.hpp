@@ -17,10 +17,13 @@
 
 class MotorEncoder : public AbstractEncoder //Needed to change this to public so that it can be "passed" as an abstract encoder
 {
+    
+
     private:
 
         pros::MotorGroup& m_encoder;
         float m_wheelGearing;
+    
         
     public:
 
@@ -39,7 +42,7 @@ class MotorEncoder : public AbstractEncoder //Needed to change this to public so
         /**
          * @brief Get the Position of the Motor Encoder in degrees
          * 
-         * @return float 
+         * @return float - Position in Inches
          */
         float getPosition() const override;
 
