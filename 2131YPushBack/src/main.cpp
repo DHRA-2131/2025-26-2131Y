@@ -1,29 +1,36 @@
 #include "main.h"
 
-#include "Chassis/Pneumatic.hpp"
+#include "Competition/RobotConfig.hpp"
 
 
 // Runs at Initialization of the Program
-void initialize() {
+void initialize() 
+{
     
-}
+}//initialize
 
 // Runs while the program is disabled
-void disabled() {
-}
+void disabled() 
+{
+
+}//disabled
 
 // 
-void competition_initialize() {
+void competition_initialize() 
+{
 
-}
+}//competition_initalize
 
 
 // Runs when Autonomous Control is Triggered
-void autonomous() {
+void autonomous() 
+{
 
-}
+} //autonomous
 
 // Runs when Driver Control is Triggered
 void opcontrol() {
-    shovelMech.driveControl();
-}
+    while(true){
+    Chassis.driveControl();
+    }//while true
+} //opcontrol
