@@ -23,9 +23,28 @@ class MotionHandler
         MotionHandler(const MotionHandler&) = delete;
         MotionHandler& operator=(MotionHandler const&) = delete;
 
+        /**
+         * @brief Get instance of singleton
+         * 
+         * @return MotionHandler* 
+         */
         MotionHandler* get();
 
-        void requestControl();
+        /**
+         * @brief Request Control of Chassis
+         *
+         * If Chassis is in use and blocking is set to true thread will wait untill control is secured.
+         * Otherwise will return -1 (Could not attain lock), or 1 (Lock Secured)
+         * 
+         * @param blocking 
+         * @return int (Lock Status) 
+         */
+        int requestControl(bool blocking = true);
+
+        /**
+         * @brief Release control of the chassis
+         * 
+         */
         void relinquishControl();
 
 
