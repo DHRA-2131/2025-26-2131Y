@@ -2,7 +2,7 @@
 #include "Competition/RobotConfig.hpp"
 #include "pros/misc.h"
 
-DriveBase::DriveBase(pros::MotorGroup& rightDrive, pros::MotorGroup& leftDrive, Odometry& robotOdom, PIDController& lateralPID, PIDController& angularPID, bool inMotion, ControlMethods driveControl = ControlMethods::ArcadeDrive, int joystickDeadZone = 10)
+DriveBase::DriveBase(pros::MotorGroup& rightDrive, pros::MotorGroup& leftDrive, Odometry& robotOdom, PIDController& lateralPID, PIDController& angularPID, bool inMotion, ControlMethods driveControl, int joystickDeadZone)
     : m_rightDrive(rightDrive), m_leftDrive(leftDrive), m_robotOdom(robotOdom), m_lateralPID(lateralPID), m_angularPID(angularPID), m_inMotion(inMotion), m_driveControl(driveControl), m_joystickDeadZone(joystickDeadZone)
 {}
 

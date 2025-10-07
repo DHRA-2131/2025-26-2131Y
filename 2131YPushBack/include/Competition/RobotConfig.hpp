@@ -13,5 +13,8 @@
 #pragma once
 
 #include "pros/misc.hpp"
+#include "Chassis/DriveBase.hpp"
 
 extern pros::Controller MainController;
+
+extern DriveBase Chassis;

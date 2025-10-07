@@ -15,7 +15,7 @@
 #include "Chassis/Sensors/AbstractEncoder.hpp"
 #include "pros/motor_group.hpp"
 
-class MotorEncoder : private AbstractEncoder
+class MotorEncoder : public AbstractEncoder //Needed to change this to public so that it can be "passed" as an abstract encoder
 {
     private:
 
