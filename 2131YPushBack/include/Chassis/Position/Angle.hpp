@@ -12,7 +12,7 @@
 
 #pragma once
 
-#include "Eigen/src/Core/Matrix.h"
+#include "Eigen/Eigen"
 #include <ostream>
 
 
