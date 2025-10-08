@@ -12,6 +12,7 @@
 
 #pragma once
 
+#include "Eigen/src/Core/Matrix.h"
 #include <ostream>
 
 
@@ -43,6 +44,19 @@ class Angle
          * @param theta 
          */
         void setTheta(float theta, bool degrees = true);
+
+        /**
+         * @brief Set the Eigen Matrix object
+         * 
+         */
+        void setEigenMatrix(Eigen::RowVector<float, 1>);
+
+        /**
+         * @brief Get the Eigen Matrix object
+         * 
+         * @return Eigen::RowVector<float, 1> 
+         */
+        Eigen::RowVector<float, 1> getEigenMatrix();
 
         /**
          * @brief Add Two Angles Together
