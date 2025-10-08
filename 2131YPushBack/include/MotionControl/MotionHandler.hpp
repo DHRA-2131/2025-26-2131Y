@@ -8,10 +8,7 @@
  * @copyright Copyright (c) 2025
  * 
  */
-#ifndef _MOTION_HANDLER_HPP_
-#define _MOTION_HANDLER_HPP_
-
-#include "pros/rtos.h"
+#pragma once
 
 class MotionHandler
 {
@@ -28,7 +25,7 @@ class MotionHandler
          * 
          * @return MotionHandler* 
          */
-        MotionHandler* get();
+        MotionHandler* instance();
 
         /**
          * @brief Request Control of Chassis
@@ -50,5 +47,5 @@ class MotionHandler
 
 };
 
-#endif
+
 
