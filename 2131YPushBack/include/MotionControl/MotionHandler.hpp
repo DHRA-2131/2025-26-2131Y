@@ -10,10 +10,14 @@
  */
 #pragma once
 
+#include "pros/rtos.hpp"
+
 class MotionHandler
 {
     private:
         MotionHandler() = default;
+
+       pros::Mutex m_mutex = pros::Mutex();
         
     public:
         /* Delete so MotionHandler Cannot be copied */
@@ -25,7 +29,7 @@ class MotionHandler
          * 
          * @return MotionHandler* 
          */
-        MotionHandler* instance();
+        static MotionHandler* instance();
 
         /**
          * @brief Request Control of Chassis
@@ -43,6 +47,8 @@ class MotionHandler
          * 
          */
         void relinquishControl();
+
+        bool chassisBusy = false;
 
 
 };
