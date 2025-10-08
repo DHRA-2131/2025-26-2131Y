@@ -1,6 +1,5 @@
 #include "main.h"
-
-#include "Competition/RobotConfig.hpp"
+#include "pros/rtos.hpp"
 
 
 // Runs at Initialization of the Program
@@ -29,8 +28,7 @@ void autonomous()
 } //autonomous
 
 // Runs when Driver Control is Triggered
+
 void opcontrol() {
-    while(true){
     
-    }//while true
 } //opcontrol
