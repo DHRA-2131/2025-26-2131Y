@@ -23,6 +23,13 @@ class DriveBase
         pros::Task m_odomThread;
         pros::Task m_monitorThread;
 
+        bool m_intialized = false;
+
+        pros::MotorGroup* m_rightMotors;
+        pros::MotorGroup* m_leftMotors;
+
+        void* m_localizer;
+
     public:
 
         const MotionHandler* motionHandler;
@@ -37,7 +44,7 @@ class DriveBase
         * @param Left
         * @param Localizer
         */
-        void init(pros::MotorGroup& Right, pros::MotorGroup& Left, void* Localizer/* Replace void* to reference to localizer object*/);
+        void init(pros::MotorGroup* Right, pros::MotorGroup* Left, void* Localizer/* Replace void* to pointer to localizer object*/);
         
         /**
          * @brief Get the instance of the drivebase singleton

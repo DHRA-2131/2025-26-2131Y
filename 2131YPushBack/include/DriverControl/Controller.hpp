@@ -26,7 +26,7 @@ class Controller
 {
     private:
         std::vector<std::pair<pros::controller_digital_e_t, std::function<void(bool)>>> m_callbacks;
-        std::function<void(Eigen::RowVector4d)> m_analogFunction;
+        std::function<void(int,int,int,int)> m_analogFunction;
 
     public:
         pros::Controller prosController;
@@ -50,9 +50,15 @@ class Controller
          *
          * @param analogFunction 
          */
-        void setAnalogFunction(std::function<void(Eigen::RowVector4d)> analogFunction);
+        void setAnalogFunction(std::function<void(int Rx, int Ry, int Lx, int Ly)> analogFunction);
+
+        /**
+         * @brief Update and run all callbacks
+         * 
+         */
+        void update();
 
         /* Default analog controls */
-        static void tank(Eigen::RowVector4d Axis);
-        static void splitArcade(Eigen::RowVector4d Axis);
+        static void tank(int Rx, int Ry, int Lx, int Ly);
+        static void splitArcade(int Rx, int Ry, int Lx, int Ly);
 };
