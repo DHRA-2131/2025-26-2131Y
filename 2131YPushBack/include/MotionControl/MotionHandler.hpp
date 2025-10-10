@@ -21,7 +21,7 @@ class MotionHandler
         
     public:
         /* Delete so MotionHandler Cannot be copied */
-        MotionHandler(const MotionHandler&) = delete;
+        MotionHandler(MotionHandler const&) = delete;
         MotionHandler& operator=(MotionHandler const&) = delete;
 
         /**
