@@ -20,7 +20,8 @@ class DriveBase
  {
     private:
         DriveBase();
-        pros::Task OdomThread;
+        pros::Task m_odomThread;
+        pros::Task m_monitorThread;
 
     public:
 
@@ -43,7 +44,7 @@ class DriveBase
          * 
          * @return DriveBase* 
          */
-        DriveBase* instance();
+        static DriveBase* instance();
 
         /**
          * @brief Set the Motors to specified "voltage" in units from -127 to 127
