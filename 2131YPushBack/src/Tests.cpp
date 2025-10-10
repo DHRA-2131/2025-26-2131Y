@@ -30,7 +30,7 @@ void DriverControlTest()
 {   
     pros::MotorGroup right({0,0,0});
     pros::MotorGroup left({0,0,0});
-    DriveBase::instance()->init(right, left, nullptr);
+    DriveBase::instance()->init(&right, &left, nullptr);
     masterController.setCallback(pros::E_CONTROLLER_DIGITAL_A, tankArcadeButtonToggle);
     while(true){
         
