@@ -56,9 +56,9 @@ class AbstractEncoder
         /**
          * @brief Get the State object
          * 
-         * @return Eigen::Vector3<float> 
+         * @return Eigen::Vector3f
          */
-        virtual Eigen::Vector3<float> getState() const = 0;
+        virtual Eigen::Vector3f getState() const = 0;
 
         /**
          * @brief Get the Timestep value
@@ -66,4 +66,16 @@ class AbstractEncoder
          * @return float 
          */
         virtual float getTimestep() const = 0;
+
+        /**
+         * @brief Update Encoder Values
+         * 
+         */
+        virtual void update() = 0;
+
+        /**
+         * @brief Reset Encoder Values
+         * 
+         */
+        virtual void reset() = 0;
 };

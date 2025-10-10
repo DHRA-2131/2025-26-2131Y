@@ -12,55 +12,67 @@
 #pragma once
 
 #include "Chassis/Sensors/AbstractEncoder.hpp"
+#include "pros/motor_group.hpp"
+#include "Eigen/Eigen"
 
 class MotorEncoder : private AbstractEncoder
 {
+    private:
+        pros::MotorGroup& m_motorSensor;
+        Eigen::Vector3f motorState;
+
     public:
 
         /**
          * @brief Construct a new Abstract Encoder object
          * 
          */
-        MotorEncoder() = default;
-
-        /**
-         * @brief Destroy the Abstract Encoder object
-         * 
-         */
-        virtual ~AbstractEncoder() = default;
+        MotorEncoder(pros::MotorGroup& motorSensor, Eigen::Vector3f motorState);
 
         /**
          * @brief Get the Position value
          * 
          * @return float 
          */
-        virtual float getPosition() const = 0;
+        float getPosition() const override;
 
         /**
          * @brief Get the Velocity value
          * 
          * @return float 
          */
-        virtual float getVelocity() const = 0;
+        float getVelocity() const override;
         
         /**
          * @brief Get the Acceleration value
          * 
          * @return float 
          */
-        virtual float getAcceleration() const = 0;
+        float getAcceleration() const override;
 
         /**
          * @brief Get the State object
          * 
-         * @return Eigen::Vector3<float> 
+         * @return Eigen::Vector3f
          */
-        virtual Eigen::Vector3<float> getState() const = 0;
+        Eigen::Vector3f getState() const override;
 
         /**
          * @brief Get the Timestep value
          * 
          * @return float 
          */
-        virtual float getTimestep() const = 0;
+        float getTimestep() const override;
+        
+        /**
+         * @brief Update Motor Encoder Values
+         * 
+         */
+        void update() override;
+
+        /**
+         * @brief Reset
+         * 
+         */
+        void reset() override;
 };
