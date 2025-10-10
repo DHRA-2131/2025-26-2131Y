@@ -9,6 +9,7 @@
  * 
  */
 
+
 #pragma once
 
 
@@ -32,17 +33,37 @@ class AbstractEncoder
         virtual ~AbstractEncoder() = default;
 
         /**
-         * @brief Get the Position object
+         * @brief Get the Position value
          * 
          * @return float 
          */
         virtual float getPosition() const = 0;
 
+        /**
+         * @brief Get the Velocity value
+         * 
+         * @return float 
+         */
         virtual float getVelocity() const = 0;
-
+        
+        /**
+         * @brief Get the Acceleration value
+         * 
+         * @return float 
+         */
         virtual float getAcceleration() const = 0;
 
+        /**
+         * @brief Get the State object
+         * 
+         * @return Eigen::Vector3<float> 
+         */
         virtual Eigen::Vector3<float> getState() const = 0;
 
+        /**
+         * @brief Get the Timestep value
+         * 
+         * @return float 
+         */
         virtual float getTimestep() const = 0;
 };
