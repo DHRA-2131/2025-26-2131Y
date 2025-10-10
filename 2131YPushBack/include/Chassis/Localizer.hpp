@@ -20,7 +20,7 @@ class Localizer
         TrackingWheel& m_positionSensor;
         InertialSensor& m_inertialSensor;
 
-        Eigen::RowVector3f m_robotPosition;
+        Eigen::RowVector3f m_robotPosition; 
         
 
 
