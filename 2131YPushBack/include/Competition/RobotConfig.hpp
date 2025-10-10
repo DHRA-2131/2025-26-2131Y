@@ -19,6 +19,7 @@ extern pros::Controller mainController;
 extern pros::MotorGroup leftDrive;
 extern pros::MotorGroup rightDrive;
 extern pros::adi::Pneumatics shovel;
+extern pros::adi::Pneumatics descore;
 
 
 

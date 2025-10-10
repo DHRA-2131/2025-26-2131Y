@@ -118,8 +118,8 @@ void opcontrol() {
     const bool tank = false;   
     while(true){
         if (!tank){
-        leftDrive.move(linearJoystick.value() + angularJoystick.value());
-        rightDrive.move(linearJoystick.value() - angularJoystick.value());
+            leftDrive.move(linearJoystick.value() + angularJoystick.value());
+            rightDrive.move(linearJoystick.value() - angularJoystick.value());
         }
         else {
             leftDrive.move(tankLeftJoystick.value());
@@ -143,6 +143,12 @@ void opcontrol() {
         shovelToggle = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_B) && !prevShovel) ? !shovelToggle : shovelToggle;
         prevShovel = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_B));
         shovel.set_value(shovelToggle);
+
+        static bool descoreToggle = true;
+        static bool prevDescore = true;
+        descoreToggle = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_UP) && !prevDescore) ? !descoreToggle : descoreToggle;
+        prevDescore = (mainController.get_digital(pros::E_CONTROLLER_DIGITAL_UP));
+        descore.set_value(descoreToggle);
 
         static bool goalToggle = false;
         static bool prevGoal = false;

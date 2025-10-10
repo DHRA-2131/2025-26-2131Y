@@ -17,7 +17,7 @@ pros::Controller mainController(pros::E_CONTROLLER_MASTER);
 
 namespace intakeMotors{
     pros::Motor front(9);
-    pros::Motor top(4);
+    pros::Motor top(-4);
     pros::Motor back(-10);
 }
 
@@ -59,6 +59,7 @@ pros::Imu IMU1(8);
 
 
 pros::adi::Pneumatics shovel('a', false);
+pros::adi::Pneumatics descore('e',true, true);
 
 DriveWheelOdom Odom(globalRobotPose, chassisIMUs::IMU1, leftDrive, rightDrive, 7, 3.25, 0.4115);
 #endif
