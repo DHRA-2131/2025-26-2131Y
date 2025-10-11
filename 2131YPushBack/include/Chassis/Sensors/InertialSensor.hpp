@@ -14,6 +14,7 @@
 #include "pros/imu.hpp"
 #include "Eigen/Eigen"
 
+
 class InertialSensor : public pros::IMU
 {
     private:
@@ -21,14 +22,14 @@ class InertialSensor : public pros::IMU
         // [x  , y  , theta  ]
         // [x' , y' , theta' ]
         // [x'', y'', theta'']
-        Eigen::Matrix3f robotState;
+        Eigen::Matrix3f m_robotState;
 
         // [1, dt, dt^2/2]
         // [0, 1 , dt    ]
         // [0, 0 , 1     ]
         Eigen::Matrix3f m_stateUpdate;
 
-        float prevTime;
+        float m_prevTime;
 
     public:
 
@@ -36,7 +37,7 @@ class InertialSensor : public pros::IMU
          * @brief Construct a new InertialSensor object
          * 
          */
-        InertialSensor();
+        InertialSensor(uint8_t port);
 
         /**
          * @brief Get the X State object

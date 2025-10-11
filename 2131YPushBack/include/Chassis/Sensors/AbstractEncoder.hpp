@@ -27,12 +27,6 @@ class AbstractEncoder
         AbstractEncoder() = default;
 
         /**
-         * @brief Destroy the Abstract Encoder object
-         * 
-         */
-        virtual ~AbstractEncoder() = default;
-
-        /**
          * @brief Get the Position value
          * 
          * @return float 

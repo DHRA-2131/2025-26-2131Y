@@ -19,7 +19,7 @@ class MotorEncoder : private AbstractEncoder
 {
     private:
         pros::MotorGroup& m_motorSensor;
-        Eigen::Vector3f motorState;
+        Eigen::Vector3f m_motorState;
 
     public:
 

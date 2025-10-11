@@ -20,9 +20,40 @@ class Localizer
         TrackingWheel& m_positionSensor;
         InertialSensor& m_inertialSensor;
 
-        Eigen::RowVector3f m_robotPosition; 
+        Eigen::RowVector3f m_robotPosition;
+        Eigen::Rotation2D<float> m_rotationMatrix;
+
+        float m_prevTime;
         
 
+    public:
 
+        /**
+         * @brief Construct a new Localizer object
+         * 
+         * @param positionSensor 
+         * @param inertialSensor 
+         * @param robotPosition 
+         */
+        Localizer(TrackingWheel& positionSensor, InertialSensor& inertialSensor, Eigen::RowVector3f robotPosition);
 
+        /**
+         * @brief Get the Robot Position object
+         * 
+         * @return Eigen::Vector3f 
+         */
+        Eigen::Vector3f getRobotPosition() const;
+
+        /**
+         * @brief Set the Robot Position object
+         * 
+         * @return Eigen::Vector3f 
+         */
+        Eigen::Vector3f setRobotPosition();
+
+        /**
+         * @brief Update the Localizer
+         * 
+         */
+        void update();
 };
