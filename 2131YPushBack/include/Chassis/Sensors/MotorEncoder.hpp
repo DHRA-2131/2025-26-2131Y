@@ -56,19 +56,12 @@ class MotorEncoder : private AbstractEncoder
          * @return Eigen::Vector3f
          */
         Eigen::Vector3f getState() const override;
-
-        /**
-         * @brief Get the Timestep value
-         * 
-         * @return float 
-         */
-        float getTimestep() const override;
         
         /**
          * @brief Update Motor Encoder Values
          * 
          */
-        void update() override;
+        void update(float deltaTime) override;
 
         /**
          * @brief Reset

@@ -55,17 +55,10 @@ class AbstractEncoder
         virtual Eigen::Vector3f getState() const = 0;
 
         /**
-         * @brief Get the Timestep value
-         * 
-         * @return float 
-         */
-        virtual float getTimestep() const = 0;
-
-        /**
          * @brief Update Encoder Values
          * 
          */
-        virtual void update() = 0;
+        virtual void update(float deltaTime) = 0;
 
         /**
          * @brief Reset Encoder Values

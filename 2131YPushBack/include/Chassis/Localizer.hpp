@@ -21,6 +21,11 @@ class Localizer
         InertialSensor& m_inertialSensor;
 
         Eigen::RowVector3f m_robotPosition;
+
+        // [1, dt, dt^2/2]
+        // [0, 1 , dt    ]
+        // [0, 0 , 1     ]
+        Eigen::Matrix3f m_stateUpdate;
         Eigen::Rotation2D<float> m_rotationMatrix;
 
         float m_prevTime;
