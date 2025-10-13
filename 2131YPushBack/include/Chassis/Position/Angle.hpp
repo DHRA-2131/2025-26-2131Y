@@ -13,7 +13,6 @@
 #pragma once
 
 #include "Eigen/Eigen"
-#include <ostream>
 #include <atomic>
 
 
@@ -33,6 +32,7 @@ class Angle
          * @param theta 
          */
         Angle(float theta, bool degrees = true);
+        Angle(Angle&);
 
 
         /**
@@ -81,6 +81,11 @@ class Angle
          */
         Angle operator/(float& scalar) const;
 
+        /**
+         * @brief Return theta value in radians
+         * 
+         * @return float 
+         */
         explicit operator float() const {
         return theta;
         }

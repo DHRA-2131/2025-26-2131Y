@@ -8,6 +8,8 @@ Angle::Angle(float theta, bool degrees)
     )
 {}
 
+
+
 void Angle::setEigenMatrix(Eigen::RowVector<float, 1> matrix, bool degrees)
 {
     this->theta = (degrees) ? matrix(1)*M_PI/180 : matrix(1);
