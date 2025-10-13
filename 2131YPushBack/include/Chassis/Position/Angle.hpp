@@ -14,15 +14,18 @@
 
 #include "Eigen/Eigen"
 #include <ostream>
+#include <atomic>
 
 
 class Angle
 {
     private:
 
-        float m_theta;
+        
 
     public:
+
+        std::atomic<float> theta;
 
         /**
          * @brief Construct a new Angle object
@@ -31,64 +34,20 @@ class Angle
          */
         Angle(float theta, bool degrees = true);
 
-        /**
-         * @brief Get Theta Value
-         * 
-         * @return float 
-         */
-        float getTheta(bool degrees = true) const;
-
-        /**
-         * @brief Set Theta Value
-         * 
-         * @param theta 
-         */
-        void setTheta(float theta, bool degrees = true);
 
         /**
          * @brief Set the Eigen Matrix object
          * 
          */
-        void setEigenMatrix(Eigen::RowVector<float, 1>);
+        void setEigenMatrix(Eigen::RowVector<float, 1>, bool degrees = true);
 
         /**
          * @brief Get the Eigen Matrix object
          * 
          * @return Eigen::RowVector<float, 1> 
          */
-        Eigen::RowVector<float, 1> getEigenMatrix();
+        Eigen::RowVector<float, 1> getEigenMatrix(bool degrees = true);
 
-        /**
-         * @brief Add Two Angles Together
-         * 
-         * @param otherAngle 
-         * @return Angle 
-         */
-        Angle add(Angle& otherAngle) const;
-
-        /**
-         * @brief Subtract one Angle from Another
-         * 
-         * @param otherAngle 
-         * @return Angle 
-         */
-        Angle subtract(Angle& otherAngle) const;
-
-        /**
-         * @brief Multiply a Angle by a Scalar
-         * 
-         * @param scalar 
-         * @return Angle 
-         */
-        Angle multiply(float& scalar) const;
-
-        /**
-         * @brief Divide a Angle by a Scalar
-         * 
-         * @param scalar 
-         * @return Angle 
-         */
-        Angle divide(float& scalar) const;
 
         /**
          * @brief Add Two Angles Together
@@ -122,10 +81,12 @@ class Angle
          */
         Angle operator/(float& scalar) const;
 
-        float wrapAngle();
+        explicit operator float() const {
+        return theta;
+        }
 
-        friend std::ostream& operator<<(std::ostream& os, const Angle& printAngle);
+
+        float wrapAngle();
 
 };
 
-std::ostream& operator<<(std::ostream& os, const Angle& printAngle);
