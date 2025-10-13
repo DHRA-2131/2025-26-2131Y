@@ -1,5 +1,6 @@
 #include "Chassis/Sensors/MotorEncoder.hpp"
 #include "Util/Constants.hpp"
+#include "Util/MathFunctions.hpp"
 #include "pros/motor_group.hpp"
 
 #include "pros/rtos.hpp"
@@ -36,20 +37,15 @@ Eigen::Vector3f MotorEncoder::getState() const
 
 void MotorEncoder::update(float deltaTime)
 {
-    float motorPosition = 0.0f;
-    float motorVelocity = 0.0f;
-    float motorAccel = 0.0f;
-    for (int i = 0; i < m_motorSensor.get_port_all().size(); i++)
-    {
-        motorPosition += m_motorSensor.get_position(i);
-        motorVelocity += m_motorSensor.get_actual_velocity(i);
-        motorAccel += m_motorSensor.get_actual_velocity(i) / (deltaTime * millis_to_sec);
-    }
-    m_motorState[0] = 
+    m_motorSensor.set_encoder_units_all(pros::E_MOTOR_ENCODER_DEGREES);
+    m_motorState[0] = average<double>(m_motorSensor.get_position_all());
+    m_motorState[1] = average<double>(m_motorSensor.get_actual_velocity_all()) * rpm_to_degpsec;
+    m_motorState[2] = m_motorState[1] / (deltaTime * millis_to_sec);
 }
 
 
 void MotorEncoder::reset()
 {
-
+    m_motorState = {0.0f, 0.0f, 0.0f};
+    m_motorSensor.tare_position_all(); // ? Is this the correct command for reset position/velocity;
 }

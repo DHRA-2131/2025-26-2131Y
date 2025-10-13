@@ -12,3 +12,12 @@
 
 constexpr float millis_to_sec = 0.001f;
 constexpr float sec_to_millis = 1000.0f;
+
+constexpr float min_to_sec = 60.0f;
+constexpr float sec_to_min = (1.0f / 60.0f);
+
+constexpr float rpm_to_degpsec = (360.0f / 60.0f);
+constexpr float degpsec_to_rpm = (60.0f / 360.0f);
+
+constexpr float gravity = 9.80665f;
+constexpr float meters_to_inches = 39.37007874f;

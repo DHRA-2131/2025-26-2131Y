@@ -24,8 +24,6 @@ class InertialSensor : public pros::IMU
         // [x'', y'', theta'']
         Eigen::Matrix3f m_robotState;
 
-        float m_prevTime;
-
     public:
 
         /**
@@ -66,5 +64,11 @@ class InertialSensor : public pros::IMU
          * @brief Update Values
          * 
          */
-        void update(Eigen::Matrix3f& stateUpdate);
+        void update(float deltaTime);
+
+        /**
+         * @brief Reset Values
+         * 
+         */
+        void resetValues();
 };
