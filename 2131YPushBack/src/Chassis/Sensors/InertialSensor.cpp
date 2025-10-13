@@ -32,6 +32,7 @@ Eigen::Matrix3f InertialSensor::getState() const
 
 void InertialSensor::update(float deltaTime)
 {
+    deltaTime *= millis_to_sec;
     m_robotState(2, 0) = static_cast<float>(this->get_accel().x) * gravity * meters_to_inches;
     m_robotState(2, 1) = static_cast<float>(this->get_accel().y) * gravity * meters_to_inches;
     m_robotState(0, 2) = static_cast<float>(this->get_heading());

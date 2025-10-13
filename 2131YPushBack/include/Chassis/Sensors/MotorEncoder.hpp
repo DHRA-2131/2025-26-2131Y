@@ -24,10 +24,11 @@ class MotorEncoder : private AbstractEncoder
     public:
 
         /**
-         * @brief Construct a new Abstract Encoder object
+         * @brief Construct a new Motor Encoder object
          * 
+         * @param motorSensor 
          */
-        MotorEncoder(pros::MotorGroup& motorSensor, Eigen::Vector3f motorState);
+        MotorEncoder(pros::MotorGroup& motorSensor);
 
         /**
          * @brief Get the Position value

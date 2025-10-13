@@ -6,8 +6,8 @@
 #include "pros/rtos.hpp"
 
 
-MotorEncoder::MotorEncoder(pros::MotorGroup& motorSensor, Eigen::Vector3f motorState)
-    : m_motorSensor(motorSensor), m_motorState(motorState)
+MotorEncoder::MotorEncoder(pros::MotorGroup& motorSensor)
+    : m_motorSensor(motorSensor), m_motorState(Eigen::Vector3f::Zero())
 {}
 
 
