@@ -21,10 +21,11 @@
 
 class Pose : private Point
 {
-    private:
-        Angle m_theta;
+
 
     public:
+
+        Angle theta;
 
         /**
          * @brief Construct a new Pose object
@@ -36,20 +37,6 @@ class Pose : private Point
         Pose(float x, float y, Angle theta);
 
         /**
-         * @brief Get Theta Value
-         * 
-         * @return Angle 
-         */
-        Angle getTheta() const;
-
-        /**
-         * @brief Set Theta Value
-         * 
-         * @param theta 
-         */
-        void setTheta(Angle& theta);
-
-        /**
          * @brief Calculate the Angle to Another Point
          * 
          * @param otherPoint 
@@ -57,6 +44,7 @@ class Pose : private Point
          */
         float angleToPoint(Point& otherPoint) const;
 
+        void set(float x, float y, float theta);
         /**
          * @brief Set the Eigen Matrix Version
          * 

@@ -9,14 +9,15 @@ MotionHandler* MotionHandler::instance()
 
 int MotionHandler::requestControl(bool blocking)
 {   
-    if (!blocking && chassisBusy) return -1;
-    chassisBusy = true;
+    if (!blocking) {
+        if (m_mutex.take(0)) return 1;
+        else return false;
+    }
     m_mutex.take();
     return 1;
 }
 
 void MotionHandler::relinquishControl()
 {
-    chassisBusy = false;
     m_mutex.give();
 }

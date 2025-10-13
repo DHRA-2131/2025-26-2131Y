@@ -13,16 +13,19 @@
 #pragma once
 
 #include <ostream>
+#include <atomic>
 #include "Eigen/Eigen"
+
+
 
 
 class Point
 {
-    private:
-        float m_x, m_y;
-
     
     public:
+
+        std::atomic<float> x;
+        std::atomic<float> y;
 
         /**
          * @brief Construct a new Point object
@@ -33,34 +36,7 @@ class Point
         Point(float x, float y);
 
 
-        /**
-         * @brief Get X Value
-         * 
-         * @return float 
-         */
-        float getX() const;
-
-        /**
-         * @brief Get Y Value
-         * 
-         * @return float 
-         */
-        float getY() const;
-
-        /**
-         * @brief Set X Value
-         * 
-         * @param x 
-         */
-        void setX(float x);
-
-        /**
-         * @brief Set Y Value
-         * 
-         * @param y 
-         */
-        void setY(float y);
-
+        
         /**
          * @brief Find Distance between Points
          * 
@@ -69,8 +45,9 @@ class Point
          */
         float distanceTo(Point& otherPoint) const;
 
-        
+        void set(float x, float y);
         void setEigenMatrix(Eigen::RowVector2f);
+
 
         /**
          * @brief Return Eigen matrix for localization
