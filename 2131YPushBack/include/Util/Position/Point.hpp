@@ -34,6 +34,7 @@ class Point
          * @param y 
          */
         Point(float x, float y);
+        Point(Point&);
 
 
         

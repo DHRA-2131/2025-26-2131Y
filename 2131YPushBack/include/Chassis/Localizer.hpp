@@ -13,6 +13,7 @@
 
 #include "Chassis/TrackingWheel.hpp"
 #include "Chassis/Sensors/InertialSensor.hpp"
+#include "Util/Position/Pose.hpp"
 
 class Localizer
 {
@@ -20,13 +21,7 @@ class Localizer
         TrackingWheel& m_positionSensor;
         InertialSensor& m_inertialSensor;
 
-        Eigen::RowVector3f m_robotPosition;
-
-        // [1, dt, dt^2/2]
-        // [0, 1 , dt    ]
-        // [0, 0 , 1     ]
-        Eigen::Matrix3f m_stateUpdate;
-        Eigen::Rotation2D<float> m_rotationMatrix;
+        Pose m_robotPosition;
 
         float m_prevTime;
         
@@ -40,21 +35,20 @@ class Localizer
          * @param inertialSensor 
          * @param robotPosition 
          */
-        Localizer(TrackingWheel& positionSensor, InertialSensor& inertialSensor, Eigen::RowVector3f robotPosition);
+        Localizer(TrackingWheel& positionSensor, InertialSensor& inertialSensor, Pose robotPosition);
 
         /**
          * @brief Get the Robot Position object
          * 
-         * @return Eigen::Vector3f 
+         * @return Pose 
          */
-        Eigen::Vector3f getRobotPosition() const;
+        Pose getRobotPosition() const;
 
         /**
          * @brief Set the Robot Position object
          * 
-         * @return Eigen::Vector3f 
          */
-        Eigen::Vector3f setRobotPosition();
+        void setRobotPosition(Pose robotPosition);
 
         /**
          * @brief Update the Localizer
