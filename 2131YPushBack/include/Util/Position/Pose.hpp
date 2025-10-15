@@ -20,7 +20,7 @@
 #include <cmath>
 
 
-class Pose : private Point
+class Pose : public Point
 {
 
 

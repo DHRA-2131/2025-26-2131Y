@@ -38,8 +38,8 @@ Eigen::Vector3f MotorEncoder::getState() const
 void MotorEncoder::update(float deltaTime)
 {
     m_motorSensor.set_encoder_units_all(pros::E_MOTOR_ENCODER_DEGREES);
-    m_motorState[0] = average<double>(m_motorSensor.get_position_all());
-    m_motorState[1] = average<double>(m_motorSensor.get_actual_velocity_all()) * rpm_to_degpsec;
+    m_motorState[0] = static_cast<float>(average<double>(m_motorSensor.get_position_all()));
+    m_motorState[1] = static_cast<float>(average<double>(m_motorSensor.get_actual_velocity_all())) * rpm_to_degpsec;
     m_motorState[2] = m_motorState[1] / (deltaTime * millis_to_sec);
 }
 

@@ -15,7 +15,7 @@
 #include "pros/motor_group.hpp"
 #include "Eigen/Eigen"
 
-class MotorEncoder : private AbstractEncoder
+class MotorEncoder : public AbstractEncoder
 {
     private:
         pros::MotorGroup& m_motorSensor;

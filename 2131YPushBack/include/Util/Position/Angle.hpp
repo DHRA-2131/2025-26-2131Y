@@ -37,17 +37,17 @@ class Angle
 
 
         /**
-         * @brief Set the Eigen Matrix object
+         * @brief Set the Theta value
          * 
          */
-        void setEigenMatrix(Eigen::RowVector<float, 1>, bool degrees = true);
+        void setTheta(float theta, bool degrees = true);
 
         /**
-         * @brief Get the Eigen Matrix object
+         * @brief Get the Theta value
          * 
-         * @return Eigen::RowVector<float, 1> 
+         * @return float 
          */
-        Eigen::RowVector<float, 1> getEigenMatrix(bool degrees = true);
+        float getTheta(bool degrees = true);
 
 
         /**

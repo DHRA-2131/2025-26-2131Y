@@ -35,7 +35,7 @@ void InertialSensor::update(float deltaTime)
     deltaTime *= millis_to_sec;
     m_robotState(2, 0) = static_cast<float>(this->get_accel().x) * gravity * meters_to_inches;
     m_robotState(2, 1) = static_cast<float>(this->get_accel().y) * gravity * meters_to_inches;
-    m_robotState(0, 2) = static_cast<float>(this->get_heading());
+    m_robotState(0, 2) = static_cast<float>((this->get_heading() - 180) * -1);
     Eigen::Matrix3f stateUpdate;
 
     // [1.0f, dt  , (dt^2)/2]
@@ -44,7 +44,6 @@ void InertialSensor::update(float deltaTime)
     stateUpdate << 1.0f, deltaTime, (deltaTime * deltaTime) / 2, 0.0f, 1.0f, deltaTime, 0.0f, 0.0f, 1.0f;
 
     // Update all values for each x, y, and theta
-    // TODO Check that this Matrix Multiplication Works
     m_robotState = stateUpdate * m_robotState;
 }
 

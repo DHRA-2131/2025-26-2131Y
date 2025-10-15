@@ -24,6 +24,8 @@ class Localizer
         Pose m_robotPosition;
 
         float m_prevTime;
+        float m_prevDistance;
+        Angle m_prevHeading;
         
 
     public:

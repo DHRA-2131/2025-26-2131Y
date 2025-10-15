@@ -9,7 +9,7 @@
  * 
  */
 
-
+constexpr float pi = 3.14159265358979323846f;
 constexpr float millis_to_sec = 0.001f;
 constexpr float sec_to_millis = 1000.0f;
 
@@ -23,3 +23,5 @@ constexpr float gravity = 9.80665f;
 constexpr float meters_to_inches = 39.37007874f;
 
 constexpr float deg_to_rev = (1.0f / 360.0f);
+
+constexpr float rad_to_deg = (180.0f / pi);

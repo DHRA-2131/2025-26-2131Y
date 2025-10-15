@@ -2,7 +2,7 @@
 #include "Util/Constants.hpp"
 
 
-TrackingWheel::TrackingWheel(AbstractEncoder& encoder, float wheelCircumference, float gearRatio, Eigen::Vector2f wheelOffset, bool horizontalWheel = true)
+TrackingWheel::TrackingWheel(AbstractEncoder& encoder, float wheelCircumference, float gearRatio, Eigen::Vector2f wheelOffset, bool horizontalWheel)
     : m_encoder(encoder), m_wheelCircumference(wheelCircumference), m_gearRatio(gearRatio), m_wheelOffset(wheelOffset), m_horizontalWheel(horizontalWheel), m_encoderToInches(deg_to_rev *  m_wheelCircumference * m_gearRatio)
 {}
 

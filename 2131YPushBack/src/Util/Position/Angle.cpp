@@ -1,9 +1,9 @@
 #include "Util/Position/Angle.hpp"
 #include "Math.h"
-#include "Eigen/Eigen"
+#include "Util/Constants.hpp"
 
 Angle::Angle(float theta, bool degrees)
-    : theta((degrees) ? theta*M_PI/180 : theta)
+    : theta((degrees) ? theta * rad_to_deg : theta)
 {}
 
 Angle::Angle(const Angle& other)
@@ -14,27 +14,28 @@ Angle::Angle(const Angle& other)
 Angle& Angle::operator=(const Angle& other)
 {
     this->theta = other.theta.load();
+    return *this;
 }
 
 
-void Angle::setEigenMatrix(Eigen::RowVector<float, 1> matrix, bool degrees)
+void Angle::setTheta(float theta, bool degrees)
 {
-    this->theta = (degrees) ? matrix(1)*M_PI/180 : matrix(1);
+    this->theta = (degrees) ? theta * rad_to_deg : theta;
 }
 
-Eigen::RowVector<float, 1> Angle::getEigenMatrix(bool degrees)
+float Angle::getTheta(bool degrees)
 {
-    return Eigen::RowVector<float, 1>((degrees) ? this->theta*180/M_PI : (float)this->theta);
+    return (degrees) ? (this->theta.load() * rad_to_deg) : this->theta.load();
 }
 
  Angle Angle::operator+(Angle& otherAngle) const
  {
-    return Angle(theta + (float)otherAngle);
+    return Angle(theta + otherAngle.theta);
  }
 
  Angle Angle::operator-(Angle& otherAngle) const
  {
-    return Angle(theta - (float)otherAngle);
+    return Angle(theta - otherAngle.theta);
  }
 
  Angle Angle::operator*(float& scalar) const

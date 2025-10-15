@@ -14,6 +14,7 @@ Point& Point::operator=(const Point& other)
 {
     this->x = other.x.load();
     this->y = other.y.load();
+    return *this;
 }
 
 float Point::distanceTo(Point& otherPoint) const
