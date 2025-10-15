@@ -21,6 +21,7 @@ class TrackingWheel
         const float m_gearRatio; 
         const Eigen::Vector2f m_wheelOffset;
         const bool m_horizontalWheel;
+        const float m_encoderToInches;
 
     public:
 
@@ -32,7 +33,7 @@ class TrackingWheel
          * @param gearRatio 
          * @param horizontalWheel 
          */
-        TrackingWheel(AbstractEncoder& encoder, float wheelCircumference, float gearRatio, Eigen::Vector2f wheelOffset bool horizontalWheel = true);
+        TrackingWheel(AbstractEncoder& encoder, float wheelCircumference, float gearRatio, Eigen::Vector2f wheelOffset, bool horizontalWheel = true);
 
         /**
          * @brief Get the Position value
@@ -61,13 +62,6 @@ class TrackingWheel
          * @return Eigen::Vector3<float> 
          */
         Eigen::Vector3<float> getState() const;
-
-        /**
-         * @brief Get the Encoder object
-         * 
-         * @return AbstractEncoder 
-         */
-        AbstractEncoder getEncoder() const;
 
         /**
          * @brief Get the Circumference value
@@ -101,8 +95,9 @@ class TrackingWheel
         /**
          * @brief Update Tracking Wheel
          * 
+         * @param deltaTime 
          */
-        void update();
+        void update(float deltaTime);
 
         /**
          * @brief Reset Tracking Wheel Values

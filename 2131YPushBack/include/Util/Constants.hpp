@@ -21,3 +21,5 @@ constexpr float degpsec_to_rpm = (60.0f / 360.0f);
 
 constexpr float gravity = 9.80665f;
 constexpr float meters_to_inches = 39.37007874f;
+
+constexpr float deg_to_rev = (1.0f / 360.0f);

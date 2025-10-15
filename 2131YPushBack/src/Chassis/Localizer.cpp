@@ -2,7 +2,7 @@
 
 
 Localizer::Localizer(TrackingWheel& positionSensor, InertialSensor& inertialSensor, Pose robotPosition)
-    : m_positionSensor(positionSensor), m_inertialSensor(inertialSensor), m_robotPosition(robotPosition), m_prevTime(0.0f)
+    : m_positionSensor(positionSensor), m_inertialSensor(inertialSensor), m_robotPosition(robotPosition), m_prevTime(pros::millis())
 {}
 
 
@@ -20,5 +20,8 @@ void Localizer::setRobotPosition(Pose robotPosition)
 
 void Localizer::update()
 {
-
+    float deltaTime = pros::millis() - m_prevTime;
+    m_prevTime = deltaTime;
+    m_positionSensor.update();
+    m_inertialSensor.update(deltaTime);
 }
