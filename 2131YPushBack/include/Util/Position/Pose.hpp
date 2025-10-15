@@ -36,7 +36,7 @@ class Pose : private Point
          * @param theta 
          */
         Pose(float x, float y, Angle theta);
-        Pose(Pose&);
+        Pose(const Pose& other);
 
         /**
          * @brief Calculate the Angle to Another Point

@@ -34,7 +34,8 @@ class Point
          * @param y 
          */
         Point(float x, float y);
-        Point(Point&);
+        Point(const Point& other);
+        Point& operator=(const Point& other);
 
 
         

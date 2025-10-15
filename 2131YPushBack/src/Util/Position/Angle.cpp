@@ -3,11 +3,18 @@
 #include "Eigen/Eigen"
 
 Angle::Angle(float theta, bool degrees)
-    : theta(
-        (degrees) ? theta*M_PI/180 : theta
-    )
+    : theta((degrees) ? theta*M_PI/180 : theta)
 {}
 
+Angle::Angle(const Angle& other)
+{
+    this->theta = other.theta.load();
+}
+
+Angle& Angle::operator=(const Angle& other)
+{
+    this->theta = other.theta.load();
+}
 
 
 void Angle::setEigenMatrix(Eigen::RowVector<float, 1> matrix, bool degrees)
