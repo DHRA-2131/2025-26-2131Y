@@ -29,7 +29,7 @@ void Localizer::update()
 
     float deltaDistance = m_positionSensor.getPosition() - m_prevDistance;
     Angle deltaTheta = Angle(m_inertialSensor.getStateTheta()[0]) - m_prevHeading;
-    deltaTheta.wrapAngle();
+    //deltaTheta.wrapAngle();
     
     
     if (!(deltaTheta.getTheta() == 0.0f))
