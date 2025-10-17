@@ -21,6 +21,7 @@ class PID
 
         float m_integral;
         float m_prevError;
+        float m_integralWindup;
 
     public:
 
@@ -31,7 +32,7 @@ class PID
          * @param kI 
          * @param kD 
          */
-        PID(float kP, float kI, float kD);
+        PID(float kP, float kI, float kD, float integralWindup);
 
         /**
          * @brief Update the PID Controller
@@ -39,7 +40,7 @@ class PID
          * @param error 
          * @return float 
          */
-        float calculate(float error);
+        float calculate(float error, float deltaTime);
 
         /**
          * @brief Reset PID Values
