@@ -20,8 +20,8 @@ class DriveBase
  {
     private:
         DriveBase();
-        pros::Task m_odomThread;
-        pros::Task m_monitorThread;
+        pros::Task* m_odomThread;
+        pros::Task* m_monitorThread;
 
         bool m_intialized = false;
 

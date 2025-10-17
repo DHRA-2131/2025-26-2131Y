@@ -1,6 +1,11 @@
 #include "Chassis/Chassis.hpp"
 #include "MotionControl/MotionHandler.hpp"
 
+DriveBase::DriveBase()
+{
+   
+}
+
 DriveBase* DriveBase::instance(){
     static DriveBase s_instance;
     return &s_instance;

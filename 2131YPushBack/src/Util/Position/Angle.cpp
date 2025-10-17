@@ -3,10 +3,10 @@
 #include "Util/Constants.hpp"
 
 Angle::Angle(float theta, bool degrees)
-    : theta((degrees) ? theta * rad_to_deg : theta)
+    : theta((degrees) ? theta * deg_to_rad : theta)
 {}
 
-Angle::Angle(const Angle& other)
+Angle::Angle(Angle const& other)
 {
     this->theta = other.theta.load();
 }
@@ -17,15 +17,21 @@ Angle& Angle::operator=(const Angle& other)
     return *this;
 }
 
+float Angle::wrapAngle()
+{
+    return  theta = (theta > (M_PI)) ? theta - (2 * M_PI) : ((theta < (-1 * M_PI)) ? (float)theta + (2 * M_PI) : (float)theta);
+}
+
+
 
 void Angle::setTheta(float theta, bool degrees)
 {
-    this->theta = (degrees) ? theta * rad_to_deg : theta;
+    this->theta = (degrees) ? theta * deg_to_rad : theta;
 }
 
 float Angle::getTheta(bool degrees)
 {
-    return (degrees) ? (this->theta.load() * rad_to_deg) : this->theta.load();
+    return (degrees) ? (this->theta.load() * deg_to_rad) : this->theta.load();
 }
 
  Angle Angle::operator+(Angle& otherAngle) const

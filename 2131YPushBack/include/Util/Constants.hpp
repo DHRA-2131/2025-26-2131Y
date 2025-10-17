@@ -25,3 +25,4 @@ constexpr float meters_to_inches = 39.37007874f;
 constexpr float deg_to_rev = (1.0f / 360.0f);
 
 constexpr float rad_to_deg = (180.0f / pi);
+constexpr float deg_to_rad = (pi / 180.0f);

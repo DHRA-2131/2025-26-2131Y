@@ -28,12 +28,12 @@ Controller masterController(pros::E_CONTROLLER_MASTER);
 
 void DriverControlTest()
 {   
-    pros::MotorGroup right({0,0,0});
-    pros::MotorGroup left({0,0,0});
+    pros::MotorGroup right({17,16,18});
+    pros::MotorGroup left({-10,-21,-19});
     DriveBase::instance()->init(&right, &left, nullptr);
     masterController.setCallback(pros::E_CONTROLLER_DIGITAL_A, tankArcadeButtonToggle);
     while(true){
-        
+       masterController.update(); 
     }
 }
 

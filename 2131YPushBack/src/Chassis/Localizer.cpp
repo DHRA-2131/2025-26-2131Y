@@ -32,6 +32,7 @@ void Localizer::update()
     deltaTheta.wrapAngle();
     
     
+    
     if (!(deltaTheta.getTheta() == 0.0f))
     {
         // Calculate the Tracking Radius
@@ -55,5 +56,8 @@ void Localizer::update()
     }
 
     m_prevDistance = m_positionSensor.getPosition();
-    m_prevHeading = m_inertialSensor.getStateTheta()[0];
+    m_robotPosition.theta.setTheta(m_inertialSensor.getStateTheta()[0]);
+    m_prevHeading = m_robotPosition.theta;
+
+    std::cout << m_robotPosition << ", " << m_inertialSensor.getStateTheta()[0] << std::endl;
 }

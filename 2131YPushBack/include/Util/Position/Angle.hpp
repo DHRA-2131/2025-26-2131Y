@@ -32,7 +32,7 @@ class Angle
          * @param theta 
          */
         Angle(float theta, bool degrees = true);
-        Angle(const Angle& other);
+        Angle(Angle const& other);
         Angle& operator=(const Angle& other);
 
 
