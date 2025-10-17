@@ -29,14 +29,15 @@ void Localizer::update()
 
     float deltaDistance = m_positionSensor.getPosition() - m_prevDistance;
     Angle deltaTheta = Angle(m_inertialSensor.getStateTheta()[0]) - m_prevHeading;
-    deltaTheta.wrapAngle();
+    //deltaTheta.wrapAngle();
     
     
     
     if (!(deltaTheta.getTheta() == 0.0f))
     {
         // Calculate the Tracking Radius
-        float trackingRadius = (deltaDistance / deltaTheta.getTheta(false));
+        // ? Should we be adding or subtracting the offset from the radius?
+        float trackingRadius = (deltaDistance / deltaTheta.getTheta(false)) + m_positionSensor.getOffset()[1];
 
         // Linear Distance Calculation
         float distance = 2 * trackingRadius * sin((deltaTheta.getTheta(false)) / 2);

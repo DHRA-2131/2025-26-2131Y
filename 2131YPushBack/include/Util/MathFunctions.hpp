@@ -24,7 +24,19 @@
 template <typename T>
 T average(std::vector<T> vector)
 {
-  T summation = std::accumulate(vector.begin(), vector.end(), T(0));
-  return summation / static_cast<T>(vector.size());
+  	T summation = std::accumulate(vector.begin(), vector.end(), T(0));
+  	return summation / static_cast<T>(vector.size());
+}
+
+
+template <typename T>
+T sign(T value)
+{
+	if (value > 0.0f)
+		return 1.0f;
+	else if (value < 0.0f)
+		return -1.0f;
+	else
+		return value;
 }
 
